@@ -1,4 +1,4 @@
 public enum States
 {
-    MOVING, IDLE, ATTACK
+    MOVING, IDLE, ATTACK, SPAWNING
 };

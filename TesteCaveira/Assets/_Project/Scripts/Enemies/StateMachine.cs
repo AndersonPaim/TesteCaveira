@@ -1,105 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class StateMachine
 {
     public States currentState;
-    protected Events _stage;
-    protected StateMachine _nextState;
+    protected Events Stage;
+    protected StateMachine NextState;
+    protected GameObject Enemy;
+    protected Transform Player;
+    protected NavMeshAgent Agent;
+    protected Animator Anim;
+    protected NavMeshPath Path;
 
-    public StateMachine()
+    public StateMachine(GameObject enemy, Transform player, NavMeshAgent agent, Animator anim, NavMeshPath path)
     {
-        _stage = Events.ENTER;
+        Stage = Events.ENTER;
+        Enemy = enemy;
+        Player = player;
+        Agent = agent;
+        Anim = anim;
+        Path = path;
     }
 
     public virtual void Enter()
     {
-        _stage = Events.UPDATE;
+        Stage = Events.UPDATE;
     }
 
     public virtual void Update()
     {
-        _stage = Events.UPDATE;
+        Stage = Events.UPDATE;
     }
 
     public virtual void Exit()
     {
-        _stage = Events.EXIT;
+        Stage = Events.EXIT;
     }
 
     public StateMachine Process()
     {
-        if(_stage == Events.ENTER)
+        if(Stage == Events.ENTER)
         {
             Enter();
         }
-        if(_stage == Events.UPDATE)
+        if(Stage == Events.UPDATE)
         {
             Update();
         }
-        if(_stage == Events.EXIT)
+        if(Stage == Events.EXIT)
         {
             Exit();
-            return _nextState;
+            return NextState;
         }
 
         return this;
-    }
-}
-
-public class Idle : StateMachine
-{
-    public Idle()
-    {
-        currentState = States.IDLE;
-        Debug.Log("IDLE");
-    }
-
-    public override void Enter()
-    {
-        Debug.Log("ENTER IDLE");
-        base.Enter();
-    }
-
-    public override void Update()
-    {
-        base.Update();
-        Debug.Log("UPDATE IDLE");
-        _nextState = new Moving();
-        _stage = Events.EXIT;
-    }
-
-    public override void Exit()
-    {
-        Debug.Log("EXIT IDLE");
-        base.Exit();
-    }
-}
-
-public class Moving : StateMachine
-{
-    public Moving()
-    {
-        currentState = States.MOVING;
-        Debug.Log("Moving");
-    }
-
-    public override void Enter()
-    {
-        Debug.Log("ENTER Moving");
-        base.Enter();
-    }
-
-    public override void Update()
-    {
-        Debug.Log("UPDATE Moving");
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        Debug.Log("EXIT Moving");
-        base.Enter();
     }
 }
