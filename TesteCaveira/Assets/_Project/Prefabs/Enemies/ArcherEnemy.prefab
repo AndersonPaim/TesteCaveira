@@ -1932,6 +1932,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75998391845ffb4b8f0daff6c9974c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _viewDistance: 50
+  _viewAngle: 60
 --- !u!195 &8819105042630688159
 NavMeshAgent:
   m_ObjectHideFlags: 0
