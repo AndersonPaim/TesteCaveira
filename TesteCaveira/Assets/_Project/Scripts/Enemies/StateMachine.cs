@@ -9,16 +9,14 @@ public class StateMachine
     protected Events Stage;
     protected StateMachine NextState;
     protected GameObject Enemy;
-    protected Transform Player;
     protected NavMeshAgent Agent;
     protected Animator Anim;
     protected NavMeshPath Path;
 
-    public StateMachine(GameObject enemy, Transform player, NavMeshAgent agent, Animator anim, NavMeshPath path)
+    public StateMachine(GameObject enemy, NavMeshAgent agent, Animator anim, NavMeshPath path)
     {
         Stage = Events.ENTER;
         Enemy = enemy;
-        Player = player;
         Agent = agent;
         Anim = anim;
         Path = path;

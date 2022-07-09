@@ -6,8 +6,6 @@ using Cysharp.Threading.Tasks;
 
 public class ArcherAI : MonoBehaviour
 {
-    [SerializeField] private Transform _player;
-
     private NavMeshAgent _agent;
     private Animator _anim;
     private StateMachine _currentState;
@@ -18,7 +16,7 @@ public class ArcherAI : MonoBehaviour
         _anim = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         _path = new NavMeshPath();
-        _currentState = new ArcherSpawn(gameObject, _player, _agent, _anim, _path);
+        _currentState = new ArcherSpawn(gameObject, _agent, _anim, _path);
     }
 
     private void Update()
@@ -29,8 +27,8 @@ public class ArcherAI : MonoBehaviour
 
 public class ArcherSpawn : StateMachine
 {
-    public ArcherSpawn(GameObject enemy, Transform player, NavMeshAgent agent, Animator anim, NavMeshPath path)
-                : base(enemy, player, agent, anim, path)
+    public ArcherSpawn(GameObject enemy, NavMeshAgent agent, Animator anim, NavMeshPath path)
+                : base(enemy, agent, anim, path)
     {
         currentState = States.SPAWNING;
         Debug.Log("SPAWN");
@@ -52,16 +50,16 @@ public class ArcherSpawn : StateMachine
 
     private async UniTask SpawnDelay()
     {
-        await UniTask.Delay(1200);
-        NextState = new ArcherMoving(Enemy, Player, Agent, Anim, Path);
+        await UniTask.Delay(1000);
+        NextState = new ArcherMoving(Enemy, Agent, Anim, Path);
         Stage = Events.EXIT;
     }
 }
 
 public class ArcherIdle : StateMachine
 {
-    public ArcherIdle(GameObject enemy, Transform player, NavMeshAgent agent, Animator anim, NavMeshPath path)
-                : base(enemy, player, agent, anim, path)
+    public ArcherIdle(GameObject enemy, NavMeshAgent agent, Animator anim, NavMeshPath path)
+                : base(enemy, agent, anim, path)
     {
         currentState = States.IDLE;
         Debug.Log("IDLE");
@@ -91,7 +89,7 @@ public class ArcherMoving : StateMachine
 {
     private Transform _waypoint;
 
-    public ArcherMoving(GameObject enemy, Transform player, NavMeshAgent agent, Animator anim, NavMeshPath path) : base(enemy, player, agent, anim, path)
+    public ArcherMoving(GameObject enemy, NavMeshAgent agent, Animator anim, NavMeshPath path) : base(enemy, agent, anim, path)
     {
         currentState = States.MOVING;
         Debug.Log("Moving");
@@ -124,7 +122,7 @@ public class ArcherMoving : StateMachine
 
         if(Agent.remainingDistance < Agent.stoppingDistance && Agent.remainingDistance != 0)
         {
-            NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path);
+            NextState = new ArcherIdle(Enemy, Agent, Anim, Path);
             Stage = Events.EXIT;
         }
     }
