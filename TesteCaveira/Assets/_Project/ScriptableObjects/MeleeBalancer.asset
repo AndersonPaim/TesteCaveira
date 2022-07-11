@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a9147008f42c47b58e81f301fd3a2, type: 3}
   m_Name: MeleeBalancer
   m_EditorClassIdentifier: 
-  attackDistance: 5
+  attackDistance: 3
   viewAngle: 90
   shootForce: 0
   attackCooldown: 2

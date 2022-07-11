@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _playerPivot;
     [SerializeField] private CinemachineVirtualCamera _virtualCam;
 
-    private float _speed;
+    private float _speed = 0;
     private float _health;
     private float _maxHealth;
 
@@ -85,11 +85,46 @@ public class PlayerController : MonoBehaviour
 
     private void Movement(Vector2 movement)
     {
-        movement *= _playerBalancer.speed;
+        SetVelocity(movement.y, movement.x);
+        movement *= _speed;
         Vector3 dir = new Vector3(-Camera.main.transform.right.z, 0, Camera.main.transform.right.x);
         Vector3 movementDir = (dir * movement.y + Camera.main.transform.right * movement.x + Vector3.up * _rb.velocity.y);
 
         _rb.velocity = movementDir;
+    }
+
+    private void SetVelocity(float directionY, float directionX)
+    {
+        if (directionY > 0 || directionX > 0 || directionX < 0)
+        {
+            if (_speed <= _playerBalancer.speed)
+            {
+                _speed += Time.deltaTime * _playerBalancer.acceleration;
+
+                if (_speed > _playerBalancer.speed)
+                {
+                    _speed = _playerBalancer.speed;
+                }
+            }
+        }
+        else if (directionY == 0 && directionX == 0)
+        {
+            if (_speed > 0)
+            {
+                _speed -= Time.deltaTime * _playerBalancer.deceleration;
+            }
+            else if (_speed <= 0)
+            {
+                _speed = 0;
+            }
+        }
+        else if (directionY < 0)
+        {
+            if (_speed <= _playerBalancer.speed * 0.75f)
+            {
+                _speed += Time.deltaTime * _playerBalancer.acceleration;
+            }
+        }
     }
 
     private void Jump(bool isJumping)

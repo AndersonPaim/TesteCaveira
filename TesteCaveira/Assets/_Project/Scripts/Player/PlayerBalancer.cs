@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerBalancer : ScriptableObject
 {
     public float speed;
+    public float acceleration;
+    public float deceleration;
     public float jumpForce;
 
 }
