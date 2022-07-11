@@ -9,17 +9,19 @@ public class StateMachine
     protected Events Stage;
     protected StateMachine NextState;
     protected GameObject Enemy;
+    protected GameObject Player;
     protected NavMeshAgent Agent;
     protected Animator Anim;
     protected NavMeshPath Path;
 
-    public StateMachine(GameObject enemy, NavMeshAgent agent, Animator anim, NavMeshPath path)
+    public StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path)
     {
         Stage = Events.ENTER;
         Enemy = enemy;
         Agent = agent;
         Anim = anim;
         Path = path;
+        Player = player;
     }
 
     public virtual void Enter()
@@ -54,5 +56,18 @@ public class StateMachine
         }
 
         return this;
+    }
+
+    public bool CanSeePlayer(float distance, float angle)
+    {
+        Vector3 direction = Player.transform.position - Enemy.transform.position;
+        float viewAngle = Vector3.Angle(direction, Enemy.transform.forward);
+
+        if(direction.magnitude < distance && viewAngle < angle)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

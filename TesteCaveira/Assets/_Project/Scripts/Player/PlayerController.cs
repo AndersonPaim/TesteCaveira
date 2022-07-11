@@ -78,7 +78,6 @@ public class PlayerController : MonoBehaviour
         if (!_isPaused)
         {
             Movement(inputData.Movement);
-            Rotate(inputData.LookX, inputData.LookY);
             Jump(inputData.isJumping);
             //Aim(inputData.isAiming);
         }
@@ -110,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
         if(_playerPivot.transform.rotation.eulerAngles.x - lookY > 280 || _playerPivot.transform.rotation.eulerAngles.x - lookY < 60)
         {
-            _playerPivot.transform.Rotate(Vector3.right * -lookY);
+            _playerPivot.transform.Rotate(Vector3.right * lookY);
         }
 
         Vector3 yRot = Vector3.right * -lookY;
