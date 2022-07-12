@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Audio;
-
+using System;
 
 public class PlayerController : MonoBehaviour
 {
-    public delegate void PlayerDataHandler(PlayerData playerData);
-    public PlayerDataHandler OnPlayerDataUpdate;
+    public Action OnTakeDamage;
 
     [SerializeField] private GameManager _manager;
     [SerializeField] private PlayerCamController _cameraController;
@@ -75,13 +74,11 @@ public class PlayerController : MonoBehaviour
 
     private void ReceiveInputs(InputData inputData)
     {
-        if (!_isPaused)
-        {
-            Movement(inputData.Movement);
-            Jump(inputData.isJumping);
-            //Aim(inputData.isAiming);
-        }
+        Movement(inputData.Movement);
+        Jump(inputData.isJumping);
+        //Aim(inputData.isAiming);
     }
+
 
     private void Movement(Vector2 movement)
     {
@@ -133,6 +130,7 @@ public class PlayerController : MonoBehaviour
         {
             if (_isGrounded)
             {
+                _isJumping = true;
                 _rb.AddForce(Vector3.up * _playerBalancer.jumpForce, ForceMode.Impulse);
             }
         }

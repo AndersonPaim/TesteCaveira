@@ -14,6 +14,5 @@ public struct PlayerData
     public bool OnGround;
     public bool Aim;
     public bool Shoot;
-    public bool ChangeArrow;
     public bool TakeDamage;
 }

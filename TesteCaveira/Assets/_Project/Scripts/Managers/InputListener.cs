@@ -122,7 +122,6 @@ public class InputListener : MonoBehaviour
         }
     }
 
-    //camera view
     private void LookX()
     {
         _lookX = _input.Player.LookX.ReadValue<float>();
