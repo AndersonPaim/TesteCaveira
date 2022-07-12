@@ -7,6 +7,7 @@ namespace Enemy
     [CreateAssetMenu(fileName = "New EnemyBalancer", menuName = "EnemyBalancer")]
     public class EnemyBalancer : ScriptableObject
     {
+        public float health;
         public float attackDistance;
         public float viewAngle;
         public float shootForce;

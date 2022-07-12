@@ -13,7 +13,7 @@ namespace Enemy.Melee
         public MeleeAttack(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer enemyBalancer)
                     : base(enemy, player, agent, anim, path)
         {
-            currentState = States.ATTACK;
+            currentState = States.ATTACKING;
             _enemyBalancer = enemyBalancer;
         }
 

@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Enemy.Archer;
 
 public class StateMachine
 {
@@ -69,5 +68,11 @@ public class StateMachine
         }
 
         return false;
+    }
+
+    public void Death()
+    {
+        NextState = new ArcherDying(Enemy, Player, Agent, Anim, Path);
+        Stage = Events.EXIT;
     }
 }

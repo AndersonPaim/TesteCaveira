@@ -38,7 +38,7 @@ namespace Enemy.Archer
 
         private void FindPlayer()
         {
-            NextState = new ArcherAttack(Enemy, Player, Agent, Anim, Path, _enemyBalancer);
+            NextState = new ArcherAttacking(Enemy, Player, Agent, Anim, Path, _enemyBalancer);
             Stage = Events.EXIT;
         }
     }
