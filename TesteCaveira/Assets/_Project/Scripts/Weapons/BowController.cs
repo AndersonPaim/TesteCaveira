@@ -93,7 +93,7 @@ public class BowController : MonoBehaviour
         GameObject obj = _objectPooler.SpawnFromPool(ObjectsTag.Arrow);
 
         obj.transform.position = _shootPosition.transform.position;
-        obj.transform.rotation = _shootPosition.transform.rotation;
+        obj.transform.rotation = new Quaternion(_shootPosition.transform.rotation.x, _shootPosition.transform.rotation.y, _shootPosition.transform.rotation.z, 0);
 
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         rb.velocity = (_shootPosition.transform.forward * _shootForce);
