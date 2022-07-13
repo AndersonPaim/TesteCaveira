@@ -21,7 +21,6 @@ namespace Enemy.Melee
         public override void Update()
         {
             base.Update();
-            Debug.Log("MOVING");
             Move();
         }
 

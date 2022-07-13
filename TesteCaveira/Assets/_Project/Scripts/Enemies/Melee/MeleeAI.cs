@@ -33,8 +33,6 @@ namespace Enemy.Melee
         {
             _health -= damage;
 
-            _currentState.MeleeDamage();
-
             if(_health > 0)
             {
                 _currentState.MeleeDamage();

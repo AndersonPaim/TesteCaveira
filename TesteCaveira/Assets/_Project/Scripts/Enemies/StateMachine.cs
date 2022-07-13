@@ -7,9 +7,9 @@ using Enemy.Melee;
 public class StateMachine
 {
     public States CurrentState;
+    protected States LastState;
     protected Events Stage;
     protected StateMachine NextState;
-    protected StateMachine LastState;
     protected GameObject Enemy;
     protected GameObject Player;
     protected NavMeshAgent Agent;
@@ -40,8 +40,9 @@ public class StateMachine
 
     public virtual void Exit()
     {
+        LastState = CurrentState;
+        Debug.Log("LAST STATE: " + LastState);
         Stage = Events.EXIT;
-        LastState = NextState;
     }
 
     public StateMachine Process()
@@ -85,6 +86,18 @@ public class StateMachine
     public void MeleeDeath()
     {
         NextState = new MeleeDying(Enemy, Player, Agent, Anim, Path, Balancer);
+        Stage = Events.EXIT;
+    }
+
+    public void ArcherDamage()
+    {
+        NextState = new ArcherDamage(Enemy, Player, Agent, Anim, Path, Balancer);
+        Stage = Events.EXIT;
+    }
+
+    public void ArcherDeath()
+    {
+        NextState = new ArcherDying(Enemy, Player, Agent, Anim, Path, Balancer);
         Stage = Events.EXIT;
     }
 }

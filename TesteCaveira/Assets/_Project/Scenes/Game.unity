@@ -4973,7 +4973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootPosition: {fileID: 1379567324}
-  _shootForce: 200
+  _shootForce: 50
   _gameManager: {fileID: 2029344517}
 --- !u!1001 &1388414889
 PrefabInstance:
@@ -6116,7 +6116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
       propertyPath: m_RootOrder
@@ -8030,7 +8030,7 @@ PrefabInstance:
     - target: {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8819105043029762139, guid: 0e95168826c29cc4aa2995e19921e803,
         type: 3}

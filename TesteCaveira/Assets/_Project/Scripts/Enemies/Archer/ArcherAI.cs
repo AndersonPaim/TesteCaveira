@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Enemy.Archer
 {
-    public class ArcherAI : MonoBehaviour
+    public class ArcherAI : MonoBehaviour, IDamageable
     {
         [SerializeField] private EnemyBalancer _enemyBalancer;
         [SerializeField] private Transform _shootPosition;
@@ -23,6 +23,20 @@ namespace Enemy.Archer
             arrow.transform.position =  _shootPosition.position;
             Rigidbody rb = arrow.GetComponent<Rigidbody>();
             rb.velocity = _shootPosition.transform.forward * _enemyBalancer.shootForce;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            _health -= damage;
+
+            if(_health > 0)
+            {
+                _currentState.ArcherDamage();
+            }
+            else
+            {
+                _currentState.ArcherDeath();
+            }
         }
 
         private void Start()
