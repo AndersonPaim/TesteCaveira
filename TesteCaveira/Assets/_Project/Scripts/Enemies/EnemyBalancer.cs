@@ -11,6 +11,7 @@ namespace Enemy
         public float attackDistance;
         public float viewAngle;
         public float shootForce;
+        public int stunCooldown;
         public int attackCooldown;
     }
 }

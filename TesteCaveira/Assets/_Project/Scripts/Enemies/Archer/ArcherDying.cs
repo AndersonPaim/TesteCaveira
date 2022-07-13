@@ -6,10 +6,10 @@ namespace Enemy.Archer
 {
     public class ArcherDying : StateMachine
     {
-        public ArcherDying(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path)
-                    : base(enemy, player, agent, anim, path)
+        public ArcherDying(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
+                    : base(enemy, player, agent, anim, path, balancer)
         {
-            currentState = States.DYING;
+            CurrentState = States.DYING;
         }
 
         public override void Enter()

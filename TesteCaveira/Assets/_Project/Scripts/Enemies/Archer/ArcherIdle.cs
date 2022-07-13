@@ -5,13 +5,10 @@ namespace Enemy.Archer
 {
     public class ArcherIdle : StateMachine
     {
-        private EnemyBalancer _enemyBalancer;
-
         public ArcherIdle(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer enemyBalancer)
-                    : base(enemy, player, agent, anim, path)
+                    : base(enemy, player, agent, anim, path, enemyBalancer)
         {
-            currentState = States.IDLE;
-            _enemyBalancer = enemyBalancer;
+            CurrentState = States.IDLE;
         }
 
         public override void Enter()
@@ -30,7 +27,7 @@ namespace Enemy.Archer
         {
             Enemy.transform.LookAt(Player.transform);
 
-            if(CanSeePlayer(_enemyBalancer.attackDistance, _enemyBalancer.viewAngle))
+            if(CanSeePlayer(Balancer.attackDistance, Balancer.viewAngle))
             {
                 FindPlayer();
             }
@@ -38,7 +35,7 @@ namespace Enemy.Archer
 
         private void FindPlayer()
         {
-            NextState = new ArcherAttacking(Enemy, Player, Agent, Anim, Path, _enemyBalancer);
+            NextState = new ArcherAttacking(Enemy, Player, Agent, Anim, Path, Balancer);
             Stage = Events.EXIT;
         }
     }

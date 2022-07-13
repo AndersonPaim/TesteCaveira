@@ -6,13 +6,10 @@ namespace Enemy.Melee
 {
     public class MeleeSpawn : StateMachine
     {
-        private EnemyBalancer _enemyBalancer;
-
-        public MeleeSpawn(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer archerBalancer)
-                    : base(enemy, player, agent, anim, path)
+        public MeleeSpawn(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
+                    : base(enemy, player, agent, anim, path, balancer)
         {
-            currentState = States.SPAWNING;
-            _enemyBalancer = archerBalancer;
+            CurrentState = States.SPAWNING;
         }
 
         public override void Enter()
@@ -25,7 +22,7 @@ namespace Enemy.Melee
         private async UniTask SpawnDelay()
         {
             await UniTask.Delay(1000);
-            NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, _enemyBalancer);
+            NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer);
             Stage = Events.EXIT;
         }
     }

@@ -4,17 +4,15 @@ using UnityEngine.AI;
 
 namespace Enemy.Melee
 {
-    public class MeleeAttack : StateMachine
+    public class MeleeAttacking : StateMachine
     {
         private Vector3 _rayPosition;
-        private EnemyBalancer _enemyBalancer;
         private bool _canAttack;
 
-        public MeleeAttack(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer enemyBalancer)
-                    : base(enemy, player, agent, anim, path)
+        public MeleeAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
+                    : base(enemy, player, agent, anim, path, balancer)
         {
-            currentState = States.ATTACKING;
-            _enemyBalancer = enemyBalancer;
+            CurrentState = States.ATTACKING;
         }
 
         public override void Enter()
@@ -27,7 +25,6 @@ namespace Enemy.Melee
         public override void Update()
         {
             base.Update();
-            Debug.Log("ATTACKING");
             SearchPlayer();
         }
 
@@ -37,7 +34,7 @@ namespace Enemy.Melee
 
             Enemy.transform.LookAt(Player.transform);
 
-            if(targetDistance > _enemyBalancer.attackDistance)
+            if(targetDistance > Balancer.attackDistance)
             {
                 _canAttack = false;
                 LostPlayer();
@@ -46,14 +43,14 @@ namespace Enemy.Melee
 
         private void LostPlayer()
         {
-            NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, _enemyBalancer);
+            NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer);
             Stage = Events.EXIT;
         }
 
         private async UniTask Attack()
         {
             Anim.SetTrigger("Attack");
-            await UniTask.Delay(_enemyBalancer.attackCooldown * 1000);
+            await UniTask.Delay(Balancer.attackCooldown * 1000);
 
             if(_canAttack)
             {

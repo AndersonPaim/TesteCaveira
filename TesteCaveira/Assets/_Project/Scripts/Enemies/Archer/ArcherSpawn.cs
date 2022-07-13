@@ -6,13 +6,10 @@ namespace Enemy.Archer
 {
     public class ArcherSpawn : StateMachine
     {
-        private EnemyBalancer _enemyBalancer;
-
-        public ArcherSpawn(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer archerBalancer)
-                    : base(enemy, player, agent, anim, path)
+        public ArcherSpawn(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
+                    : base(enemy, player, agent, anim, path, balancer)
         {
-            currentState = States.SPAWNING;
-            _enemyBalancer = archerBalancer;
+            CurrentState = States.SPAWNING;
         }
 
         public override void Enter()
@@ -25,7 +22,7 @@ namespace Enemy.Archer
         private async UniTask SpawnDelay()
         {
             await UniTask.Delay(1000);
-            NextState = new ArcherMoving(Enemy, Player, Agent, Anim, Path, _enemyBalancer);
+            NextState = new ArcherMoving(Enemy, Player, Agent, Anim, Path, Balancer);
             Stage = Events.EXIT;
         }
     }

@@ -7,14 +7,12 @@ namespace Enemy.Archer
     public class ArcherAttacking : StateMachine
     {
         private Vector3 _rayPosition;
-        private EnemyBalancer _enemyBalancer;
         private bool _canAttack;
 
         public ArcherAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer enemyBalancer)
-                    : base(enemy, player, agent, anim, path)
+                    : base(enemy, player, agent, anim, path, enemyBalancer)
         {
-            currentState = States.ATTACKING;
-            _enemyBalancer = enemyBalancer;
+            CurrentState = States.ATTACKING;
         }
 
         public override void Enter()
@@ -31,7 +29,7 @@ namespace Enemy.Archer
 
         private void SearchPlayer()
         {
-            if(CanSeePlayer(_enemyBalancer.attackDistance, _enemyBalancer.viewAngle))
+            if(CanSeePlayer(Balancer.attackDistance, Balancer.viewAngle))
             {
                 _canAttack = true;
                 Enemy.transform.LookAt(Player.transform);
@@ -45,14 +43,14 @@ namespace Enemy.Archer
 
         private void LostPlayer()
         {
-            NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, _enemyBalancer);
+            NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer);
             Stage = Events.EXIT;
         }
 
         private async UniTask BowAttack()
         {
             Anim.SetTrigger("Attack");
-            await UniTask.Delay(_enemyBalancer.attackCooldown * 1000);
+            await UniTask.Delay(Balancer.attackCooldown * 1000);
 
             if(_canAttack)
             {

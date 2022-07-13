@@ -1,18 +1,15 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Interfaces;
 
 namespace Enemy.Melee
 {
     public class MeleeMoving : StateMachine
     {
-        private EnemyBalancer _enemyBalancer;
-
-        public MeleeMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer enemyBalancer)
-                    : base(enemy, player, agent, anim, path)
+        public MeleeMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
+                    : base(enemy, player, agent, anim, path, balancer)
         {
-            currentState = States.MOVING;
-            _enemyBalancer = enemyBalancer;
+            CurrentState = States.MOVING;
         }
 
         public override void Enter()
@@ -40,9 +37,9 @@ namespace Enemy.Melee
 
             float targetDistance = Vector3.Distance(Enemy.transform.position, Player.transform.position);
 
-            if(targetDistance < _enemyBalancer.attackDistance)
+            if(targetDistance < Balancer.attackDistance)
             {
-                NextState = new MeleeAttack(Enemy, Player, Agent, Anim, Path, _enemyBalancer);
+                NextState = new MeleeAttacking(Enemy, Player, Agent, Anim, Path, Balancer);
                 Stage = Events.EXIT;
             }
         }

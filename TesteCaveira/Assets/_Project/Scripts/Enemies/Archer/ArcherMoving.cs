@@ -7,13 +7,11 @@ namespace Enemy.Archer
     public class ArcherMoving : StateMachine
     {
         private Transform _waypoint;
-        private EnemyBalancer _enemyBalancer;
 
-        public ArcherMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer enemyBalancer)
-                    : base(enemy, player, agent, anim, path)
+        public ArcherMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
+                    : base(enemy, player, agent, anim, path, balancer)
         {
-            currentState = States.MOVING;
-            _enemyBalancer = enemyBalancer;
+            CurrentState = States.MOVING;
         }
 
         public override void Enter()
@@ -35,7 +33,7 @@ namespace Enemy.Archer
 
             if(Agent.remainingDistance < Agent.stoppingDistance && Agent.remainingDistance != 0)
             {
-                NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, _enemyBalancer);
+                NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer);
                 Stage = Events.EXIT;
             }
         }

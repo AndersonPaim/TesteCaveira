@@ -1,19 +1,23 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Enemy;
 using Enemy.Archer;
+using Enemy.Melee;
 
 public class StateMachine
 {
-    public States currentState;
+    public States CurrentState;
     protected Events Stage;
     protected StateMachine NextState;
+    protected StateMachine LastState;
     protected GameObject Enemy;
     protected GameObject Player;
     protected NavMeshAgent Agent;
     protected Animator Anim;
     protected NavMeshPath Path;
+    protected EnemyBalancer Balancer;
 
-    public StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path)
+    public StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
     {
         Stage = Events.ENTER;
         Enemy = enemy;
@@ -21,6 +25,7 @@ public class StateMachine
         Anim = anim;
         Path = path;
         Player = player;
+        Balancer = balancer;
     }
 
     public virtual void Enter()
@@ -36,6 +41,7 @@ public class StateMachine
     public virtual void Exit()
     {
         Stage = Events.EXIT;
+        LastState = NextState;
     }
 
     public StateMachine Process()
@@ -70,9 +76,15 @@ public class StateMachine
         return false;
     }
 
-    public void Death()
+    public void MeleeDamage()
     {
-        NextState = new ArcherDying(Enemy, Player, Agent, Anim, Path);
+        NextState = new MeleeDamage(Enemy, Player, Agent, Anim, Path, Balancer);
+        Stage = Events.EXIT;
+    }
+
+    public void MeleeDeath()
+    {
+        NextState = new MeleeDying(Enemy, Player, Agent, Anim, Path, Balancer);
         Stage = Events.EXIT;
     }
 }
