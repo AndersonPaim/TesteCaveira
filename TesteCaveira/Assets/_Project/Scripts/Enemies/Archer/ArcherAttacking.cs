@@ -32,7 +32,8 @@ namespace Enemy.Archer
             if(CanSeePlayer(Balancer.attackDistance, Balancer.viewAngle))
             {
                 _canAttack = true;
-                Enemy.transform.LookAt(Player.transform);
+                Vector3 target = new Vector3(Player.transform.position.x, Enemy.transform.position.y, Player.transform.position.z);
+                Enemy.transform.LookAt(target);
             }
             else
             {

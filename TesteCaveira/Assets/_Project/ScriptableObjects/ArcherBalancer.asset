@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ArcherBalancer
   m_EditorClassIdentifier: 
   health: 100
-  attackDistance: 5
-  viewAngle: 30
-  shootForce: 1000
+  attackDistance: 10
+  viewAngle: 60
+  shootForce: 100
   stunCooldown: 0
   attackCooldown: 3

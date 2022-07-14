@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.26415092, g: 0.15076537, b: 0.15076537, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.003
@@ -9554,8 +9554,8 @@ MonoBehaviour:
   - {fileID: 688367978}
   - {fileID: 271054923}
   - {fileID: 212265613}
-  _maxArcherEnemies: 0
-  _maxMeleeEnemies: 1
+  _maxArcherEnemies: 2
+  _maxMeleeEnemies: 0
   _spawnDelay: 3
 --- !u!1001 &1520065153
 PrefabInstance:

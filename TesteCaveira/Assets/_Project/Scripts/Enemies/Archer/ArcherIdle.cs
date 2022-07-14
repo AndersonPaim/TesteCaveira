@@ -25,7 +25,8 @@ namespace Enemy.Archer
 
         private void SearchPlayer()
         {
-            Enemy.transform.LookAt(Player.transform);
+            Vector3 target = new Vector3(Player.transform.position.x, Enemy.transform.position.y, Player.transform.position.z);
+            Enemy.transform.LookAt(target);
 
             if(CanSeePlayer(Balancer.attackDistance, Balancer.viewAngle))
             {
