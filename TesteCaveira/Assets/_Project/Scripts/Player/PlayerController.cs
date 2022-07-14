@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.transform.Rotate(Vector3.up * lookX);
 
-        if(_playerPivot.transform.rotation.eulerAngles.x - lookY > 280 || _playerPivot.transform.rotation.eulerAngles.x - lookY < 60)
+        if(_playerPivot.transform.rotation.eulerAngles.x + lookY > 280 || _playerPivot.transform.rotation.eulerAngles.x + lookY < 60)
         {
             _playerPivot.transform.Rotate(Vector3.right * lookY);
         }

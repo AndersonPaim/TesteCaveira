@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Enemy.Archer;
+using Enemy.Melee;
 using UnityEngine;
 
 public class EnemySpawnerController : MonoBehaviour
@@ -13,15 +15,61 @@ public class EnemySpawnerController : MonoBehaviour
 
     private int _currentArcherEnemies;
     private int _currentMeleeEnemies;
+    private bool _isSpawning = true;
     private ObjectPooler _objectPooler;
 
     private async UniTask Start()
     {
-        _objectPooler = _manager.ObjectPooler;
-        await SpawnEnemies();
+        Initialize();
+        SetupEvents();
+        await SpawnEnemiesASync();
     }
 
-    private async UniTask SpawnEnemies()
+    private void OnDestroy()
+    {
+        DestroyEvents();
+    }
+
+    private void SetupEvents()
+    {
+        ArcherAI.OnEnemyDie += ArcherDeath;
+        MeleeAI.OnEnemyDie += MeleeDeath;
+    }
+
+    private void DestroyEvents()
+    {
+        ArcherAI.OnEnemyDie -= ArcherDeath;
+        MeleeAI.OnEnemyDie -= MeleeDeath;
+    }
+
+    private void Initialize()
+    {
+        _objectPooler = _manager.ObjectPooler;
+    }
+
+    private void ArcherDeath()
+    {
+        _currentArcherEnemies--;
+
+        if(!_isSpawning)
+        {
+            _isSpawning = true;
+            SpawnEnemiesASync();
+        }
+    }
+
+    private void MeleeDeath()
+    {
+        _currentMeleeEnemies--;
+
+        if(!_isSpawning)
+        {
+            _isSpawning = true;
+            SpawnEnemiesASync();
+        }
+    }
+
+    private async UniTask SpawnEnemiesASync()
     {
         await UniTask.Delay(_spawnDelay * 1000);
 
@@ -53,22 +101,32 @@ public class EnemySpawnerController : MonoBehaviour
         _currentArcherEnemies++;
         GameObject enemy = _objectPooler.SpawnFromPool(ObjectsTag.ArcherEnemy);
         enemy.transform.position = pos.position;
+        enemy.GetComponent<ArcherAI>().SetupEnemy(_manager);
 
         if(_currentArcherEnemies < _maxArcherEnemies || _currentMeleeEnemies < _maxMeleeEnemies)
         {
-            await SpawnEnemies();
+            await SpawnEnemiesASync();
+        }
+        else
+        {
+            _isSpawning = false;
         }
     }
 
     private async UniTask SpawnMelee(Transform pos)
     {
         _currentMeleeEnemies++;
-        GameObject enemy = _objectPooler.SpawnFromPool(ObjectsTag.ArcherEnemy);
+        GameObject enemy = _objectPooler.SpawnFromPool(ObjectsTag.MeleeEnemy);
         enemy.transform.position = pos.position;
+        enemy.GetComponent<MeleeAI>().SetupEnemy(_manager);
 
         if(_currentArcherEnemies < _maxArcherEnemies || _currentMeleeEnemies < _maxMeleeEnemies)
         {
-            await SpawnEnemies();
+            await SpawnEnemiesASync();
+        }
+        else
+        {
+            _isSpawning = false;
         }
     }
 

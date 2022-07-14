@@ -41,7 +41,6 @@ public class StateMachine
     public virtual void Exit()
     {
         LastState = CurrentState;
-        Debug.Log("LAST STATE: " + LastState);
         Stage = Events.EXIT;
     }
 

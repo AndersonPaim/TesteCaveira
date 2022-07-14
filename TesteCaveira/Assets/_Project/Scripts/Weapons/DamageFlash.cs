@@ -4,27 +4,41 @@ using UnityEngine;
 
 public class DamageFlash : MonoBehaviour
 {
-    [SerializeField] private List<Renderer> _meshRenderer;
-    [SerializeField] private Material _defaultMaterial;
+    [SerializeField] private List<Renderer> _meshRenderers;
     [SerializeField] private Material _flashMaterial;
+    [SerializeField] private int _flashTime;
+    private List<Material> _defaultMaterials = new List<Material>();
 
     public async UniTask Flash()
     {
         await FlashDelay();
     }
 
+    private void OnEnable()
+    {
+        SetDefaultMaterials();
+    }
+
+    private void SetDefaultMaterials()
+    {
+        for(int i = 0; i < _meshRenderers.Count; i++)
+        {
+            _defaultMaterials.Add(_meshRenderers[i].GetComponent<SkinnedMeshRenderer>().materials[0]);
+        }
+    }
+
     private async UniTask FlashDelay()
     {
-        foreach(Renderer mesh in _meshRenderer)
+        foreach(Renderer mesh in _meshRenderers)
         {
             mesh.material = _flashMaterial;
         }
 
-        await UniTask.Delay(125);
+        await UniTask.Delay(_flashTime);
 
-        foreach(Renderer mesh in _meshRenderer)
+        for(int i = 0; i < _meshRenderers.Count; i++)
         {
-            mesh.material = _defaultMaterial;
+            _meshRenderers[i].material = _defaultMaterials[i];
         }
     }
 }
