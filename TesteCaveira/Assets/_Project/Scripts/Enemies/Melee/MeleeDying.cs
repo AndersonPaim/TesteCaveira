@@ -15,11 +15,11 @@ namespace Enemy.Melee
         public override void Enter()
         {
             Anim.SetTrigger("Death");
-            DisableObjectDelay();
+            DisableObjectASync();
             base.Enter();
         }
 
-        private async UniTask DisableObjectDelay()
+        private async UniTask DisableObjectASync()
         {
             await UniTask.Delay(3000);
             Enemy.gameObject.SetActive(false);

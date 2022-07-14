@@ -15,11 +15,11 @@ namespace Enemy.Archer
         public override void Enter()
         {
             Anim.SetTrigger("TakeDamage");
-            StunDelay();
+            StunDelayASync();
             base.Enter();
         }
 
-        private async UniTask StunDelay()
+        private async UniTask StunDelayASync()
         {
             await UniTask.Delay(Balancer.stunCooldown * 1000);
 

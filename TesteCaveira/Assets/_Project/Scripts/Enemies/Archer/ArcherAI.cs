@@ -1,21 +1,25 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
+using System;
 
 namespace Enemy.Archer
 {
     public class ArcherAI : MonoBehaviour, IDamageable
     {
+        public static Action OnEnemyDie;
+
         [SerializeField] private EnemyBalancer _enemyBalancer;
         [SerializeField] private Transform _shootPosition;
-        [SerializeField] private GameManager _manager;
-        [SerializeField] private GameObject _player;
 
+        private GameManager _manager;
         private NavMeshAgent _agent;
         private Animator _anim;
         private StateMachine _currentState;
         private NavMeshPath _path;
+        private GameObject _player;
         private float _health;
+        private bool _isDead = false;
 
         public void Attack()
         {
@@ -27,6 +31,11 @@ namespace Enemy.Archer
 
         public void TakeDamage(float damage)
         {
+            if(_isDead)
+            {
+                return;
+            }
+
             _health -= damage;
 
             if(_health > 0)
@@ -35,17 +44,25 @@ namespace Enemy.Archer
             }
             else
             {
+                _isDead = true;
+                OnEnemyDie?.Invoke();
                 _currentState.ArcherDeath();
             }
         }
+        public void SetupEnemy(GameManager manager)
+        {
+            _player = manager.PlayerController.gameObject;
+            _manager = manager;
+            _currentState = new ArcherSpawn(gameObject, _player, _agent, _anim, _path, _enemyBalancer);
+            _health = _enemyBalancer.health;
+            _isDead = false;
+        }
 
-        private void Start()
+        private void Awake()
         {
             _anim = GetComponent<Animator>();
             _agent = GetComponent<NavMeshAgent>();
             _path = new NavMeshPath();
-            _health = _enemyBalancer.health;
-            _currentState = new ArcherSpawn(gameObject, _player, _agent, _anim, _path, _enemyBalancer);
         }
 
         private void Update()
