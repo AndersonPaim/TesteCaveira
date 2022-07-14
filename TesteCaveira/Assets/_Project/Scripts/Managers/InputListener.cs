@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 
 public class InputListener : MonoBehaviour
 {
 
     public delegate void InputHandler(InputData inputData);
     public InputHandler OnInput;
+
+    public Action OnPause;
 
     [SerializeField] private Vector2 _movement;
     [SerializeField] private float _lookX;
@@ -21,7 +21,6 @@ public class InputListener : MonoBehaviour
     [SerializeField] private bool _aim;
 
     private PlayerInputActions _input;
-
     private InputData _inputData;
 
     private void Awake()
@@ -62,9 +61,9 @@ public class InputListener : MonoBehaviour
         _input.Player.Aim.canceled += ctx => Aim(ctx);
         _input.Player.Shoot.performed += ctx => Shoot(ctx);
         _input.Player.Shoot.canceled += ctx => Shoot(ctx);
-
         _input.Player.LookX.performed += _ => LookX();
         _input.Player.LookY.performed += _ => LookY();
+        _input.UI.Pause.performed += _ => Pause();
     }
 
     private void DestroyInputs()
@@ -76,9 +75,9 @@ public class InputListener : MonoBehaviour
         _input.Player.Aim.canceled -= ctx => Aim(ctx);
         _input.Player.Shoot.performed -= ctx => Shoot(ctx);
         _input.Player.Shoot.canceled -= ctx => Shoot(ctx);
-
         _input.Player.LookX.performed -= _ => LookX();
         _input.Player.LookY.performed -= _ => LookY();
+        _input.UI.Pause.performed -= _ => Pause();
     }
 
     private void CreateInputStruct()
@@ -96,6 +95,11 @@ public class InputListener : MonoBehaviour
         {
             _jump = false;
         }
+    }
+
+    private void Pause()
+    {
+        OnPause?.Invoke();
     }
 
     private void Aim(InputAction.CallbackContext ctx)

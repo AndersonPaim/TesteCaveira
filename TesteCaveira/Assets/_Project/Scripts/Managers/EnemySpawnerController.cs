@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Enemy.Archer;
 using Enemy.Melee;
+using Managers;
 using UnityEngine;
 
 public class EnemySpawnerController : MonoBehaviour

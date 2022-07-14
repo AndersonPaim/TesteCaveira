@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using UnityEngine.Audio;
 using System;
+using Managers;
 
 public class PlayerController : MonoBehaviour
 {
@@ -76,9 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         Movement(inputData.Movement);
         Jump(inputData.isJumping);
-        //Aim(inputData.isAiming);
     }
-
 
     private void Movement(Vector2 movement)
     {

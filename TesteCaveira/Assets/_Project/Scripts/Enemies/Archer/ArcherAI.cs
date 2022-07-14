@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
 using System;
+using Managers;
 
 namespace Enemy.Archer
 {

@@ -1,6 +1,7 @@
 using UnityEngine.AI;
 using UnityEngine;
 using Interfaces;
+using Managers;
 using System;
 
 namespace Enemy.Melee
