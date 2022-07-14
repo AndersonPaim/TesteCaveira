@@ -52,6 +52,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void TakeDamage()
     {
-        _animator.SetTrigger("TakeDamage");
+        _animator.SetTrigger("takeDamage");
     }
 }

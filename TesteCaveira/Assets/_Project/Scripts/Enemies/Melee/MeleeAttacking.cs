@@ -17,9 +17,9 @@ namespace Enemy.Melee
 
         public override void Enter()
         {
+            Attack();
             base.Enter();
             _canAttack = true;
-            Attack();
         }
 
         public override void Update()
@@ -28,11 +28,15 @@ namespace Enemy.Melee
             SearchPlayer();
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+            _canAttack = false;
+        }
+
         private void SearchPlayer()
         {
             float targetDistance = Vector3.Distance(Enemy.transform.position, Player.transform.position);
-
-            Enemy.transform.LookAt(Player.transform);
 
             if(targetDistance > Balancer.attackDistance)
             {

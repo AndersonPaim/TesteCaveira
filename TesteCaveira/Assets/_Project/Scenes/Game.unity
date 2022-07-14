@@ -9767,10 +9767,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WarriorMeleeEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
       propertyPath: m_RootOrder
       value: 1

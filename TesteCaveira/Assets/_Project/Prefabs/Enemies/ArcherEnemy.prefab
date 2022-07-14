@@ -1967,7 +1967,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyBalancer: {fileID: 11400000, guid: 2e4236e53fda71f4ea5418ec2abc9d2f, type: 2}
   _shootPosition: {fileID: 1770883731}
-  _manager: {fileID: 0}
 --- !u!195 &8819105042630688159
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1979,7 +1978,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 2
-  m_Acceleration: 6
+  m_Acceleration: 50
   avoidancePriority: 50
   m_AngularSpeed: 150
   m_StoppingDistance: 2
@@ -2016,10 +2015,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57bae6a0dd86934898d57ef0e8a697b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshRenderer:
-  - {fileID: 8819105043026424091}
-  _defaultMaterial: {fileID: 2100000, guid: af77b87478d72ff4185727fe0428d7b1, type: 2}
+  _meshRenderers: []
   _flashMaterial: {fileID: 2100000, guid: d2a7e510f85582e4b88953c249959c72, type: 2}
+  _flashTime: 0
 --- !u!1001 &8819105042756104707
 PrefabInstance:
   m_ObjectHideFlags: 0

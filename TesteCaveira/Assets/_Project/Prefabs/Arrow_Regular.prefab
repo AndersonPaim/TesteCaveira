@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5354842835743618343}
   - component: {fileID: 5299921144597243369}
   - component: {fileID: 1419997723174135420}
-  - component: {fileID: -1253809510712235427}
+  - component: {fileID: 4770193933919676624}
   m_Layer: 7
   m_Name: Arrow_Regular
   m_TagString: Untagged
@@ -102,7 +102,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!65 &5299921144597243369
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114,8 +114,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10820581, y: 0.102531366, z: 0.21353671}
-  m_Center: {x: 0.0019829944, y: 0.007923629, z: 0.34509927}
+  m_Size: {x: 0.18344612, y: 0.17028628, z: 0.31445158}
+  m_Center: {x: 0.0039621666, y: 0.012022845, z: 0.27454007}
 --- !u!96 &1419997723174135420
 TrailRenderer:
   serializedVersion: 2
@@ -188,7 +188,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 0.827451}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -224,7 +224,7 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &-1253809510712235427
+--- !u!114 &4770193933919676624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,7 +233,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 111768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4d722e04c4dbee4293f4456bf827ada, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ca02350b56e6a1499f6b9c45beb5179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 50
+  _destroyDelay: 5

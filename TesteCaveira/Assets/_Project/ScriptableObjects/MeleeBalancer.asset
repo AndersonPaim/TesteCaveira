@@ -16,5 +16,5 @@ MonoBehaviour:
   attackDistance: 3
   viewAngle: 90
   shootForce: 0
-  stunCooldown: 2
+  stunCooldown: 1
   attackCooldown: 2

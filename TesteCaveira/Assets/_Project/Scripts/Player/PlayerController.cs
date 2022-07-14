@@ -2,8 +2,9 @@ using UnityEngine;
 using Cinemachine;
 using System;
 using Managers;
+using Interfaces;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     public Action OnTakeDamage;
 
@@ -15,19 +16,16 @@ public class PlayerController : MonoBehaviour
 
     private float _speed = 0;
     private float _health;
-    private float _maxHealth;
-
-    private Vector2 _movement;
-
-    private bool _isAiming = false;
     private bool _isGrounded = true;
-    private bool _isJumping = false;
-    private bool _isTakingDamage = false;
-    private bool _isPaused = false;
-
     private Rigidbody _rb;
     private PlayerData _playerData;
     private ObjectPooler _objectPooler;
+
+    public void TakeDamage(float damage)
+    {
+        _health -= damage;
+        OnTakeDamage?.Invoke();
+    }
 
     private void Start()
     {
@@ -61,13 +59,9 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         _rb = GetComponent<Rigidbody>();
         _objectPooler = _manager.ObjectPooler;
+        _health = _playerBalancer.health;
         _playerData = new PlayerData();
         SetupDelegates();
-    }
-
-    private void PauseInputs(bool isPaused)
-    {
-        _isPaused = isPaused;
     }
 
     private void ReceiveInputs(InputData inputData)
@@ -126,7 +120,6 @@ public class PlayerController : MonoBehaviour
         {
             if (_isGrounded)
             {
-                _isJumping = true;
                 _rb.AddForce(Vector3.up * _playerBalancer.jumpForce, ForceMode.Impulse);
             }
         }
