@@ -14,6 +14,7 @@ namespace Enemy.Melee
 
         public override void Enter()
         {
+            Agent.enabled = false;
             Anim.SetTrigger("Death");
             DisableObjectASync();
             base.Enter();

@@ -57,6 +57,7 @@ namespace Enemy.Melee
         public void SetupEnemy(GameManager manager)
         {
             _player = manager.PlayerController.gameObject;
+            _agent.enabled = true;
             _currentState = new MeleeSpawn(gameObject, _player, _agent, _anim, _path, _enemyBalancer);
             _health = _enemyBalancer.health;
             _isDead = false;

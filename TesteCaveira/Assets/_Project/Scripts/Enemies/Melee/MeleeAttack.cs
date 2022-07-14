@@ -49,10 +49,8 @@ namespace Enemy.Melee
 
         private async UniTask Attack()
         {
-            Debug.Log("ATTACK1");
             Anim.SetTrigger("Attack");
             await UniTask.Delay(Balancer.attackCooldown * 1000);
-            Debug.Log("ATTACK2");
 
             if(_canAttack)
             {
