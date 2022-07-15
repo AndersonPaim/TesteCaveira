@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class DefaultSword : WeaponBase
+namespace Weapons
 {
-    protected virtual void OnTriggerEnter(Collider other)
+    public class DefaultSword : WeaponBase
     {
-        if(CanDoDamage(other.gameObject))
+        protected virtual void OnTriggerEnter(Collider other)
         {
-            DoDamage(other.gameObject);
+            if(CanDoDamage(other.gameObject))
+            {
+                DoDamage(other.gameObject);
+            }
         }
     }
 }

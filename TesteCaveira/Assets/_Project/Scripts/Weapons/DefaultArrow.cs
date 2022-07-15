@@ -1,39 +1,42 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public class DefaultArrow : WeaponBase
+namespace Weapons
 {
-    [SerializeField] private int _destroyDelay;
-    private Rigidbody _rb;
-
-    private void Start()
+    public class DefaultArrow : WeaponBase
     {
-        Initialize();
-    }
+        [SerializeField] private int _destroyDelay;
+        private Rigidbody _rb;
 
-    private void Initialize()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
-
-    protected async void OnTriggerEnter(Collider other)
-    {
-        if(CanDoDamage(other.gameObject))
+        private void Start()
         {
-            DoDamage(other.gameObject);
-            await DisableObjectASync(0);
+            Initialize();
         }
-        else
-        {
-            _rb.isKinematic = true;
-            await DisableObjectASync(_destroyDelay);
-        }
-    }
 
-    private async UniTask DisableObjectASync(int time)
-    {
-        await UniTask.Delay(time * 1000);
-        _rb.isKinematic = false;
-        gameObject.SetActive(false);
+        private void Initialize()
+        {
+            _rb = GetComponent<Rigidbody>();
+        }
+
+        protected async void OnTriggerEnter(Collider other)
+        {
+            if(CanDoDamage(other.gameObject))
+            {
+                DoDamage(other.gameObject);
+                await DisableObjectASync(0);
+            }
+            else
+            {
+                _rb.isKinematic = true;
+                await DisableObjectASync(_destroyDelay);
+            }
+        }
+
+        private async UniTask DisableObjectASync(int time)
+        {
+            await UniTask.Delay(time * 1000);
+            _rb.isKinematic = false;
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -6,6 +6,10 @@ using Interfaces;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
+    public delegate void HealthHandler(float health);
+    public HealthHandler OnUpdateHealth;
+    public HealthHandler OnInitializeHealth;
+
     public Action OnTakeDamage;
 
     [SerializeField] private GameManager _manager;
@@ -25,6 +29,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         _health -= damage;
         OnTakeDamage?.Invoke();
+        OnUpdateHealth?.Invoke(_health);
     }
 
     private void Start()
@@ -61,6 +66,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         _objectPooler = _manager.ObjectPooler;
         _health = _playerBalancer.health;
         _playerData = new PlayerData();
+        OnInitializeHealth?.Invoke(_health);
         SetupDelegates();
     }
 
@@ -75,7 +81,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         SetVelocity(movement.y, movement.x);
         movement *= _speed;
         Vector3 dir = new Vector3(-Camera.main.transform.right.z, 0, Camera.main.transform.right.x);
-        Vector3 movementDir = (dir * movement.y + Camera.main.transform.right * movement.x + Vector3.up * _rb.velocity.y);
+        Vector3 movementDir = (dir * movement.y + Camera.main.transform.right * movement.x);
+        movementDir.y = _rb.velocity.y;
 
         _rb.velocity = movementDir;
     }
@@ -120,6 +127,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             if (_isGrounded)
             {
+                Debug.Log("JUMPING");
                 _rb.AddForce(Vector3.up * _playerBalancer.jumpForce, ForceMode.Impulse);
             }
         }

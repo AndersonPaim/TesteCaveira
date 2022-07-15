@@ -1,29 +1,32 @@
 using UnityEngine;
 using Interfaces;
 
-public abstract class WeaponBase : MonoBehaviour
+namespace Weapons
 {
-    [SerializeField] protected float _damage;
-
-    protected void DoDamage(GameObject obj)
+    public abstract class WeaponBase : MonoBehaviour
     {
-        IDamageable damageable = obj.GetComponent<IDamageable>();
-        DamageFlash flash = obj.GetComponent<DamageFlash>();
-        damageable.TakeDamage(_damage);
-        flash?.Flash();
-    }
+        [SerializeField] protected float _damage;
 
-    protected bool CanDoDamage(GameObject obj)
-    {
-        IDamageable damageable = obj.GetComponent<IDamageable>();
-
-        if(damageable != null)
+        protected void DoDamage(GameObject obj)
         {
-            return true;
+            IDamageable damageable = obj.GetComponent<IDamageable>();
+            DamageFlash flash = obj.GetComponent<DamageFlash>();
+            damageable.TakeDamage(_damage);
+            flash?.Flash();
         }
-        else
+
+        protected bool CanDoDamage(GameObject obj)
         {
-            return false;
+            IDamageable damageable = obj.GetComponent<IDamageable>();
+
+            if(damageable != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
