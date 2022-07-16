@@ -14,13 +14,14 @@ namespace Enemy.Melee
 
         public override void Enter()
         {
+            base.Enter();
             Anim.SetTrigger("TakeDamage");
             StunDelayASync();
-            base.Enter();
         }
 
         private async UniTask StunDelayASync()
         {
+            Agent.SetDestination(Enemy.transform.position);
             await UniTask.Delay(Balancer.stunCooldown * 1000);
             NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer);
             Stage = Events.EXIT;

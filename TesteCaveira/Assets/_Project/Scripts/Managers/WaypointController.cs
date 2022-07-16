@@ -14,7 +14,7 @@ public class WaypointController : MonoBehaviour
     {
         if (sInstance != null)
         {
-            Destroy(gameObject);
+            Object.DestroyImmediate(gameObject);
             return;
         }
         else

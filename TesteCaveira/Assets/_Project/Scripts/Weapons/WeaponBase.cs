@@ -5,13 +5,13 @@ namespace Weapons
 {
     public abstract class WeaponBase : MonoBehaviour
     {
-        [SerializeField] protected float _damage;
+        [SerializeField] protected float Damage;
 
         protected void DoDamage(GameObject obj)
         {
             IDamageable damageable = obj.GetComponent<IDamageable>();
             DamageFlash flash = obj.GetComponent<DamageFlash>();
-            damageable.TakeDamage(_damage);
+            damageable.TakeDamage(Damage);
             flash?.Flash();
         }
 

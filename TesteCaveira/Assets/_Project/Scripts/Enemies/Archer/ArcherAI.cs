@@ -8,7 +8,8 @@ namespace Enemy.Archer
 {
     public class ArcherAI : MonoBehaviour, IDamageable
     {
-        public static Action OnEnemyDie;
+        public delegate void EnemyHandler(GameObject enemy);
+        public EnemyHandler OnEnemyDie;
 
         [SerializeField] private EnemyBalancer _enemyBalancer;
         [SerializeField] private Transform _shootPosition;
@@ -46,7 +47,7 @@ namespace Enemy.Archer
             else
             {
                 _isDead = true;
-                OnEnemyDie?.Invoke();
+                OnEnemyDie?.Invoke(gameObject);
                 _currentState.ArcherDeath();
             }
         }

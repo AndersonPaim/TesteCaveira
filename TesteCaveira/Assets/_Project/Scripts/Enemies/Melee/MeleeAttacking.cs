@@ -58,7 +58,7 @@ namespace Enemy.Melee
 
             if(_canAttack)
             {
-                await Attack();
+                Attack();
             }
         }
     }

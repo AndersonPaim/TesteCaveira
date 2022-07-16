@@ -55,7 +55,7 @@ namespace Enemy.Archer
 
             if(_canAttack)
             {
-                await BowAttack();
+                BowAttack();
             }
         }
     }

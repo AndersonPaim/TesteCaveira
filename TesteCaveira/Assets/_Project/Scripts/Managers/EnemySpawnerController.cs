@@ -13,33 +13,16 @@ public class EnemySpawnerController : MonoBehaviour
     [SerializeField] private int _maxMeleeEnemies;
     [SerializeField] private int _spawnDelay;
 
+    //private Dictionary<int, GameObject> _currentEnemies = new Dictionary<int, GameObject>();
+     private List<GameObject> _currentEnemies = new List<GameObject>();
     private int _currentArcherEnemies;
     private int _currentMeleeEnemies;
-    private bool _isSpawning = true;
     private ObjectPooler _objectPooler;
 
-    private async UniTask Start()
+    private void Start()
     {
         Initialize();
-        SetupEvents();
-        await SpawnEnemiesASync();
-    }
-
-    private void OnDestroy()
-    {
-        DestroyEvents();
-    }
-
-    private void SetupEvents()
-    {
-        ArcherAI.OnEnemyDie += ArcherDeath;
-        MeleeAI.OnEnemyDie += MeleeDeath;
-    }
-
-    private void DestroyEvents()
-    {
-        ArcherAI.OnEnemyDie -= ArcherDeath;
-        MeleeAI.OnEnemyDie -= MeleeDeath;
+        SpawnEnemiesASync();
     }
 
     private void Initialize()
@@ -47,26 +30,18 @@ public class EnemySpawnerController : MonoBehaviour
         _objectPooler = _manager.ObjectPooler;
     }
 
-    private void ArcherDeath()
+    private void ArcherDeath(GameObject enemy)
     {
         _currentArcherEnemies--;
-
-        if(!_isSpawning)
-        {
-            _isSpawning = true;
-            SpawnEnemiesASync();
-        }
+        _currentEnemies.Remove(enemy);
+        enemy.GetComponent<ArcherAI>().OnEnemyDie -= MeleeDeath;
     }
 
-    private void MeleeDeath()
+    private void MeleeDeath(GameObject enemy)
     {
         _currentMeleeEnemies--;
-
-        if(!_isSpawning)
-        {
-            _isSpawning = true;
-            SpawnEnemiesASync();
-        }
+        _currentEnemies.Remove(enemy);
+        enemy.GetComponent<MeleeAI>().OnEnemyDie -= MeleeDeath;
     }
 
     private async UniTask SpawnEnemiesASync()
@@ -101,15 +76,14 @@ public class EnemySpawnerController : MonoBehaviour
         _currentArcherEnemies++;
         GameObject enemy = _objectPooler.SpawnFromPool(ObjectsTag.ArcherEnemy);
         enemy.transform.position = pos.position;
-        enemy.GetComponent<ArcherAI>().SetupEnemy(_manager);
+        ArcherAI archer = enemy.GetComponent<ArcherAI>();
+        archer.SetupEnemy(_manager);
+        archer.OnEnemyDie += ArcherDeath;
+        _currentEnemies.Add(enemy);
 
         if(_currentArcherEnemies < _maxArcherEnemies || _currentMeleeEnemies < _maxMeleeEnemies)
         {
             await SpawnEnemiesASync();
-        }
-        else
-        {
-            _isSpawning = false;
         }
     }
 
@@ -118,15 +92,14 @@ public class EnemySpawnerController : MonoBehaviour
         _currentMeleeEnemies++;
         GameObject enemy = _objectPooler.SpawnFromPool(ObjectsTag.MeleeEnemy);
         enemy.transform.position = pos.position;
-        enemy.GetComponent<MeleeAI>().SetupEnemy(_manager);
+        MeleeAI melee = enemy.GetComponent<MeleeAI>();
+        melee.SetupEnemy(_manager);
+        melee.OnEnemyDie += MeleeDeath;
+        _currentEnemies.Add(enemy);
 
         if(_currentArcherEnemies < _maxArcherEnemies || _currentMeleeEnemies < _maxMeleeEnemies)
         {
             await SpawnEnemiesASync();
-        }
-        else
-        {
-            _isSpawning = false;
         }
     }
 

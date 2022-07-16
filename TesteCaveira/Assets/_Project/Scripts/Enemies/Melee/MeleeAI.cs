@@ -8,7 +8,8 @@ namespace Enemy.Melee
 {
     public class MeleeAI : MonoBehaviour, IDamageable
     {
-        public static Action OnEnemyDie;
+        public delegate void EnemyHandler(GameObject enemy);
+        public EnemyHandler OnEnemyDie;
 
         [SerializeField] private EnemyBalancer _enemyBalancer;
 
@@ -16,23 +17,9 @@ namespace Enemy.Melee
         private Animator _anim;
         private StateMachine _currentState;
         private NavMeshPath _path;
-        private Events _state;
         private GameObject _player;
         private float _health;
         private bool _isDead = false;
-
-        public bool CanAttackPlayer()
-        {
-            Vector3 direction = _player.transform.position - gameObject.transform.position;
-            float viewAngle = Vector3.Angle(direction, gameObject.transform.forward);
-
-            if(direction.magnitude < _enemyBalancer.attackDistance && viewAngle < _enemyBalancer.viewAngle)
-            {
-                return true;
-            }
-
-            return false;
-        }
 
         public void TakeDamage(float damage)
         {
@@ -49,7 +36,7 @@ namespace Enemy.Melee
             }
             else
             {
-                OnEnemyDie?.Invoke();
+                OnEnemyDie?.Invoke(gameObject);
                 _currentState.MeleeDeath();
                 _isDead = true;
             }

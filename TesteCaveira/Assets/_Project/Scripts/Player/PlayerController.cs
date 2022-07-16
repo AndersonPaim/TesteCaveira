@@ -149,4 +149,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         _isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.3f);
     }
+
+    // POWER UP:
+
+    // AUMENTAR DANO
+    // MATAR TODOS INIMIGOS
+    // AUMENTAR VIDA
+    // SPAWN POR WAVES - MODO RANDOM
 }
