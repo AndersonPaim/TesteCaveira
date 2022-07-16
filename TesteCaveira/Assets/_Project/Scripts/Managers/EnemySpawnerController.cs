@@ -7,16 +7,22 @@ using UnityEngine;
 
 public class EnemySpawnerController : MonoBehaviour
 {
+    [System.Serializable]
+    public class Wave
+    {
+        public int MaxArcherEnemies;
+        public int MaxMeleeEnemies;
+        public int SpawnDelay;
+    }
+
     [SerializeField] private GameManager _manager;
     [SerializeField] private List<Transform> _spawnPositions = new List<Transform>();
-    [SerializeField] private int _maxArcherEnemies;
-    [SerializeField] private int _maxMeleeEnemies;
-    [SerializeField] private int _spawnDelay;
+    [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
 
-    //private Dictionary<int, GameObject> _currentEnemies = new Dictionary<int, GameObject>();
-     private List<GameObject> _currentEnemies = new List<GameObject>();
+    private List<GameObject> _currentEnemies = new List<GameObject>();
     private int _currentArcherEnemies;
     private int _currentMeleeEnemies;
+    private int _currentWave = 0;
     private ObjectPooler _objectPooler;
 
     private void Start()
@@ -35,6 +41,7 @@ public class EnemySpawnerController : MonoBehaviour
         _currentArcherEnemies--;
         _currentEnemies.Remove(enemy);
         enemy.GetComponent<ArcherAI>().OnEnemyDie -= MeleeDeath;
+        CanFinishWave();
     }
 
     private void MeleeDeath(GameObject enemy)
@@ -44,15 +51,32 @@ public class EnemySpawnerController : MonoBehaviour
         enemy.GetComponent<MeleeAI>().OnEnemyDie -= MeleeDeath;
     }
 
+    private void CanFinishWave()
+    {
+        if(_currentArcherEnemies == 0 && _currentMeleeEnemies == 0)
+        {
+            _currentWave++;
+
+            if(_currentWave >= _spawnWaves.Count)
+            {
+                //TODO WIN
+            }
+            else
+            {
+                SpawnEnemiesASync();
+            }
+        }
+    }
+
     private async UniTask SpawnEnemiesASync()
     {
-        await UniTask.Delay(_spawnDelay * 1000);
+        await UniTask.Delay(_spawnWaves[_currentWave].SpawnDelay * 1000);
 
-        if(_currentArcherEnemies >= _maxArcherEnemies && _currentMeleeEnemies < _maxMeleeEnemies)
+        if(_currentArcherEnemies >= _spawnWaves[_currentWave].MaxArcherEnemies && _currentMeleeEnemies < _spawnWaves[_currentWave].MaxMeleeEnemies)
         {
             await SpawnMelee(GetSpawnPos());
         }
-        else if(_currentMeleeEnemies >= _maxMeleeEnemies && _currentArcherEnemies < _maxArcherEnemies)
+        else if(_currentMeleeEnemies >= _spawnWaves[_currentWave].MaxMeleeEnemies && _currentArcherEnemies < _spawnWaves[_currentWave].MaxArcherEnemies)
         {
             await SpawnArcher(GetSpawnPos());
         }
@@ -81,7 +105,7 @@ public class EnemySpawnerController : MonoBehaviour
         archer.OnEnemyDie += ArcherDeath;
         _currentEnemies.Add(enemy);
 
-        if(_currentArcherEnemies < _maxArcherEnemies || _currentMeleeEnemies < _maxMeleeEnemies)
+        if(_currentArcherEnemies < _spawnWaves[_currentWave].MaxArcherEnemies || _currentMeleeEnemies < _spawnWaves[_currentWave].MaxMeleeEnemies)
         {
             await SpawnEnemiesASync();
         }
@@ -97,7 +121,7 @@ public class EnemySpawnerController : MonoBehaviour
         melee.OnEnemyDie += MeleeDeath;
         _currentEnemies.Add(enemy);
 
-        if(_currentArcherEnemies < _maxArcherEnemies || _currentMeleeEnemies < _maxMeleeEnemies)
+        if(_currentArcherEnemies < _spawnWaves[_currentWave].MaxArcherEnemies || _currentMeleeEnemies < _spawnWaves[_currentWave].MaxMeleeEnemies)
         {
             await SpawnEnemiesASync();
         }
@@ -109,5 +133,4 @@ public class EnemySpawnerController : MonoBehaviour
 
         return _spawnPositions[randomPos];
     }
-
 }
