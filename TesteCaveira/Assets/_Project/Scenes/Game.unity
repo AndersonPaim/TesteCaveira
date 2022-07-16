@@ -7979,9 +7979,19 @@ MonoBehaviour:
   - {fileID: 688367978}
   - {fileID: 271054923}
   - {fileID: 212265613}
-  _maxArcherEnemies: 3
-  _maxMeleeEnemies: 3
-  _spawnDelay: 5
+  _spawnWaves:
+  - MaxArcherEnemies: 1
+    MaxMeleeEnemies: 1
+    SpawnDelay: 3
+  - MaxArcherEnemies: 2
+    MaxMeleeEnemies: 2
+    SpawnDelay: 4
+  - MaxArcherEnemies: 3
+    MaxMeleeEnemies: 3
+    SpawnDelay: 5
+  - MaxArcherEnemies: 4
+    MaxMeleeEnemies: 4
+    SpawnDelay: 6
 --- !u!1001 &1520065153
 PrefabInstance:
   m_ObjectHideFlags: 0

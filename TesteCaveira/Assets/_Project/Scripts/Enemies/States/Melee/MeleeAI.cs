@@ -1,20 +1,18 @@
-using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine;
 using Interfaces;
-using System;
 using Managers;
+using System;
 
-namespace Enemy.Archer
+namespace Enemy.Melee
 {
-    public class ArcherAI : MonoBehaviour, IDamageable
+    public class MeleeAI : MonoBehaviour, IDamageable
     {
         public delegate void EnemyHandler(GameObject enemy);
         public EnemyHandler OnEnemyDie;
 
         [SerializeField] private EnemyBalancer _enemyBalancer;
-        [SerializeField] private Transform _shootPosition;
 
-        private GameManager _manager;
         private NavMeshAgent _agent;
         private Animator _anim;
         private StateMachine _currentState;
@@ -22,14 +20,6 @@ namespace Enemy.Archer
         private GameObject _player;
         private float _health;
         private bool _isDead = false;
-
-        public void Attack()
-        {
-            GameObject arrow = _manager.ObjectPooler.SpawnFromPool(ObjectsTag.Arrow);
-            arrow.transform.position =  _shootPosition.position;
-            Rigidbody rb = arrow.GetComponent<Rigidbody>();
-            rb.velocity = _shootPosition.transform.forward * _enemyBalancer.shootForce;
-        }
 
         public void TakeDamage(float damage)
         {
@@ -42,20 +32,21 @@ namespace Enemy.Archer
 
             if(_health > 0)
             {
-                _currentState.ArcherDamage();
+                _currentState.TakeDamage(Enemies.MELEE);
             }
             else
             {
-                _isDead = true;
                 OnEnemyDie?.Invoke(gameObject);
-                _currentState.ArcherDeath();
+                _currentState.Death();
+                _isDead = true;
             }
         }
+
         public void SetupEnemy(GameManager manager)
         {
             _player = manager.PlayerController.gameObject;
-            _manager = manager;
-            _currentState = new ArcherSpawn(gameObject, _player, _agent, _anim, _path, _enemyBalancer);
+            _agent.enabled = true;
+            _currentState = new MeleeSpawn(gameObject, _player, _agent, _anim, _path, _enemyBalancer);
             _health = _enemyBalancer.health;
             _isDead = false;
         }
@@ -69,8 +60,10 @@ namespace Enemy.Archer
 
         private void Update()
         {
-            _currentState = _currentState.Process();
+            if(_currentState != null)
+            {
+                _currentState = _currentState.Process();
+            }
         }
     }
 }
-

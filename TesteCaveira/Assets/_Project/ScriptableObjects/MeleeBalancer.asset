@@ -18,3 +18,4 @@ MonoBehaviour:
   shootForce: 0
   stunCooldown: 1
   attackCooldown: 2
+  destroyDelay: 4

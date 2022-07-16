@@ -127,7 +127,6 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             if (_isGrounded)
             {
-                Debug.Log("JUMPING");
                 _rb.AddForce(Vector3.up * _playerBalancer.jumpForce, ForceMode.Impulse);
             }
         }

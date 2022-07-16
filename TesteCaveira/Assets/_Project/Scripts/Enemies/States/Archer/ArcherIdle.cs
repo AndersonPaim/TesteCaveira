@@ -8,7 +8,7 @@ namespace Enemy.Archer
         public ArcherIdle(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer enemyBalancer)
                     : base(enemy, player, agent, anim, path, enemyBalancer)
         {
-            CurrentState = States.IDLE;
+            CurrentState = States.ARCHER_IDLE;
         }
 
         public override void Enter()

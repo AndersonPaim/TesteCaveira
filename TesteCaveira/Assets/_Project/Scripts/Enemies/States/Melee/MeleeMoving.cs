@@ -9,7 +9,7 @@ namespace Enemy.Melee
         public MeleeMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
                     : base(enemy, player, agent, anim, path, balancer)
         {
-            CurrentState = States.MOVING;
+            CurrentState = States.MELEE_MOVING;
         }
 
         public override void Enter()

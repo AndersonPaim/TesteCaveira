@@ -11,7 +11,7 @@ namespace Enemy.Archer
         public ArcherMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
                     : base(enemy, player, agent, anim, path, balancer)
         {
-            CurrentState = States.MOVING;
+            CurrentState = States.ARCHER_MOVING;
         }
 
         public override void Enter()

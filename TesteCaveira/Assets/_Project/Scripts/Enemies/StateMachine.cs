@@ -76,27 +76,15 @@ public class StateMachine
         return false;
     }
 
-    public void MeleeDamage()
+    public void TakeDamage(Enemies enemy)
     {
-        NextState = new MeleeDamage(Enemy, Player, Agent, Anim, Path, Balancer);
+        NextState = new EnemyDamage(Enemy, Player, Agent, Anim, Path, Balancer, enemy);
         Stage = Events.EXIT;
     }
 
-    public void MeleeDeath()
+    public void Death()
     {
-        NextState = new MeleeDying(Enemy, Player, Agent, Anim, Path, Balancer);
-        Stage = Events.EXIT;
-    }
-
-    public void ArcherDamage()
-    {
-        NextState = new ArcherDamage(Enemy, Player, Agent, Anim, Path, Balancer);
-        Stage = Events.EXIT;
-    }
-
-    public void ArcherDeath()
-    {
-        NextState = new ArcherDying(Enemy, Player, Agent, Anim, Path, Balancer);
+        NextState = new EnemyDying(Enemy, Player, Agent, Anim, Path, Balancer);
         Stage = Events.EXIT;
     }
 }

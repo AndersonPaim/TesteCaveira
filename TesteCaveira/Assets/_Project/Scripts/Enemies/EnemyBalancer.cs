@@ -13,5 +13,6 @@ namespace Enemy
         public float shootForce;
         public int stunCooldown;
         public int attackCooldown;
+        public int destroyDelay;
     }
 }
