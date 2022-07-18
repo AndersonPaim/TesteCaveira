@@ -1,5 +1,8 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Managers;
 using UnityEngine;
+using Weapons;
 
 public class BowController : MonoBehaviour
 {
@@ -9,17 +12,31 @@ public class BowController : MonoBehaviour
     [SerializeField] private Transform _shootPosition;
     [SerializeField] private float _shootForce;
     [SerializeField] private GameManager _gameManager;
+    [SerializeField] private MeshRenderer _previewArrowMesh;
+    [SerializeField] private Material _previewArrowDefaultMat;
+    [SerializeField] private Material _previewBuffedArrowMat;
 
     private bool _isPaused = false;
     private bool _isAiming = false;
     private bool _isShooting = false;
     private bool _isChangingArrow = false;
+    private float _damageMultiplier = 1;
     private ObjectPooler _objectPooler;
     private PlayerData _playerData;
+    private CancellationTokenSource _cancellationTokenSource;
+
+    public void SetDamageBuff(float multiplier, int time)
+    {
+        _damageMultiplier = multiplier;
+        _cancellationTokenSource.Cancel();
+        _previewArrowMesh.material = _previewBuffedArrowMat;
+        DamageBuffTimeASync(time);
+    }
 
     private void Start()
     {
         Initialize();
+        _cancellationTokenSource = new CancellationTokenSource();
     }
 
     private void Update()
@@ -87,14 +104,22 @@ public class BowController : MonoBehaviour
         _isShooting = isShooting;
     }
 
+    private async UniTask DamageBuffTimeASync(int time)
+    {
+        await UniTask.Delay((time * 1000), cancellationToken: _cancellationTokenSource.Token);
+        _damageMultiplier = 1;
+        _previewArrowMesh.material = _previewArrowDefaultMat;
+    }
+
     private void ArrowShoot()
     {
         GameObject obj = _objectPooler.SpawnFromPool(ObjectsTag.Arrow);
+        WeaponBase arrow = obj.GetComponent<WeaponBase>();
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
 
+        arrow.SetDamageMultiplier(_damageMultiplier);
         obj.transform.position = _shootPosition.transform.position;
         obj.transform.rotation = _shootPosition.transform.rotation;
-
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
         rb.velocity = (_shootPosition.transform.forward * _shootForce);
     }
 }

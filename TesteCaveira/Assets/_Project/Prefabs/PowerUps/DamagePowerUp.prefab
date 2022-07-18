@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4013822818662463426}
   - component: {fileID: 4013822818662463436}
   - component: {fileID: 4013822818662463437}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4903,7 +4903,7 @@ GameObject:
   - component: {fileID: 4603459835935389838}
   - component: {fileID: 4603459835935389839}
   - component: {fileID: 4603459835935389841}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5000,7 +5000,7 @@ GameObject:
   - component: {fileID: 4603459836931329145}
   - component: {fileID: 4603459836931329142}
   - component: {fileID: 4603459836931329143}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5099,7 +5099,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6615070897757797630}
   - component: {fileID: 1173162818080182216}
-  m_Layer: 0
+  - component: {fileID: 4674704030206790267}
+  m_Layer: 7
   m_Name: DamagePowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5135,6 +5136,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 0.7, z: 0.7}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &4674704030206790267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6615070897757797633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72cd4f5d79a950a4cb720bb5414ae631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageMultiplier: 3
+  _buffDuration: 10
 --- !u!1 &7340794636271660355
 GameObject:
   m_ObjectHideFlags: 0
@@ -5146,7 +5161,7 @@ GameObject:
   - component: {fileID: 1152613785572059506}
   - component: {fileID: 7852836987499178606}
   - component: {fileID: 6216879453020833482}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9973,7 +9988,7 @@ GameObject:
   - component: {fileID: 8186643871451677634}
   - component: {fileID: 8186643871451677660}
   - component: {fileID: 8186643871451677635}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -15,7 +15,7 @@ namespace Collectable
             Manager = manager;
         }
 
-        private void Start()
+        private void Awake()
         {
             Initialize();
         }

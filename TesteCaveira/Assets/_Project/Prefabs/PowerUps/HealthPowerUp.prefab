@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7527656818569489293}
   - component: {fileID: 825164224978479249}
   - component: {fileID: 3589291057829332021}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4838,7 +4838,7 @@ GameObject:
   - component: {fileID: 1591387939023978813}
   - component: {fileID: 1591387939023978787}
   - component: {fileID: 1591387939023978812}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9639,7 +9639,7 @@ GameObject:
   - component: {fileID: 4342596151703027201}
   - component: {fileID: 8633007418223201591}
   - component: {fileID: 5292121700947523880}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealthPowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9699,7 +9699,7 @@ GameObject:
   - component: {fileID: 5781079623222146365}
   - component: {fileID: 5781079623222146355}
   - component: {fileID: 5781079623222146354}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14591,7 +14591,7 @@ GameObject:
   - component: {fileID: 6371385706715926150}
   - component: {fileID: 6371385706715926153}
   - component: {fileID: 6371385706715926152}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14692,7 +14692,7 @@ GameObject:
   - component: {fileID: 6371385708387039857}
   - component: {fileID: 6371385708387039856}
   - component: {fileID: 6371385708387039854}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
