@@ -19,3 +19,10 @@ MonoBehaviour:
   stunCooldown: 1
   attackCooldown: 2
   destroyDelay: 4
+  drops:
+  - PowerUpTag: 5
+    DropRate: 15
+  - PowerUpTag: 6
+    DropRate: 10
+  - PowerUpTag: 7
+    DropRate: 5

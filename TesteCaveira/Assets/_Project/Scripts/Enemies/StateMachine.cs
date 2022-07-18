@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using Enemy;
 using Enemy.Archer;
 using Enemy.Melee;
+using Managers;
 
 public class StateMachine
 {
@@ -16,8 +17,9 @@ public class StateMachine
     protected Animator Anim;
     protected NavMeshPath Path;
     protected EnemyBalancer Balancer;
+    protected GameManager Manager;
 
-    public StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
+    public StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
     {
         Stage = Events.ENTER;
         Enemy = enemy;
@@ -26,6 +28,7 @@ public class StateMachine
         Path = path;
         Player = player;
         Balancer = balancer;
+        Manager = manager;
     }
 
     public virtual void Enter()
@@ -78,13 +81,13 @@ public class StateMachine
 
     public void TakeDamage(Enemies enemy)
     {
-        NextState = new EnemyDamage(Enemy, Player, Agent, Anim, Path, Balancer, enemy);
+        NextState = new EnemyDamage(Enemy, Player, Agent, Anim, Path, Balancer, enemy, Manager);
         Stage = Events.EXIT;
     }
 
     public void Death()
     {
-        NextState = new EnemyDying(Enemy, Player, Agent, Anim, Path, Balancer);
+        NextState = new EnemyDying(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
         Stage = Events.EXIT;
     }
 }

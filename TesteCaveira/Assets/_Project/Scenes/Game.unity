@@ -2286,6 +2286,18 @@ MonoBehaviour:
   - prefab: {fileID: 111768, guid: f32a948ee0cdbc74ebfa77fdc11add9e, type: 3}
     tag: 3
     size: 7
+  - prefab: {fileID: 9218102291070319960, guid: 4e6efc35d8afec34881008a12afbe4eb,
+      type: 3}
+    tag: 5
+    size: 7
+  - prefab: {fileID: 4617830068725584145, guid: 59559f03efc70a042a0f611d49603df4,
+      type: 3}
+    tag: 6
+    size: 7
+  - prefab: {fileID: 4469020048134076533, guid: 6e3156d73e55996498a66ad25075515c,
+      type: 3}
+    tag: 7
+    size: 7
 --- !u!1001 &716925953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7980,9 +7992,9 @@ MonoBehaviour:
   - {fileID: 271054923}
   - {fileID: 212265613}
   _spawnWaves:
-  - MaxArcherEnemies: 1
-    MaxMeleeEnemies: 1
-    SpawnDelay: 3
+  - MaxArcherEnemies: 0
+    MaxMeleeEnemies: 10
+    SpawnDelay: 5
   - MaxArcherEnemies: 2
     MaxMeleeEnemies: 2
     SpawnDelay: 4

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Managers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,8 +10,8 @@ namespace Enemy.Melee
         private Vector3 _rayPosition;
         private bool _canAttack;
 
-        public MeleeAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
-                    : base(enemy, player, agent, anim, path, balancer)
+        public MeleeAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+                    : base(enemy, player, agent, anim, path, balancer, manager)
         {
             CurrentState = States.ATTACKING;
         }
@@ -47,7 +48,7 @@ namespace Enemy.Melee
 
         private void LostPlayer()
         {
-            NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer);
+            NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
             Stage = Events.EXIT;
         }
 

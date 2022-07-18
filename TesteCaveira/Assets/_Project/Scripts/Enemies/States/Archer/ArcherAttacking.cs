@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using Managers;
 
 namespace Enemy.Archer
 {
@@ -9,8 +10,8 @@ namespace Enemy.Archer
         private Vector3 _rayPosition;
         private bool _canAttack;
 
-        public ArcherAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer enemyBalancer)
-                    : base(enemy, player, agent, anim, path, enemyBalancer)
+        public ArcherAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+                    : base(enemy, player, agent, anim, path, balancer, manager)
         {
             CurrentState = States.ATTACKING;
         }
@@ -44,7 +45,7 @@ namespace Enemy.Archer
 
         private void LostPlayer()
         {
-            NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer);
+            NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
             Stage = Events.EXIT;
         }
 

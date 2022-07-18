@@ -46,7 +46,7 @@ namespace Enemy.Melee
         {
             _player = manager.PlayerController.gameObject;
             _agent.enabled = true;
-            _currentState = new MeleeSpawn(gameObject, _player, _agent, _anim, _path, _enemyBalancer);
+            _currentState = new MeleeSpawn(gameObject, _player, _agent, _anim, _path, _enemyBalancer, manager);
             _health = _enemyBalancer.health;
             _isDead = false;
         }

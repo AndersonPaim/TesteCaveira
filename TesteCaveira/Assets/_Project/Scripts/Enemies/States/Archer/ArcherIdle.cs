@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,8 +6,8 @@ namespace Enemy.Archer
 {
     public class ArcherIdle : StateMachine
     {
-        public ArcherIdle(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer enemyBalancer)
-                    : base(enemy, player, agent, anim, path, enemyBalancer)
+        public ArcherIdle(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+                    : base(enemy, player, agent, anim, path, balancer, manager)
         {
             CurrentState = States.ARCHER_IDLE;
         }
@@ -36,7 +37,7 @@ namespace Enemy.Archer
 
         private void FindPlayer()
         {
-            NextState = new ArcherAttacking(Enemy, Player, Agent, Anim, Path, Balancer);
+            NextState = new ArcherAttacking(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
             Stage = Events.EXIT;
         }
     }

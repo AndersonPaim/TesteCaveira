@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using Enemy.Melee;
 using Enemy.Archer;
+using Managers;
 
 namespace Enemy
 {
@@ -11,8 +12,8 @@ namespace Enemy
     {
         private Enemies _enemy;
 
-        public EnemyDamage(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, Enemies enemyType)
-                    : base(enemy, player, agent, anim, path, balancer)
+        public EnemyDamage(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, Enemies enemyType, GameManager manager)
+                    : base(enemy, player, agent, anim, path, balancer, manager)
         {
             CurrentState = States.TAKINGDAMAGE;
             _enemy = enemyType;
@@ -32,17 +33,17 @@ namespace Enemy
 
             if(_enemy == Enemies.MELEE)
             {
-                NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer);
+                NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
             }
             else
             {
                 if(LastState == States.ARCHER_MOVING)
                 {
-                    NextState = new ArcherMoving(Enemy, Player, Agent, Anim, Path, Balancer);
+                    NextState = new ArcherMoving(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
                 }
                 else
                 {
-                    NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer);
+                    NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
                 }
             }
 

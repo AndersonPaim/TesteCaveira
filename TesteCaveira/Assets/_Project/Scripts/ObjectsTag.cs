@@ -5,4 +5,7 @@ public enum ObjectsTag
     Arrow,
     EnemyArrow,
     HitParticle,
+    HealthPowerUp,
+    DamagePowerUp,
+    CleanEnemiesPowerUp,
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,8 +9,8 @@ namespace Enemy.Archer
     {
         private Transform _waypoint;
 
-        public ArcherMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
-                    : base(enemy, player, agent, anim, path, balancer)
+        public ArcherMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+                    : base(enemy, player, agent, anim, path, balancer, manager)
         {
             CurrentState = States.ARCHER_MOVING;
         }
@@ -33,7 +34,7 @@ namespace Enemy.Archer
 
             if(Agent.remainingDistance < Agent.stoppingDistance && Agent.remainingDistance != 0)
             {
-                NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer);
+                NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
                 Stage = Events.EXIT;
             }
         }

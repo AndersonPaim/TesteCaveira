@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Cysharp.Threading.Tasks;
+using Managers;
+using PowerUps;
 
 namespace Enemy.Melee
 {
@@ -8,8 +10,8 @@ namespace Enemy.Melee
     {
         private int _destroyDelay;
 
-        public EnemyDying(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer)
-                    : base(enemy, player, agent, anim, path, balancer)
+        public EnemyDying(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+                    : base(enemy, player, agent, anim, path, balancer, manager)
         {
             CurrentState = States.DYING;
             _destroyDelay = balancer.destroyDelay;
@@ -19,6 +21,7 @@ namespace Enemy.Melee
         {
             Agent.enabled = false;
             Anim.SetTrigger("Death");
+            DropPowerUp();
             DisableObjectASync();
             base.Enter();
         }
@@ -27,6 +30,26 @@ namespace Enemy.Melee
         {
             await UniTask.Delay(_destroyDelay * 1000);
             Enemy.gameObject.SetActive(false);
+        }
+
+        private void DropPowerUp()
+        {
+            foreach(PowerUp powerUp in Balancer.drops)
+            {
+                int randomValue = Random.Range(1, 101);
+
+                if(powerUp.DropRate > randomValue)
+                {
+                    InstantiatePowerUp(powerUp.PowerUpTag);
+                    break;
+                }
+            }
+        }
+
+        private void InstantiatePowerUp(ObjectsTag tag)
+        {
+            GameObject obj = Manager.ObjectPooler.SpawnFromPool(tag);
+            obj.transform.position = Enemy.transform.position;
         }
     }
 }

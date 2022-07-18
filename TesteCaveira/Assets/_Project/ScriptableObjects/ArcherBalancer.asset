@@ -19,3 +19,4 @@ MonoBehaviour:
   stunCooldown: 0
   attackCooldown: 3
   destroyDelay: 4
+  drops: []

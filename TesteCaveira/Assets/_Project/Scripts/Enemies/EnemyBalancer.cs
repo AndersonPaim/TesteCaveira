@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PowerUps;
 
 namespace Enemy
 {
@@ -14,5 +15,6 @@ namespace Enemy
         public int stunCooldown;
         public int attackCooldown;
         public int destroyDelay;
+        public List<PowerUp> drops;
     }
 }
