@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class DefaultSword : WeaponBase
+    public class SwordWeapon : WeaponBase
     {
         protected virtual void OnTriggerEnter(Collider other)
         {

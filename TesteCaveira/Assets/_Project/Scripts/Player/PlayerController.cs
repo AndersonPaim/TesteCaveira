@@ -4,7 +4,7 @@ using System;
 using Managers;
 using Interfaces;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MonoBehaviour, IDamageable, IHealable
 {
     public delegate void HealthHandler(float health);
     public HealthHandler OnUpdateHealth;
@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private float _speed = 0;
     private float _health;
+    private float _maxHealth;
     private bool _isGrounded = true;
     private Rigidbody _rb;
     private PlayerData _playerData;
@@ -29,6 +30,20 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         _health -= damage;
         OnTakeDamage?.Invoke();
+        OnUpdateHealth?.Invoke(_health);
+    }
+
+    public void Heal(float healValue)
+    {
+        if(_health + healValue >= _maxHealth)
+        {
+            _health = _maxHealth;
+        }
+        else
+        {
+            _health += healValue;
+        }
+
         OnUpdateHealth?.Invoke(_health);
     }
 
@@ -65,6 +80,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         _rb = GetComponent<Rigidbody>();
         _objectPooler = _manager.ObjectPooler;
         _health = _playerBalancer.health;
+        _maxHealth = _health;
         _playerData = new PlayerData();
         OnInitializeHealth?.Invoke(_health);
         SetupDelegates();

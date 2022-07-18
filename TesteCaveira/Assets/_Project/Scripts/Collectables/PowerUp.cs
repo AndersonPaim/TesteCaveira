@@ -1,4 +1,4 @@
-namespace PowerUps
+namespace Collectable.PowerUp
 {
     [System.Serializable]
     public class PowerUp

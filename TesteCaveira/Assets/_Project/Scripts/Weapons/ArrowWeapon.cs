@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Weapons
 {
-    public class DefaultArrow : WeaponBase
+    public class ArrowWeapon : WeaponBase
     {
         [SerializeField] private int _destroyDelay;
         private Rigidbody _rb;

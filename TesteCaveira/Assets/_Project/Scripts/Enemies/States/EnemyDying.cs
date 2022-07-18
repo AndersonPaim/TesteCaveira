@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using Cysharp.Threading.Tasks;
 using Managers;
-using PowerUps;
+using Collectable.PowerUp;
+using Collectable;
 
 namespace Enemy.Melee
 {
@@ -50,6 +51,8 @@ namespace Enemy.Melee
         {
             GameObject obj = Manager.ObjectPooler.SpawnFromPool(tag);
             obj.transform.position = Enemy.transform.position;
+            CollectableBase collectable = obj.GetComponent<CollectableBase>();
+            collectable.SetupCollectable(Manager);
         }
     }
 }
