@@ -19,7 +19,7 @@ namespace Enemy.Melee
 
         public override void Enter()
         {
-            Agent.enabled = false;
+            Agent.SetDestination(Enemy.transform.position);
             Anim.SetTrigger("Death");
             DropPowerUp();
             DisableObjectASync();
