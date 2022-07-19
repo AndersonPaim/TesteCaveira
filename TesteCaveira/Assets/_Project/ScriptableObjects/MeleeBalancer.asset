@@ -21,8 +21,8 @@ MonoBehaviour:
   destroyDelay: 4
   drops:
   - PowerUpTag: 5
-    DropRate: 0
+    DropRate: 10
   - PowerUpTag: 6
-    DropRate: 0
+    DropRate: 10
   - PowerUpTag: 7
-    DropRate: 95
+    DropRate: 5
