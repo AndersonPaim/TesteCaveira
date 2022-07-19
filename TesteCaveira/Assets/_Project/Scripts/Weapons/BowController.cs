@@ -28,15 +28,19 @@ public class BowController : MonoBehaviour
     public void SetDamageBuff(float multiplier, int time)
     {
         _damageMultiplier = multiplier;
-        _cancellationTokenSource.Cancel();
         _previewArrowMesh.material = _previewBuffedArrowMat;
+
+        if(_cancellationTokenSource != null)
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
         DamageBuffTimeASync(time);
     }
 
     private void Start()
     {
         Initialize();
-        _cancellationTokenSource = new CancellationTokenSource();
     }
 
     private void Update()
@@ -106,6 +110,7 @@ public class BowController : MonoBehaviour
 
     private async UniTask DamageBuffTimeASync(int time)
     {
+        _cancellationTokenSource = new CancellationTokenSource();
         await UniTask.Delay((time * 1000), cancellationToken: _cancellationTokenSource.Token);
         _damageMultiplier = 1;
         _previewArrowMesh.material = _previewArrowDefaultMat;

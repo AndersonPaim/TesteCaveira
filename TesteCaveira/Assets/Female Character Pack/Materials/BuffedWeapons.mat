@@ -21,16 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BuffedWeapons
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ValidKeywords:
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _EMISSION
-  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-  - _SPECULARHIGHLIGHTS_OFF
-  m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -100,6 +98,7 @@ Material:
     - Vector1_de2192eea7d34548961d2f37b9e45ae8: 0.346
     - _AlphaClip: 0
     - _Blend: 0
+    - _BlendOp: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -119,6 +118,7 @@ Material:
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _SampleGI: 0
     - _Shininess: 0
     - _Smoothness: 1
     - _SmoothnessSource: 0
@@ -137,8 +137,8 @@ Material:
     - Color_73c4a6f8ba7f47228c1461e708189e26: {r: 2, g: 2, b: 2, a: 0}
     - Color_af75d78bbe2540eab9adcedced035fb2: {r: 0.5471698, g: 0.53942686, b: 0.53942686,
         a: 0}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.044194173, g: 0, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 0.5053192, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.5053192, b: 0, a: 1}
+    - _EmissionColor: {r: 0.032691926, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []

@@ -2,7 +2,6 @@ using UnityEngine.AI;
 using UnityEngine;
 using Interfaces;
 using Managers;
-using System;
 
 namespace Enemy.Melee
 {
@@ -20,6 +19,8 @@ namespace Enemy.Melee
         private GameObject _player;
         private float _health;
         private bool _isDead = false;
+
+        public StateMachine CurrentState => _currentState;
 
         public void TakeDamage(float damage)
         {

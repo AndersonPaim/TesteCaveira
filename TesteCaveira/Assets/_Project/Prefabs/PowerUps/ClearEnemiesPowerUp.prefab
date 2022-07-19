@@ -9638,6 +9638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3383445816480925302}
   - component: {fileID: 7313547534127707456}
+  - component: {fileID: 2469744024068601137}
   m_Layer: 7
   m_Name: ClearEnemiesPowerUp
   m_TagString: Untagged
@@ -9674,6 +9675,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 0.7, z: 0.7}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2469744024068601137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383445816480925577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e7395f01e91dee499a296ee5572f86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healAmount: 0
 --- !u!1 &4794908033333038411
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
-using System;
 using Managers;
 
 namespace Enemy.Archer
@@ -22,6 +21,8 @@ namespace Enemy.Archer
         private GameObject _player;
         private float _health;
         private bool _isDead = false;
+
+        public StateMachine CurrentState => _currentState;
 
         public void Attack()
         {

@@ -19,11 +19,25 @@ public class EnemySpawnerController : MonoBehaviour
     [SerializeField] private List<Transform> _spawnPositions = new List<Transform>();
     [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
 
-    private List<GameObject> _currentEnemies = new List<GameObject>();
+    private List<GameObject> _currentArchers = new List<GameObject>();
+    private List<GameObject> _currentMelees = new List<GameObject>();
     private int _currentArcherEnemies;
     private int _currentMeleeEnemies;
     private int _currentWave = 0;
     private ObjectPooler _objectPooler;
+
+    public void ClearEnemiesAlive()
+    {
+        foreach(GameObject enemy in _currentMelees)
+        {
+            enemy.GetComponent<MeleeAI>().CurrentState.Death();
+        }
+
+        foreach(GameObject enemy in _currentArchers)
+        {
+            enemy.GetComponent<ArcherAI>().CurrentState.Death();
+        }
+    }
 
     private void Start()
     {
@@ -39,7 +53,7 @@ public class EnemySpawnerController : MonoBehaviour
     private void ArcherDeath(GameObject enemy)
     {
         _currentArcherEnemies--;
-        _currentEnemies.Remove(enemy);
+        _currentArchers.Remove(enemy);
         enemy.GetComponent<ArcherAI>().OnEnemyDie -= MeleeDeath;
         CanFinishWave();
     }
@@ -47,7 +61,7 @@ public class EnemySpawnerController : MonoBehaviour
     private void MeleeDeath(GameObject enemy)
     {
         _currentMeleeEnemies--;
-        _currentEnemies.Remove(enemy);
+        _currentMelees.Remove(enemy);
         enemy.GetComponent<MeleeAI>().OnEnemyDie -= MeleeDeath;
     }
 
@@ -103,7 +117,7 @@ public class EnemySpawnerController : MonoBehaviour
         ArcherAI archer = enemy.GetComponent<ArcherAI>();
         archer.SetupEnemy(_manager);
         archer.OnEnemyDie += ArcherDeath;
-        _currentEnemies.Add(enemy);
+        _currentArchers.Add(enemy);
 
         if(_currentArcherEnemies < _spawnWaves[_currentWave].MaxArcherEnemies || _currentMeleeEnemies < _spawnWaves[_currentWave].MaxMeleeEnemies)
         {
@@ -119,7 +133,7 @@ public class EnemySpawnerController : MonoBehaviour
         MeleeAI melee = enemy.GetComponent<MeleeAI>();
         melee.SetupEnemy(_manager);
         melee.OnEnemyDie += MeleeDeath;
-        _currentEnemies.Add(enemy);
+        _currentMelees.Add(enemy);
 
         if(_currentArcherEnemies < _spawnWaves[_currentWave].MaxArcherEnemies || _currentMeleeEnemies < _spawnWaves[_currentWave].MaxMeleeEnemies)
         {

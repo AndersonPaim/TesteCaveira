@@ -23,6 +23,6 @@ MonoBehaviour:
   - PowerUpTag: 5
     DropRate: 0
   - PowerUpTag: 6
-    DropRate: 90
-  - PowerUpTag: 7
     DropRate: 0
+  - PowerUpTag: 7
+    DropRate: 95
