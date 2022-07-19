@@ -935,6 +935,18 @@ Transform:
   m_Father: {fileID: 1499146983}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &316948510 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5479831645863442685, guid: 80c4d69d609ece3448e06a6b62d299e8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1351413517305500755}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &321756898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1420,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 438770630}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &443478852 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3760904541900150995, guid: 3b5f262fda90fe74e9ee3532a319c5fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3760904541372013009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &472537194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3519,6 +3543,22 @@ MonoBehaviour:
   _victoryMenu: {fileID: 1590612273}
   _defeatedMenu: {fileID: 715710279}
   _resumeButton: {fileID: 256310191}
+  _victoryQuitButton: {fileID: 1763110005}
+  _victoryRestartButton: {fileID: 316948510}
+  _defeatedQuitButton: {fileID: 1028525068}
+  _defeatedRestartButton: {fileID: 443478852}
+--- !u!114 &1028525068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3760904542115217475, guid: 3b5f262fda90fe74e9ee3532a319c5fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3760904541372013009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1042169126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9125,6 +9165,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1756180580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1763110005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6051613670619251096, guid: 80c4d69d609ece3448e06a6b62d299e8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1351413517305500755}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1775806025
 GameObject:
   m_ObjectHideFlags: 0
@@ -10287,11 +10339,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1004422749}
     m_Modifications:
-    - target: {fileID: 1351413518274463072, guid: 80c4d69d609ece3448e06a6b62d299e8,
-        type: 3}
-      propertyPath: otherPanels.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1351413518274463073, guid: 80c4d69d609ece3448e06a6b62d299e8,
         type: 3}
       propertyPath: m_Pivot.x
@@ -10401,11 +10448,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VictoryMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 1351413518274463074, guid: 80c4d69d609ece3448e06a6b62d299e8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80c4d69d609ece3448e06a6b62d299e8, type: 3}
@@ -10545,11 +10587,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DefeatMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 3760904541999531670, guid: 3b5f262fda90fe74e9ee3532a319c5fc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3760904541999531673, guid: 3b5f262fda90fe74e9ee3532a319c5fc,
         type: 3}
