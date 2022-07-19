@@ -15,12 +15,14 @@ namespace Managers
         [SerializeField] private BowController _bowController;
         [SerializeField] private GameMenusController _gameMenusController;
         [SerializeField] private EnemySpawnerController _enemySpawnerController;
+        [SerializeField] private SceneController _sceneController;
 
         public ObjectPooler ObjectPooler => _objectPooler;
         public InputListener InputListener => _inputListener;
         public PlayerController PlayerController => _playerController;
         public BowController BowController => _bowController;
         public EnemySpawnerController EnemySpawnerController => _enemySpawnerController;
+        public SceneController SceneController => _sceneController;
 
         private bool _isPaused = false;
 

@@ -18,15 +18,12 @@ public class PlayerController : MonoBehaviour, IDamageable, IHealable
     [SerializeField] private PlayerCamController _cameraController;
     [SerializeField] private PlayerBalancer _playerBalancer;
     [SerializeField] private GameObject _playerPivot;
-    [SerializeField] private CinemachineVirtualCamera _virtualCam;
 
     private float _speed = 0;
     private float _health;
     private float _maxHealth;
     private bool _isGrounded = true;
     private Rigidbody _rb;
-    private PlayerData _playerData;
-    private ObjectPooler _objectPooler;
 
     public void TakeDamage(float damage)
     {
@@ -85,10 +82,8 @@ public class PlayerController : MonoBehaviour, IDamageable, IHealable
     {
         Cursor.lockState = CursorLockMode.Locked;
         _rb = GetComponent<Rigidbody>();
-        _objectPooler = _manager.ObjectPooler;
         _health = _playerBalancer.health;
         _maxHealth = _health;
-        _playerData = new PlayerData();
         OnInitializeHealth?.Invoke(_health);
         SetupDelegates();
     }
