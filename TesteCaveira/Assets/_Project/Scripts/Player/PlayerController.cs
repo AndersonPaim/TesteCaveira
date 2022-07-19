@@ -6,6 +6,8 @@ using Interfaces;
 
 public class PlayerController : MonoBehaviour, IDamageable, IHealable
 {
+    public Action OnPlayerDie;
+
     public delegate void HealthHandler(float health);
     public HealthHandler OnUpdateHealth;
     public HealthHandler OnInitializeHealth;
@@ -31,6 +33,11 @@ public class PlayerController : MonoBehaviour, IDamageable, IHealable
         _health -= damage;
         OnTakeDamage?.Invoke();
         OnUpdateHealth?.Invoke(_health);
+
+        if(_health <= 0)
+        {
+            OnPlayerDie?.Invoke();
+        }
     }
 
     public void Heal(float healValue)

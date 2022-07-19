@@ -11,7 +11,10 @@ namespace UI
 
         [SerializeField] private GameManager _manager;
         [SerializeField] private GameObject _pauseMenu;
+        [SerializeField] private GameObject _victoryMenu;
+        [SerializeField] private GameObject _defeatedMenu;
         [SerializeField] private Button _resumeButton;
+
         private bool _isPaused = false;
 
         private void Start()
@@ -27,12 +30,14 @@ namespace UI
         private void StartEvents()
         {
             _manager.InputListener.OnPause += PauseGame;
+            _manager.OnGameDefeated += ShowDefeatedMenu;
             _resumeButton.onClick.AddListener(ResumeButtonClicked);
         }
 
         private void DestroyEvents()
         {
             _manager.InputListener.OnPause -= PauseGame;
+            _manager.OnGameDefeated -= ShowDefeatedMenu;
             _resumeButton.onClick.RemoveListener(ResumeButtonClicked);
         }
 
@@ -55,6 +60,11 @@ namespace UI
             OnPause?.Invoke();
             _isPaused = false;
             _pauseMenu.SetActive(false);
+        }
+
+        private void ShowDefeatedMenu()
+        {
+            _defeatedMenu.SetActive(true);
         }
     }
 }

@@ -1,10 +1,14 @@
 using UnityEngine;
 using UI;
+using System;
 
 namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
+        public Action OnGameVictory;
+        public Action OnGameDefeated;
+
         [SerializeField] private ObjectPooler _objectPooler;
         [SerializeField] private InputListener _inputListener;
         [SerializeField] private PlayerController _playerController;
@@ -34,12 +38,14 @@ namespace Managers
         {
             _inputListener.OnPause += PauseGame;
             _gameMenusController.OnPause += PauseGame;
+            _playerController.OnPlayerDie += Defeated;
         }
 
         private void DestroyEvents()
         {
             _inputListener.OnPause -= PauseGame;
             _gameMenusController.OnPause -= PauseGame;
+            _playerController.OnPlayerDie -= Defeated;
         }
 
         private void PauseGame()
@@ -57,5 +63,18 @@ namespace Managers
                 Time.timeScale = 0;
             }
         }
+
+        private void Victory()
+        {
+
+        }
+
+        private void Defeated()
+        {
+            OnGameDefeated?.Invoke();
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+        }
+
     }
 }
