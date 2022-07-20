@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Enemy.Archer;
@@ -14,6 +15,8 @@ public class EnemySpawnerController : MonoBehaviour
         public int MaxMeleeEnemies;
         public int SpawnDelay;
     }
+
+    public Action OnFinishWaves;
 
     [SerializeField] private GameManager _manager;
     [SerializeField] private List<Transform> _spawnPositions = new List<Transform>();
@@ -39,10 +42,10 @@ public class EnemySpawnerController : MonoBehaviour
         }
     }
 
-    private void Start()
+    private async UniTask Start()
     {
         Initialize();
-        SpawnEnemiesASync();
+        await SpawnEnemiesASync();
     }
 
     private void Initialize()
@@ -73,10 +76,11 @@ public class EnemySpawnerController : MonoBehaviour
 
             if(_currentWave >= _spawnWaves.Count)
             {
-                //TODO WIN
+                OnFinishWaves?.Invoke();
             }
             else
             {
+
                 SpawnEnemiesASync();
             }
         }
@@ -96,7 +100,7 @@ public class EnemySpawnerController : MonoBehaviour
         }
         else
         {
-            int randomEnemy = Random.Range(1, 3);
+            int randomEnemy = UnityEngine.Random.Range(1, 3);
 
             if(randomEnemy == 1)
             {
@@ -143,7 +147,7 @@ public class EnemySpawnerController : MonoBehaviour
 
     private Transform GetSpawnPos()
     {
-        int randomPos = Random.Range(0, _spawnPositions.Count);
+        int randomPos = UnityEngine.Random.Range(0, _spawnPositions.Count);
 
         return _spawnPositions[randomPos];
     }

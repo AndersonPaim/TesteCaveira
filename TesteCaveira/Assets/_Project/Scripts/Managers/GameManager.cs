@@ -16,6 +16,7 @@ namespace Managers
         [SerializeField] private GameMenus _gameMenus;
         [SerializeField] private EnemySpawnerController _enemySpawnerController;
         [SerializeField] private SceneController _sceneController;
+        [SerializeField] private PauseScreen _pauseScreen;
 
         public ObjectPooler ObjectPooler => _objectPooler;
         public InputListener InputListener => _inputListener;
@@ -29,6 +30,7 @@ namespace Managers
         private void Start()
         {
             StartEvents();
+            Time.timeScale = 1;
         }
 
         private void OnDestroy()
@@ -40,14 +42,18 @@ namespace Managers
         {
             _inputListener.OnPause += PauseGame;
             _gameMenus.OnPause += PauseGame;
+            _pauseScreen.OnPause += PauseGame;
             _playerController.OnPlayerDie += Defeated;
+            _enemySpawnerController.OnFinishWaves += Victory;
         }
 
         private void DestroyEvents()
         {
             _inputListener.OnPause -= PauseGame;
             _gameMenus.OnPause -= PauseGame;
+            _pauseScreen.OnPause -= PauseGame;
             _playerController.OnPlayerDie -= Defeated;
+            _enemySpawnerController.OnFinishWaves -= Victory;
         }
 
         private void PauseGame()
@@ -68,7 +74,9 @@ namespace Managers
 
         private void Victory()
         {
-
+            OnGameVictory?.Invoke();
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
         }
 
         private void Defeated()
