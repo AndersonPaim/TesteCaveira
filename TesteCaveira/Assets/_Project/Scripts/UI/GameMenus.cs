@@ -1,20 +1,15 @@
-using System;
 using Interfaces;
 using Managers;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI
 {
     public class GameMenus : MonoBehaviour
     {
-        public Action OnPause;
-
         [SerializeField] private GameManager _manager;
         [SerializeField] private GameObject _pauseMenu;
         [SerializeField] private GameObject _victoryMenu;
         [SerializeField] private GameObject _defeatedMenu;
-        [SerializeField] private Button _resumeButton;
 
         private ISceneLoader _sceneLoader;
         private bool _isPaused = false;
@@ -40,7 +35,6 @@ namespace UI
             _manager.InputListener.OnPause += PauseGame;
             _manager.OnGameDefeated += ShowDefeatedScreen;
             _manager.OnGameVictory += ShowVictoryScreen;
-            _resumeButton.onClick.AddListener(ResumeButtonClicked);
         }
 
         private void DestroyEvents()
@@ -48,7 +42,6 @@ namespace UI
             _manager.InputListener.OnPause -= PauseGame;
             _manager.OnGameDefeated -= ShowDefeatedScreen;
             _manager.OnGameVictory -= ShowVictoryScreen;
-            _resumeButton.onClick.RemoveListener(ResumeButtonClicked);
         }
 
         private void PauseGame()
@@ -63,13 +56,6 @@ namespace UI
                 _isPaused = true;
                 _pauseMenu.SetActive(true);
             }
-        }
-
-        private void ResumeButtonClicked()
-        {
-            OnPause?.Invoke();
-            _isPaused = false;
-            _pauseMenu.SetActive(false);
         }
 
         private void ShowDefeatedScreen()

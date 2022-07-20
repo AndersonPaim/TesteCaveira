@@ -1,6 +1,7 @@
 using UnityEngine;
 using UI;
 using System;
+using Cysharp.Threading.Tasks;
 
 namespace Managers
 {
@@ -8,12 +9,12 @@ namespace Managers
     {
         public Action OnGameVictory;
         public Action OnGameDefeated;
+        public Action<bool> OnPauseGame;
 
         [SerializeField] private ObjectPooler _objectPooler;
         [SerializeField] private InputListener _inputListener;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private BowController _bowController;
-        [SerializeField] private GameMenus _gameMenus;
         [SerializeField] private EnemySpawnerController _enemySpawnerController;
         [SerializeField] private SceneController _sceneController;
         [SerializeField] private PauseScreen _pauseScreen;
@@ -41,7 +42,6 @@ namespace Managers
         private void StartEvents()
         {
             _inputListener.OnPause += PauseGame;
-            _gameMenus.OnPause += PauseGame;
             _pauseScreen.OnPause += PauseGame;
             _playerController.OnPlayerDie += Defeated;
             _enemySpawnerController.OnFinishWaves += Victory;
@@ -50,7 +50,6 @@ namespace Managers
         private void DestroyEvents()
         {
             _inputListener.OnPause -= PauseGame;
-            _gameMenus.OnPause -= PauseGame;
             _pauseScreen.OnPause -= PauseGame;
             _playerController.OnPlayerDie -= Defeated;
             _enemySpawnerController.OnFinishWaves -= Victory;
@@ -63,28 +62,35 @@ namespace Managers
                 _isPaused = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
+                OnPauseGame?.Invoke(_isPaused);
             }
             else
             {
                 _isPaused = true;
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0;
+                OnPauseGame?.Invoke(_isPaused);
             }
         }
 
         private void Victory()
         {
+            PauseGameFade();
             OnGameVictory?.Invoke();
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0;
         }
 
         private void Defeated()
         {
+            PauseGameFade();
             OnGameDefeated?.Invoke();
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0;
         }
 
+        private async UniTask PauseGameFade()
+        {
+            Time.timeScale = 0.3f;
+            await UniTask.Delay(1500);
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }

@@ -16,7 +16,6 @@ namespace UI
         [SerializeField] private Button _restartButton;
 
         private ISceneLoader _sceneLoader;
-        private bool _isPaused = false;
 
         private void Start()
         {
@@ -51,7 +50,6 @@ namespace UI
         private void ResumeButtonClicked()
         {
             OnPause?.Invoke();
-            _isPaused = false;
             gameObject.SetActive(false);
         }
 
