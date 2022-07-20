@@ -88,7 +88,7 @@ namespace Managers
         private async UniTask PauseGameFade()
         {
             Time.timeScale = 0.3f;
-            await UniTask.Delay(1500);
+            await UniTask.Delay(800);
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
         }

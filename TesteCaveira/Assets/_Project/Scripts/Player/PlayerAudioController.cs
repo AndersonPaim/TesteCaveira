@@ -11,7 +11,6 @@ public class PlayerAudioController : MonoBehaviour
 
     private IAudioPlayer _audioPlayer;
 
-
     public void PlayShootAudio()
     {
         _audioPlayer.PlayAudio(_shootAudio, transform.position);
