@@ -8117,10 +8117,7 @@ MonoBehaviour:
   - {fileID: 688367978}
   - {fileID: 271054923}
   - {fileID: 212265613}
-  _spawnWaves:
-  - MaxArcherEnemies: 1
-    MaxMeleeEnemies: 1
-    SpawnDelay: 5
+  _spawnWaves: []
 --- !u!1001 &1520065153
 PrefabInstance:
   m_ObjectHideFlags: 0

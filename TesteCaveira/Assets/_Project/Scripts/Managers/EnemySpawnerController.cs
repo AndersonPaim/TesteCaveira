@@ -45,12 +45,55 @@ public class EnemySpawnerController : MonoBehaviour
     private async UniTask Start()
     {
         Initialize();
+        InitializeWaves();
         await SpawnEnemiesASync();
     }
 
     private void Initialize()
     {
         _objectPooler = _manager.ObjectPooler;
+    }
+
+    private void InitializeWaves()
+    {
+        if(_spawnWaves.Count == 0)
+        {
+            RandomizeWaves();
+        }
+    }
+
+    private void RandomizeWaves()
+    {
+        for(int i = 0; i < 5; i++)
+        {
+            float enemiesNumber = i + 1 * 2;
+
+            int meleeEnemies = 0;
+            int archerEnemies = 0;
+            int randomSpawnDelay = 0;
+
+            for(int j = 0; j < enemiesNumber; j++)
+            {
+                int randomEnemy = UnityEngine.Random.Range(0, 2);
+                randomSpawnDelay = UnityEngine.Random.Range(1, 10);
+
+                if(randomEnemy == 0)
+                {
+                    meleeEnemies++;
+                }
+                else
+                {
+                    archerEnemies++;
+                }
+            }
+
+            Wave wave = new Wave();
+            wave.MaxArcherEnemies = meleeEnemies;
+            wave.MaxMeleeEnemies = archerEnemies;
+            wave.SpawnDelay = randomSpawnDelay;
+
+            _spawnWaves.Add(wave);
+        }
     }
 
     private void ArcherDeath(GameObject enemy)
@@ -80,7 +123,6 @@ public class EnemySpawnerController : MonoBehaviour
             }
             else
             {
-
                 SpawnEnemiesASync();
             }
         }
