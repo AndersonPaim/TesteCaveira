@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class GameMenusController : MonoBehaviour
+    public class GameMenus : MonoBehaviour
     {
         public Action OnPause;
 

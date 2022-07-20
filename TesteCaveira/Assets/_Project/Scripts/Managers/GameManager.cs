@@ -13,7 +13,7 @@ namespace Managers
         [SerializeField] private InputListener _inputListener;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private BowController _bowController;
-        [SerializeField] private GameMenusController _gameMenusController;
+        [SerializeField] private GameMenus _gameMenus;
         [SerializeField] private EnemySpawnerController _enemySpawnerController;
         [SerializeField] private SceneController _sceneController;
 
@@ -39,14 +39,14 @@ namespace Managers
         private void StartEvents()
         {
             _inputListener.OnPause += PauseGame;
-            _gameMenusController.OnPause += PauseGame;
+            _gameMenus.OnPause += PauseGame;
             _playerController.OnPlayerDie += Defeated;
         }
 
         private void DestroyEvents()
         {
             _inputListener.OnPause -= PauseGame;
-            _gameMenusController.OnPause -= PauseGame;
+            _gameMenus.OnPause -= PauseGame;
             _playerController.OnPlayerDie -= Defeated;
         }
 
