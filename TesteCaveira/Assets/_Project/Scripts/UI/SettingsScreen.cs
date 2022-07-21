@@ -16,6 +16,7 @@ namespace UI
         private void Start()
         {
             SetupEvents();
+            InitializeSliders();
         }
 
         private void OnEnable()
@@ -26,6 +27,12 @@ namespace UI
         private void OnDestroy()
         {
             DestroyEvents();
+        }
+
+        private void InitializeSliders()
+        {
+            SaveData data = SaveSystem.Load();
+            _effectsVolumeSlider.value = data.soundfxVolume;
         }
 
         private void SetupEvents()

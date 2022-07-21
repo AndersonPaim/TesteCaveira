@@ -55,14 +55,16 @@ namespace Managers
         {
             _objectPooler = _manager.ObjectPooler;
 
-            //SaveData data = SaveSystem.localData;
-            //_gameAudioMixer.SetFloat(AudioMixerParameters.EffectsVolume, Mathf.Log10(data.soundfxVolume) * 20);
-            //_gameAudioMixer.SetFloat(AudioMixerParameters.MusicVolume, Mathf.Log10(data.musicVolume) * 20);
+            SaveData data = SaveSystem.Load();
+            _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(data.soundfxVolume) * 20);
         }
 
         private void EffectsVolume(float volume)
         {
             _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(volume) * 20);
+            SaveData data = SaveSystem.localData;
+            data.soundfxVolume = volume;
+            SaveSystem.Save();
         }
 
         private void PauseAudio(bool isPaused)
