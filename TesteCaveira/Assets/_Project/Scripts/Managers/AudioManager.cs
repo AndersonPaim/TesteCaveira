@@ -56,15 +56,22 @@ namespace Managers
             _objectPooler = _manager.ObjectPooler;
 
             SaveData data = SaveSystem.Load();
-            _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(data.soundfxVolume) * 20);
+            _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(data.SoundfxVolume) * 20);
+            _gameAudioMixer.SetFloat("MusicVolume", Mathf.Log10(data.MusicVolume) * 20);
         }
 
-        private void EffectsVolume(float volume)
+        private void SetupEvents()
         {
-            _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(volume) * 20);
-            SaveData data = SaveSystem.localData;
-            data.soundfxVolume = volume;
-            SaveSystem.Save();
+            _manager.SettingsScreen.OnSetEffectsVolume += EffectsVolume;
+            _manager.SettingsScreen.OnSetMusicVolume += MusicVolume;
+            _manager.OnPauseGame += PauseAudio;
+        }
+
+        private void DestroyEvents()
+        {
+            _manager.SettingsScreen.OnSetEffectsVolume -= EffectsVolume;
+            _manager.SettingsScreen.OnSetMusicVolume -= MusicVolume;
+            _manager.OnPauseGame -= PauseAudio;
         }
 
         private void PauseAudio(bool isPaused)
@@ -79,14 +86,20 @@ namespace Managers
             }
         }
 
-        private void SetupEvents()
+        private void EffectsVolume(float volume)
         {
-            _manager.SettingsScreen.OnSetEffectsVolume += EffectsVolume;
+            _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(volume) * 20);
+            SaveData data = SaveSystem.localData;
+            data.SoundfxVolume = volume;
+            SaveSystem.Save();
         }
 
-        private void DestroyEvents()
+        private void MusicVolume(float volume)
         {
-            _manager.SettingsScreen.OnSetEffectsVolume -= EffectsVolume;
+            _gameAudioMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+            SaveData data = SaveSystem.localData;
+            data.MusicVolume = volume;
+            SaveSystem.Save();
         }
     }
 }

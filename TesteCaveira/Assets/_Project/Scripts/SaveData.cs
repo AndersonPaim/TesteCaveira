@@ -1,7 +1,7 @@
 [System.Serializable]
 public class SaveData
 {
-    public float musicVolume = 0.8f;
-    public float soundfxVolume = 1;
-    public float startCountdown = 3;
+    public float MusicVolume = 0.8f;
+    public float SoundfxVolume = 1;
+    public float StartCountdown = 3;
 }

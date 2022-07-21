@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 221778305903430705}
   - component: {fileID: 221778305903430704}
   m_Layer: 0
-  m_Name: Slider_On
+  m_Name: SliderSFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2268,7 +2268,7 @@ GameObject:
   - component: {fileID: 221778306778162271}
   - component: {fileID: 221778306778162270}
   m_Layer: 0
-  m_Name: Slider_Off
+  m_Name: SliderMusic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2749,6 +2749,7 @@ MonoBehaviour:
   _closeButton: {fileID: 221778306918091719}
   _settingsPopUp: {fileID: 221778306624703685}
   _effectsVolumeSlider: {fileID: 221778305903430704}
+  _musicVolumeSlider: {fileID: 221778306778162270}
 --- !u!1 &221778307132859182
 GameObject:
   m_ObjectHideFlags: 0

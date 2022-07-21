@@ -8,10 +8,12 @@ namespace UI
     {
         public delegate void SetVolumeHandler(float volume);
         public SetVolumeHandler OnSetEffectsVolume;
+        public SetVolumeHandler OnSetMusicVolume;
 
         [SerializeField] private Button _closeButton;
         [SerializeField] private GameObject _settingsPopUp;
         [SerializeField] private Slider _effectsVolumeSlider;
+        [SerializeField] private Slider _musicVolumeSlider;
 
         private void Start()
         {
@@ -32,13 +34,15 @@ namespace UI
         private void InitializeSliders()
         {
             SaveData data = SaveSystem.Load();
-            _effectsVolumeSlider.value = data.soundfxVolume;
+            _effectsVolumeSlider.value = data.SoundfxVolume;
+            _musicVolumeSlider.value = data.MusicVolume;
         }
 
         private void SetupEvents()
         {
             _closeButton.onClick.AddListener(CloseButtonClicked);
             _effectsVolumeSlider.onValueChanged.AddListener(ChangeEffectsVolume);
+            _musicVolumeSlider.onValueChanged.AddListener(ChangeMusicVolume);
         }
 
         private void DestroyEvents()
@@ -70,6 +74,11 @@ namespace UI
         private void ChangeEffectsVolume(float volume)
         {
             OnSetEffectsVolume?.Invoke(volume);
+        }
+
+        private void ChangeMusicVolume(float volume)
+        {
+            OnSetMusicVolume?.Invoke(volume);
         }
     }
 }
