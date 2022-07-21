@@ -33,7 +33,7 @@ namespace UI
         private void LoadingScreenProgress(float progress)
         {
             _loadingBar.value = progress;
-            _loadingProgressText.text = "Loading " + (progress * 100).ToString() + "%";
+            _loadingProgressText.text = "Loading " + ((int)progress * 100).ToString() + "%";
         }
     }
 }
