@@ -11,6 +11,7 @@ namespace Enemy.Melee
         public EnemyHandler OnEnemyDie;
 
         [SerializeField] private EnemyBalancer _enemyBalancer;
+        [SerializeField] private EnemyAudioController _audioController;
 
         private NavMeshAgent _agent;
         private Animator _anim;
@@ -47,6 +48,7 @@ namespace Enemy.Melee
         {
             _player = manager.PlayerController.gameObject;
             _agent.enabled = true;
+            _audioController.SetupManager(manager.AudioManager);
             _currentState = new MeleeSpawn(gameObject, _player, _agent, _anim, _path, _enemyBalancer, manager);
             _health = _enemyBalancer.health;
             _isDead = false;

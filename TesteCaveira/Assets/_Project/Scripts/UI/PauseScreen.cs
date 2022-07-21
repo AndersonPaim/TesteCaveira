@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Interfaces;
 using Managers;
 using UnityEngine;
@@ -11,9 +12,12 @@ namespace UI
         public Action OnResumeGame;
 
         [SerializeField] private GameManager _manager;
+        [SerializeField] private GameObject _pausePopUp;
+        [SerializeField] private GameObject _settingsScreen;
         [SerializeField] private Button _resumeButton;
         [SerializeField] private Button _quitButton;
         [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _settingsButton;
 
         private ISceneLoader _sceneLoader;
 
@@ -21,6 +25,11 @@ namespace UI
         {
             StartEvents();
             Initialize();
+        }
+
+        private void OnEnable()
+        {
+            EntryAnimation();
         }
 
         private void OnDestroy()
@@ -38,6 +47,7 @@ namespace UI
             _resumeButton.onClick.AddListener(ResumeButtonClicked);
             _quitButton.onClick.AddListener(QuitButtonClicked);
             _restartButton.onClick.AddListener(RestartButtonClicked);
+            _settingsButton.onClick.AddListener(SettingsButtonClicked);
         }
 
         private void DestroyEvents()
@@ -45,12 +55,28 @@ namespace UI
             _resumeButton.onClick.RemoveListener(ResumeButtonClicked);
             _quitButton.onClick.RemoveListener(QuitButtonClicked);
             _restartButton.onClick.RemoveListener(RestartButtonClicked);
+            _settingsButton.onClick.RemoveListener(SettingsButtonClicked);
+        }
+
+        private void EntryAnimation()
+        {
+            _pausePopUp.transform.DOScale(1, 0.2f).SetUpdate(true);
+        }
+
+        private void ExitAnimation()
+        {
+            _pausePopUp.transform.DOScale(0, 0.2f).SetUpdate(true).OnComplete(ClosePauseMenu);
+        }
+
+        private void ClosePauseMenu()
+        {
+            OnResumeGame?.Invoke();
+            gameObject.SetActive(false);
         }
 
         private void ResumeButtonClicked()
         {
-            OnResumeGame?.Invoke();
-            gameObject.SetActive(false);
+            ExitAnimation();
         }
 
         private void RestartButtonClicked()
@@ -61,6 +87,11 @@ namespace UI
         private void QuitButtonClicked()
         {
             _sceneLoader.LoadScene("MainMenu");
+        }
+
+        private void SettingsButtonClicked()
+        {
+            _settingsScreen.SetActive(true);
         }
     }
 }

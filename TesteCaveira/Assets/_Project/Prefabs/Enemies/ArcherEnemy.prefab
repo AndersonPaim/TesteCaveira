@@ -2041,7 +2041,7 @@ MonoBehaviour:
   _damageAudio:
     Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
     Clip: {fileID: 8300000, guid: 40cd44e91a8eb4a46bcc13706efe8211, type: 3}
-    Volume: 1
+    Volume: 0.5
     Is3D: 1
   _attackAudio:
     Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}

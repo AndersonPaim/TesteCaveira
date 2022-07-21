@@ -80,12 +80,12 @@ namespace Managers
 
         private void SetupEvents()
         {
-            _manager.OnPauseGame += PauseAudio;
+            //_manager.OnPauseGame += PauseAudio;
         }
 
         private void DestroyEvents()
         {
-            _manager.OnPauseGame -= PauseAudio;
+            //_manager.OnPauseGame -= PauseAudio;
         }
     }
 }

@@ -984,6 +984,7 @@ GameObject:
   - component: {fileID: 1592044588}
   - component: {fileID: 1592044591}
   - component: {fileID: 1592044593}
+  - component: {fileID: 8792651284930636943}
   m_Layer: 3
   m_Name: WarriorMeleeEnemy
   m_TagString: Untagged
@@ -1074,6 +1075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyBalancer: {fileID: 11400000, guid: 8ddffef38749a754798c3964ba178406, type: 2}
+  _audioController: {fileID: 8792651284930636943}
 --- !u!195 &1592044591
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1115,6 +1117,33 @@ MonoBehaviour:
   - {fileID: 13700004}
   _flashMaterial: {fileID: 2100000, guid: d2a7e510f85582e4b88953c249959c72, type: 2}
   _flashTime: 100
+--- !u!114 &8792651284930636943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5ddeab9e60372438ba074c31fad6d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _footstepAudio:
+    Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
+    Clip: {fileID: 8300000, guid: 1403193617b70cf4f9a1a6fc13fc49fb, type: 3}
+    Volume: 1
+    Is3D: 0
+  _damageAudio:
+    Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
+    Clip: {fileID: 8300000, guid: 40cd44e91a8eb4a46bcc13706efe8211, type: 3}
+    Volume: 0.5
+    Is3D: 0
+  _attackAudio:
+    Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
+    Clip: {fileID: 8300000, guid: 5c3680119724fc94291bb43097a54312, type: 3}
+    Volume: 0.5
+    Is3D: 0
 --- !u!1 &100044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,7 +2263,7 @@ GameObject:
   - component: {fileID: 3300002}
   - component: {fileID: 2300002}
   - component: {fileID: 233933216}
-  - component: {fileID: 233933215}
+  - component: {fileID: 225442624}
   m_Layer: 3
   m_Name: sword
   m_TagString: Untagged
@@ -2320,7 +2349,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0.06, y: 0.06, z: 0.9}
---- !u!114 &233933215
+--- !u!114 &225442624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -2,6 +2,7 @@ using UnityEngine;
 using UI;
 using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 
 namespace Managers
 {
