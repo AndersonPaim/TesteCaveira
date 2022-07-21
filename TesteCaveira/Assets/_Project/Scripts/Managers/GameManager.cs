@@ -17,6 +17,7 @@ namespace Managers
         [SerializeField] private BowController _bowController;
         [SerializeField] private EnemySpawnerController _enemySpawnerController;
         [SerializeField] private SceneController _sceneController;
+        [SerializeField] private AudioManager _audioManager;
         [SerializeField] private PauseScreen _pauseScreen;
 
         public ObjectPooler ObjectPooler => _objectPooler;
@@ -25,6 +26,7 @@ namespace Managers
         public BowController BowController => _bowController;
         public EnemySpawnerController EnemySpawnerController => _enemySpawnerController;
         public SceneController SceneController => _sceneController;
+        public AudioManager AudioManager => _audioManager;
 
         private bool _isPaused = false;
 
@@ -42,7 +44,7 @@ namespace Managers
         private void StartEvents()
         {
             _inputListener.OnPause += PauseGame;
-            _pauseScreen.OnPause += PauseGame;
+            _pauseScreen.OnResumeGame += PauseGame;
             _playerController.OnPlayerDie += Defeated;
             _enemySpawnerController.OnFinishWaves += Victory;
         }
@@ -50,7 +52,7 @@ namespace Managers
         private void DestroyEvents()
         {
             _inputListener.OnPause -= PauseGame;
-            _pauseScreen.OnPause -= PauseGame;
+            _pauseScreen.OnResumeGame -= PauseGame;
             _playerController.OnPlayerDie -= Defeated;
             _enemySpawnerController.OnFinishWaves -= Victory;
         }
@@ -87,10 +89,10 @@ namespace Managers
 
         private async UniTask PauseGameFade()
         {
+            Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0.3f;
             await UniTask.Delay(800);
             Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

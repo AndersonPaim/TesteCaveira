@@ -21,12 +21,14 @@ public class PlayerAnimationController : MonoBehaviour
     {
         _gameManager.BowController.OnPlayerDataUpdate += ReceiveBowData;
         _gameManager.PlayerController.OnTakeDamage += TakeDamage;
+        _gameManager.PlayerController.OnPlayerDie += Death;
     }
 
     private void RemoveDelegates()
     {
         _gameManager.BowController.OnPlayerDataUpdate -= ReceiveBowData;
         _gameManager.PlayerController.OnTakeDamage -= TakeDamage;
+        _gameManager.PlayerController.OnPlayerDie -= Death;
     }
 
     private void Initialize()
@@ -53,5 +55,10 @@ public class PlayerAnimationController : MonoBehaviour
     private void TakeDamage()
     {
         _animator.SetTrigger("takeDamage");
+    }
+
+    private void Death()
+    {
+        _animator.SetTrigger("death");
     }
 }

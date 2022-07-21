@@ -7,12 +7,11 @@ using Interfaces;
 public class PlayerController : MonoBehaviour, IDamageable, IHealable
 {
     public Action OnPlayerDie;
+    public Action OnTakeDamage;
 
     public delegate void HealthHandler(float health);
     public HealthHandler OnUpdateHealth;
     public HealthHandler OnInitializeHealth;
-
-    public Action OnTakeDamage;
 
     [SerializeField] private GameManager _manager;
     [SerializeField] private PlayerCamController _cameraController;
@@ -28,12 +27,15 @@ public class PlayerController : MonoBehaviour, IDamageable, IHealable
     public void TakeDamage(float damage)
     {
         _health -= damage;
-        OnTakeDamage?.Invoke();
         OnUpdateHealth?.Invoke(_health);
 
         if(_health <= 0)
         {
             OnPlayerDie?.Invoke();
+        }
+        else
+        {
+            OnTakeDamage?.Invoke();
         }
     }
 

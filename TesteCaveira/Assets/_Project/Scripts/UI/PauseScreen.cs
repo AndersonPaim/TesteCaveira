@@ -8,7 +8,7 @@ namespace UI
 {
     public class PauseScreen : MonoBehaviour
     {
-        public Action OnPause;
+        public Action OnResumeGame;
 
         [SerializeField] private GameManager _manager;
         [SerializeField] private Button _resumeButton;
@@ -23,7 +23,7 @@ namespace UI
             Initialize();
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             DestroyEvents();
         }
@@ -49,7 +49,7 @@ namespace UI
 
         private void ResumeButtonClicked()
         {
-            OnPause?.Invoke();
+            OnResumeGame?.Invoke();
             gameObject.SetActive(false);
         }
 

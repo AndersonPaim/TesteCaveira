@@ -12,7 +12,6 @@ namespace UI
         [SerializeField] private GameObject _defeatedMenu;
 
         private ISceneLoader _sceneLoader;
-        private bool _isPaused = false;
 
         private void Start()
         {
@@ -32,29 +31,27 @@ namespace UI
 
         private void StartEvents()
         {
-            _manager.InputListener.OnPause += PauseGame;
+            _manager.OnPauseGame += PauseGame;
             _manager.OnGameDefeated += ShowDefeatedScreen;
             _manager.OnGameVictory += ShowVictoryScreen;
         }
 
         private void DestroyEvents()
         {
-            _manager.InputListener.OnPause -= PauseGame;
+            _manager.OnPauseGame -= PauseGame;
             _manager.OnGameDefeated -= ShowDefeatedScreen;
             _manager.OnGameVictory -= ShowVictoryScreen;
         }
 
-        private void PauseGame()
+        private void PauseGame(bool isPaused)
         {
-            if(_isPaused)
+            if(isPaused)
             {
-                _isPaused = false;
-                _pauseMenu.SetActive(false);
+                _pauseMenu.SetActive(true);
             }
             else
             {
-                _isPaused = true;
-                _pauseMenu.SetActive(true);
+                _pauseMenu.SetActive(false);
             }
         }
 
