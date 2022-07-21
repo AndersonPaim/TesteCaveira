@@ -32,6 +32,7 @@ namespace Managers
         public SettingsScreen SettingsScreen => _settingsScreen;
 
         private bool _isPaused = false;
+        private bool _gameOver = false;
 
         private void Start()
         {
@@ -62,6 +63,11 @@ namespace Managers
 
         private void PauseGame()
         {
+            if(_gameOver)
+            {
+                return;
+            }
+
             if(_isPaused)
             {
                 _isPaused = false;
@@ -86,6 +92,7 @@ namespace Managers
 
         private void Defeated()
         {
+            _gameOver = true;
             PauseGameFade();
             OnGameDefeated?.Invoke();
         }
