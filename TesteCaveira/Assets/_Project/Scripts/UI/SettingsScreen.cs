@@ -93,7 +93,7 @@ namespace UI
         {
             _countdownValueText.text = time.ToString() + " sec";
             SaveData data = SaveSystem.localData;
-            data.StartCountdown = time;
+            data.StartCountdown = (int)time;
             SaveSystem.Save();
         }
     }

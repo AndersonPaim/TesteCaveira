@@ -3,5 +3,5 @@ public class SaveData
 {
     public float MusicVolume = 0.8f;
     public float SoundfxVolume = 1;
-    public float StartCountdown = 3;
+    public int StartCountdown = 3;
 }

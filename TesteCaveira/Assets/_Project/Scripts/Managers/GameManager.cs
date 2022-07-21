@@ -2,12 +2,12 @@ using UnityEngine;
 using UI;
 using System;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 
 namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
+        public Action OnGameStarted;
         public Action OnGameVictory;
         public Action OnGameDefeated;
         public Action<bool> OnPauseGame;
@@ -18,6 +18,7 @@ namespace Managers
         [SerializeField] private BowController _bowController;
         [SerializeField] private EnemySpawnerController _enemySpawnerController;
         [SerializeField] private SceneController _sceneController;
+        [SerializeField] private UIManager _uiController;
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private PauseScreen _pauseScreen;
         [SerializeField] private SettingsScreen _settingsScreen;
@@ -34,10 +35,10 @@ namespace Managers
         private bool _isPaused = false;
         private bool _gameOver = false;
 
-        private void Start()
+        private async UniTask Start()
         {
             StartEvents();
-            Time.timeScale = 1;
+            await Initialize();
         }
 
         private void OnDestroy()
@@ -59,6 +60,15 @@ namespace Managers
             _pauseScreen.OnResumeGame -= PauseGame;
             _playerController.OnPlayerDie -= Defeated;
             _enemySpawnerController.OnFinishWaves -= Victory;
+        }
+
+        private async UniTask Initialize()
+        {
+            Time.timeScale = 1;
+            SaveData data = SaveSystem.Load();
+            _uiController.StartCountdown(data.StartCountdown);
+            await UniTask.Delay(data.StartCountdown * 1000);
+            OnGameStarted?.Invoke();
         }
 
         private void PauseGame()
