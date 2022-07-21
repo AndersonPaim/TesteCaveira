@@ -60,11 +60,10 @@ namespace Managers
             //_gameAudioMixer.SetFloat(AudioMixerParameters.MusicVolume, Mathf.Log10(data.musicVolume) * 20);
         }
 
-        /*private void EffectsVolume(float volume)
+        private void EffectsVolume(float volume)
         {
-            _gameAudioMixer.SetFloat(AudioMixerParameters.EffectsVolume, Mathf.Log10(volume) * 20);
-            _finalAudioMixer.SetFloat(AudioMixerParameters.FinalVolume,  Mathf.Log10(volume) * 20);
-        }*/
+            _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(volume) * 20);
+        }
 
         private void PauseAudio(bool isPaused)
         {
@@ -80,12 +79,12 @@ namespace Managers
 
         private void SetupEvents()
         {
-            //_manager.OnPauseGame += PauseAudio;
+            _manager.SettingsScreen.OnSetEffectsVolume += EffectsVolume;
         }
 
         private void DestroyEvents()
         {
-            //_manager.OnPauseGame -= PauseAudio;
+            _manager.SettingsScreen.OnSetEffectsVolume -= EffectsVolume;
         }
     }
 }

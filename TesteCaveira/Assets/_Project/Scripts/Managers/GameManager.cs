@@ -20,6 +20,7 @@ namespace Managers
         [SerializeField] private SceneController _sceneController;
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private PauseScreen _pauseScreen;
+        [SerializeField] private SettingsScreen _settingsScreen;
 
         public ObjectPooler ObjectPooler => _objectPooler;
         public InputListener InputListener => _inputListener;
@@ -28,6 +29,7 @@ namespace Managers
         public EnemySpawnerController EnemySpawnerController => _enemySpawnerController;
         public SceneController SceneController => _sceneController;
         public AudioManager AudioManager => _audioManager;
+        public SettingsScreen SettingsScreen => _settingsScreen;
 
         private bool _isPaused = false;
 

@@ -6,8 +6,12 @@ namespace UI
 {
     public class SettingsScreen : MonoBehaviour
     {
+        public delegate void SetVolumeHandler(float volume);
+        public SetVolumeHandler OnSetEffectsVolume;
+
         [SerializeField] private Button _closeButton;
         [SerializeField] private GameObject _settingsPopUp;
+        [SerializeField] private Slider _effectsVolumeSlider;
 
         private void Start()
         {
@@ -27,11 +31,13 @@ namespace UI
         private void SetupEvents()
         {
             _closeButton.onClick.AddListener(CloseButtonClicked);
+            _effectsVolumeSlider.onValueChanged.AddListener(ChangeEffectsVolume);
         }
 
         private void DestroyEvents()
         {
             _closeButton.onClick.RemoveListener(CloseButtonClicked);
+            _effectsVolumeSlider.onValueChanged.RemoveListener(ChangeEffectsVolume);
         }
 
         private void EntryAnimation()
@@ -52,6 +58,11 @@ namespace UI
         private void CloseButtonClicked()
         {
             ExitAnimation();
+        }
+
+        private void ChangeEffectsVolume(float volume)
+        {
+            OnSetEffectsVolume?.Invoke(volume);
         }
     }
 }
