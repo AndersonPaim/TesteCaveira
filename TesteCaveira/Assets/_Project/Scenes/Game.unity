@@ -1842,10 +1842,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: gravestone_01_03_cemetery (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 48fb2c121b23df0488a4e3f0d69a912a, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 48fb2c121b23df0488a4e3f0d69a912a, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -2790,6 +2786,103 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3760904541372013009}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &715710282
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715710279}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 50147db0b5c476f48891717529c4f227, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &716925953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5550,10 +5643,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: bb98a1739a6249b489e37d3a233bab14, type: 3}
       propertyPath: m_Name
       value: gravestone_02_02_cemetery (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: bb98a1739a6249b489e37d3a233bab14, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bb98a1739a6249b489e37d3a233bab14, type: 3}
       propertyPath: m_RootOrder
@@ -9110,11 +9199,8 @@ MonoBehaviour:
   - {fileID: 212265613}
   _spawnWaves:
   - MaxArcherEnemies: 0
-    MaxMeleeEnemies: 2
-    SpawnDelay: 3
-  - MaxArcherEnemies: 2
-    MaxMeleeEnemies: 0
-    SpawnDelay: 3
+    MaxMeleeEnemies: 1
+    SpawnDelay: 1
 --- !u!1001 &1520065153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9458,6 +9544,103 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1351413517305500755}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1590612276
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590612273}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 0d3cf7f7e515f5b4199405c0b1e79ffe, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1592044586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10523,10 +10706,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: gravestone_01_01_cemetery (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 9569a2f071794664095e575e8a6ac14b, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9569a2f071794664095e575e8a6ac14b, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -10571,10 +10750,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 9569a2f071794664095e575e8a6ac14b, type: 3}
-      propertyPath: m_LightmapParameters
-      value: 
-      objectReference: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9569a2f071794664095e575e8a6ac14b, type: 3}
 --- !u!4 &1860383473 stripped
