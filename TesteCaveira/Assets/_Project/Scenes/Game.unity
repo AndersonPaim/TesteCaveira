@@ -313,10 +313,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: gravestone_03_01_cemetery
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: f0d33a12ff4a3a3448ab940d40cdf7bd, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f0d33a12ff4a3a3448ab940d40cdf7bd, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -724,6 +720,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &236679139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 2bc706467a651cb4dacc8ecc6eedad80,
+    type: 3}
+  m_PrefabInstance: {fileID: 1125825287}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &250779245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,10 +1265,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 7670dda159f154e429b6193e52e43885, type: 3}
       propertyPath: m_Name
       value: gravestone_01_02_cemetery (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 7670dda159f154e429b6193e52e43885, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7670dda159f154e429b6193e52e43885, type: 3}
       propertyPath: m_RootOrder
@@ -3642,6 +3640,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 918678398}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &923962780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 2bc706467a651cb4dacc8ecc6eedad80,
+    type: 3}
+  m_PrefabInstance: {fileID: 1388414889}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &942178028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4506,6 +4510,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1125825287}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1125825289
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236679139}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.47036695, y: 4.8239193, z: 0.5240793}
+  m_Center: {x: 0.021054983, y: 2.4124422, z: -0.028203487}
 --- !u!1 &1146688781
 GameObject:
   m_ObjectHideFlags: 0
@@ -7624,6 +7641,25 @@ LightProbeGroup:
   - {x: -6.047415, y: -1, z: -24.392506}
   - {x: -6.047415, y: -1, z: -26.392506}
   m_Dering: 1
+--- !u!1 &1295454473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 2bc706467a651cb4dacc8ecc6eedad80,
+    type: 3}
+  m_PrefabInstance: {fileID: 477921124}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1295454474
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295454473}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.47036695, y: 4.8239193, z: 0.5240793}
+  m_Center: {x: 0.021054983, y: 2.4124422, z: -0.028203487}
 --- !u!1 &1329345294
 GameObject:
   m_ObjectHideFlags: 0
@@ -7804,10 +7840,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 48fb2c121b23df0488a4e3f0d69a912a, type: 3}
       propertyPath: m_Name
       value: gravestone_01_03_cemetery (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 48fb2c121b23df0488a4e3f0d69a912a, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 48fb2c121b23df0488a4e3f0d69a912a, type: 3}
       propertyPath: m_RootOrder
@@ -8190,6 +8222,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1388414889}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1388414891
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923962780}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.47036695, y: 4.8239193, z: 0.5240793}
+  m_Center: {x: 0.021054983, y: 2.4124422, z: -0.028203487}
 --- !u!1001 &1412812432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8716,10 +8761,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: gravestone_01_01_cemetery (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 9569a2f071794664095e575e8a6ac14b, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9569a2f071794664095e575e8a6ac14b, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -8782,10 +8823,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 9f01c0896a11a684c8ccc923e17e6910, type: 3}
       propertyPath: m_Name
       value: gravestone_02_03_cemetery
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 9f01c0896a11a684c8ccc923e17e6910, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9f01c0896a11a684c8ccc923e17e6910, type: 3}
       propertyPath: m_RootOrder
@@ -10958,6 +10995,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1936483696}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1945466760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 2bc706467a651cb4dacc8ecc6eedad80,
+    type: 3}
+  m_PrefabInstance: {fileID: 1200134231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1945466761
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945466760}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.47036695, y: 4.8239193, z: 0.5240793}
+  m_Center: {x: 0.021054983, y: 2.4124422, z: -0.028203487}
 --- !u!1001 &1960838135
 PrefabInstance:
   m_ObjectHideFlags: 0
