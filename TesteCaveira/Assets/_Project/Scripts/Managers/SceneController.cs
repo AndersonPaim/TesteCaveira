@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour, ISceneLoader
 {
-    public delegate void LoadingProgressHandler(float progress);
-    public LoadingProgressHandler OnUpdateProgress;
-
     public void LoadScene(string scene)
     {
         StartCoroutine(LoadASync(scene));
@@ -25,8 +22,6 @@ public class SceneController : MonoBehaviour, ISceneLoader
         while(!operation.isDone)
         {
             float loadingProgress = Mathf.Clamp01(operation.progress / 0.9f);
-            OnUpdateProgress?.Invoke(loadingProgress);
-
             yield return null;
         }
     }

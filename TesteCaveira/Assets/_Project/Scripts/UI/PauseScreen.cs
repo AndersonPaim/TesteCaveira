@@ -12,6 +12,7 @@ namespace UI
         public Action OnResumeGame;
 
         [SerializeField] private GameManager _manager;
+        [SerializeField] private GameObject _loadingScreen;
         [SerializeField] private GameObject _pausePopUp;
         [SerializeField] private GameObject _settingsScreen;
         [SerializeField] private Button _resumeButton;
@@ -81,11 +82,13 @@ namespace UI
 
         private void RestartButtonClicked()
         {
+            _loadingScreen.SetActive(true);
             _sceneLoader.RestartScene();
         }
 
         private void QuitButtonClicked()
         {
+            _loadingScreen.SetActive(true);
             _sceneLoader.LoadScene("MainMenu");
         }
 

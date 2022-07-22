@@ -10,6 +10,7 @@ namespace UI
     public class GameOverScreen : MonoBehaviour
     {
         [SerializeField] private GameManager _manager;
+        [SerializeField] private GameObject _loadingScreen;
         [SerializeField] private Transform _popUpScreen;
         [SerializeField] private Button _quitButton;
         [SerializeField] private Button _restartButton;
@@ -60,11 +61,13 @@ namespace UI
 
         private void RestartButtonClicked()
         {
+            _loadingScreen.SetActive(true);
             _sceneLoader.RestartScene();
         }
 
         private void QuitButtonClicked()
         {
+            _loadingScreen.SetActive(true);
             _sceneLoader.LoadScene("MainMenu");
         }
     }

@@ -10,6 +10,7 @@ namespace UI
         [SerializeField] private GameObject _pauseMenu;
         [SerializeField] private GameObject _victoryMenu;
         [SerializeField] private GameObject _defeatedMenu;
+        [SerializeField] private GameObject _settingsMenu;
 
         private ISceneLoader _sceneLoader;
 
@@ -52,6 +53,7 @@ namespace UI
             else
             {
                 _pauseMenu.SetActive(false);
+                _settingsMenu.SetActive(false);
             }
         }
 
