@@ -113,7 +113,7 @@ namespace Managers
         {
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0.3f;
-            await UniTask.Delay(800);
+            await UniTask.Delay(1000);
             Time.timeScale = 0;
         }
     }

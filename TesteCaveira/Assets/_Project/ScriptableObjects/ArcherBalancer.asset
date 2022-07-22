@@ -20,4 +20,10 @@ MonoBehaviour:
   attackCooldown: 3
   destroyDelay: 4
   killScore: 30
-  drops: []
+  drops:
+  - PowerUpTag: 6
+    DropRate: 10
+  - PowerUpTag: 5
+    DropRate: 10
+  - PowerUpTag: 7
+    DropRate: 5

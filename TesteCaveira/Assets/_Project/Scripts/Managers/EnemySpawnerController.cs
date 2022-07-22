@@ -27,6 +27,8 @@ public class EnemySpawnerController : MonoBehaviour
     private List<GameObject> _currentMelees = new List<GameObject>();
     private int _currentArcherEnemies;
     private int _currentMeleeEnemies;
+    private int _archersKills = 0;
+    private int _meleeKills = 0;
     private int _currentWave = 0;
     private bool _isSpawning = false;
     private ObjectPooler _objectPooler;
@@ -121,9 +123,13 @@ public class EnemySpawnerController : MonoBehaviour
 
     private void CanFinishWave()
     {
-        if(_currentArcherEnemies == 0 && _currentMeleeEnemies == 0 && !_isSpawning)
+        if(_spawnWaves[_currentWave].MaxArcherEnemies == _archersKills && _spawnWaves[_currentWave].MaxMeleeEnemies == _meleeKills)
         {
             _currentWave++;
+            _archersKills = 0;
+            _meleeKills = 0;
+            _currentArcherEnemies = 0;
+            _currentMeleeEnemies = 0;
 
             if(_currentWave >= _spawnWaves.Count)
             {
@@ -208,7 +214,7 @@ public class EnemySpawnerController : MonoBehaviour
 
     private void ArcherDeath(GameObject enemy, int score)
     {
-        _currentArcherEnemies--;
+        _archersKills++;
         _currentArchers.Remove(enemy);
         enemy.GetComponent<ArcherAI>().OnEnemyDie -= ArcherDeath;
         _manager.ScoreManager.KillEnemyScore(score);
@@ -217,7 +223,7 @@ public class EnemySpawnerController : MonoBehaviour
 
     private void MeleeDeath(GameObject enemy, int score)
     {
-        _currentMeleeEnemies--;
+        _meleeKills++;
         _currentMelees.Remove(enemy);
         enemy.GetComponent<MeleeAI>().OnEnemyDie -= MeleeDeath;
         _manager.ScoreManager.KillEnemyScore(score);
