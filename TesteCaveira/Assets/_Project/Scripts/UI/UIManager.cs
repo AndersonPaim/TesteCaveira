@@ -1,5 +1,7 @@
+using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Interfaces;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -14,6 +16,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _countdownTime;
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _waveCounterText;
+    [SerializeField] private SoundEffect _countdownSound;
+
+    private IAudioPlayer _audioPlayer;
 
     public void StartCountdown(int time)
     {
@@ -23,11 +28,17 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         SetupEvents();
+        Initialize();
     }
 
     private void OnDestroy()
     {
         DestroyEvents();
+    }
+
+    private void Initialize()
+    {
+        _audioPlayer = _manager.AudioManager.GetComponent<IAudioPlayer>();
     }
 
     private void SetupEvents()
@@ -93,6 +104,7 @@ public class UIManager : MonoBehaviour
             _countdownTime.text = i.ToString();
             _countdownTime.transform.DOScale(1, 0.7f);
             _countdownTime.transform.DOScale(0, 0.2f);
+            _audioPlayer.PlayAudio(_countdownSound, transform.position);
             await UniTask.Delay(1000);
         }
 
