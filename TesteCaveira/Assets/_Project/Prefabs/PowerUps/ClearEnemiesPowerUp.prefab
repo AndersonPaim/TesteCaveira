@@ -9687,7 +9687,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7395f01e91dee499a296ee5572f86e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healAmount: 0
+  _collectAudio:
+    Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
+    Clip: {fileID: 8300000, guid: 8cf1c851e95ad06489649ae6b50654d7, type: 3}
+    Volume: 1
+    Is3D: 1
 --- !u!1 &4794908033333038411
 GameObject:
   m_ObjectHideFlags: 0

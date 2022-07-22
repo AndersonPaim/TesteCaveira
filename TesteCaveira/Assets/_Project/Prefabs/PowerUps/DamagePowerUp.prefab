@@ -5148,6 +5148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72cd4f5d79a950a4cb720bb5414ae631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collectAudio:
+    Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
+    Clip: {fileID: 8300000, guid: 8cf1c851e95ad06489649ae6b50654d7, type: 3}
+    Volume: 1
+    Is3D: 1
   _damageMultiplier: 3
   _buffDuration: 10
 --- !u!1 &7340794636271660355

@@ -2178,6 +2178,11 @@ MonoBehaviour:
   _countdownTime: {fileID: 1374776669}
   _scoreText: {fileID: 2133101318}
   _waveCounterText: {fileID: 1727454680}
+  _countdownSound:
+    Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
+    Clip: {fileID: 8300000, guid: ee849c4ffa8befb4ea2d6bce17b2c7f2, type: 3}
+    Volume: 0.5
+    Is3D: 0
 --- !u!1001 &642796291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9199,7 +9204,7 @@ MonoBehaviour:
   - {fileID: 212265613}
   _spawnWaves:
   - MaxArcherEnemies: 0
-    MaxMeleeEnemies: 1
+    MaxMeleeEnemies: 3
     SpawnDelay: 1
 --- !u!1001 &1520065153
 PrefabInstance:
