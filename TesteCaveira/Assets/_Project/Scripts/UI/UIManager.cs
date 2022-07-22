@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameManager _manager;
     [SerializeField] private GameObject _hudObject;
+    [SerializeField] private GameObject _waveCounter;
     [SerializeField] private Slider _healthSlider;
     [SerializeField] private TextMeshProUGUI _countdownTime;
     [SerializeField] private TextMeshProUGUI _scoreText;
@@ -74,12 +75,15 @@ public class UIManager : MonoBehaviour
 
     private void UpdateScore(int score)
     {
-        _scoreText.text = "SCORE: " + score.ToString();
+        _scoreText.text = score.ToString();
     }
 
-    private void UpdateWaveCounter(int wave)
+    private async void UpdateWaveCounter(int wave)
     {
-        _waveCounterText.text = "WAVE: " + wave.ToString();
+        _waveCounterText.text = "WAVE " + wave.ToString();
+        _waveCounter.transform.DOScale(1, 0.7f);
+        await UniTask.Delay(2000);
+        _waveCounter.transform.DOScale(0, 0.4f);
     }
 
     private async UniTask ShowStartCountdownASync(int time)
