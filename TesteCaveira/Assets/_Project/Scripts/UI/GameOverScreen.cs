@@ -3,6 +3,7 @@ using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 namespace UI
 {
@@ -12,18 +13,20 @@ namespace UI
         [SerializeField] private Transform _popUpScreen;
         [SerializeField] private Button _quitButton;
         [SerializeField] private Button _restartButton;
+        [SerializeField] private TextMeshProUGUI _scoreText;
+        [SerializeField] private TextMeshProUGUI _killsText;
 
         private ISceneLoader _sceneLoader;
 
         private void OnEnable()
         {
             EntryAnimation();
+            Initialize();
         }
 
         private void Start()
         {
             StartEvents();
-            Initialize();
         }
 
         private void OnDisable()
@@ -34,6 +37,8 @@ namespace UI
         private void Initialize()
         {
             _sceneLoader = _manager.SceneController.GetComponent<ISceneLoader>();
+            _scoreText.text = _manager.ScoreManager.GetScore().ToString();
+            _killsText.text = _manager.ScoreManager.GetKills().ToString();
         }
 
         private void StartEvents()

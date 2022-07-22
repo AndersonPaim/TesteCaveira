@@ -19,6 +19,7 @@ MonoBehaviour:
   stunCooldown: 1
   attackCooldown: 2
   destroyDelay: 4
+  killScore: 50
   drops:
   - PowerUpTag: 5
     DropRate: 10

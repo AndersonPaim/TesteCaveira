@@ -14,6 +14,7 @@ namespace Enemy
         public int stunCooldown;
         public int attackCooldown;
         public int destroyDelay;
+        public int killScore;
         public List<PowerUp> drops;
     }
 }

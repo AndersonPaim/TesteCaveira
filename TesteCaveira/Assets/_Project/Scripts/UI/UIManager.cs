@@ -8,8 +8,11 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameManager _manager;
+    [SerializeField] private GameObject _hudObject;
     [SerializeField] private Slider _healthSlider;
     [SerializeField] private TextMeshProUGUI _countdownTime;
+    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _waveCounterText;
 
     public void StartCountdown(int time)
     {
@@ -30,12 +33,22 @@ public class UIManager : MonoBehaviour
     {
         _manager.PlayerController.OnInitializeHealth += InitializeHealthSlider;
         _manager.PlayerController.OnUpdateHealth += UpdateHealthSlider;
+        _manager.ScoreManager.OnUpdateScore += UpdateScore;
+        _manager.EnemySpawnerController.OnStartWave += UpdateWaveCounter;
+        _manager.OnGameStarted += EnableHUD;
+        _manager.OnGameVictory += DisableHUD;
+        _manager.OnGameDefeated += DisableHUD;
     }
 
     private void DestroyEvents()
     {
         _manager.PlayerController.OnInitializeHealth -= InitializeHealthSlider;
         _manager.PlayerController.OnUpdateHealth -= UpdateHealthSlider;
+        _manager.ScoreManager.OnUpdateScore -= UpdateScore;
+        _manager.EnemySpawnerController.OnStartWave -= UpdateWaveCounter;
+        _manager.OnGameStarted -= EnableHUD;
+        _manager.OnGameVictory -= DisableHUD;
+        _manager.OnGameDefeated -= DisableHUD;
     }
 
     private void InitializeHealthSlider(float health)
@@ -44,9 +57,29 @@ public class UIManager : MonoBehaviour
         _healthSlider.value = health;
     }
 
+    private void EnableHUD()
+    {
+        _hudObject.SetActive(true);
+    }
+
+    private void DisableHUD()
+    {
+        _hudObject.SetActive(true);
+    }
+
     private void UpdateHealthSlider(float health)
     {
         _healthSlider.value = health;
+    }
+
+    private void UpdateScore(int score)
+    {
+        _scoreText.text = "SCORE: " + score.ToString();
+    }
+
+    private void UpdateWaveCounter(int wave)
+    {
+        _waveCounterText.text = "WAVE: " + wave.ToString();
     }
 
     private async UniTask ShowStartCountdownASync(int time)

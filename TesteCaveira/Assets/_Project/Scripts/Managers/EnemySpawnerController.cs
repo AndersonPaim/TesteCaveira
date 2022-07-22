@@ -17,6 +17,7 @@ public class EnemySpawnerController : MonoBehaviour
     }
 
     public Action OnFinishWaves;
+    public Action<int> OnStartWave;
 
     [SerializeField] private GameManager _manager;
     [SerializeField] private List<Transform> _spawnPositions = new List<Transform>();
@@ -72,6 +73,7 @@ public class EnemySpawnerController : MonoBehaviour
 
     private void StartSpawning()
     {
+        OnStartWave?.Invoke(_currentWave + 1);
         SpawnEnemiesASync();
     }
 
@@ -129,6 +131,7 @@ public class EnemySpawnerController : MonoBehaviour
             }
             else
             {
+                OnStartWave?.Invoke(_currentWave + 1);
                 SpawnEnemiesASync();
             }
         }
@@ -203,20 +206,22 @@ public class EnemySpawnerController : MonoBehaviour
         }
     }
 
-    private void ArcherDeath(GameObject enemy)
+    private void ArcherDeath(GameObject enemy, int score)
     {
         _currentArcherEnemies--;
         _currentArchers.Remove(enemy);
-        enemy.GetComponent<ArcherAI>().OnEnemyDie -= MeleeDeath;
+        enemy.GetComponent<ArcherAI>().OnEnemyDie -= ArcherDeath;
         CanFinishWave();
+        _manager.ScoreManager.KillEnemyScore(score);
     }
 
-    private void MeleeDeath(GameObject enemy)
+    private void MeleeDeath(GameObject enemy, int score)
     {
         _currentMeleeEnemies--;
         _currentMelees.Remove(enemy);
         enemy.GetComponent<MeleeAI>().OnEnemyDie -= MeleeDeath;
         CanFinishWave();
+        _manager.ScoreManager.KillEnemyScore(score);
     }
 
     private Transform GetSpawnPos()

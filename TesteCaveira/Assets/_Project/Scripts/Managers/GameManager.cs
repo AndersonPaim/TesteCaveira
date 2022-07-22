@@ -22,6 +22,7 @@ namespace Managers
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private PauseScreen _pauseScreen;
         [SerializeField] private SettingsScreen _settingsScreen;
+        [SerializeField] private ScoreManager _scoreManager;
 
         public ObjectPooler ObjectPooler => _objectPooler;
         public InputListener InputListener => _inputListener;
@@ -31,6 +32,7 @@ namespace Managers
         public SceneController SceneController => _sceneController;
         public AudioManager AudioManager => _audioManager;
         public SettingsScreen SettingsScreen => _settingsScreen;
+        public ScoreManager ScoreManager => _scoreManager;
 
         private bool _isPaused = false;
         private bool _gameOver = false;

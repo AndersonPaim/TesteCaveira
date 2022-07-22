@@ -7,7 +7,7 @@ namespace Enemy.Melee
 {
     public class MeleeAI : MonoBehaviour, IDamageable
     {
-        public delegate void EnemyHandler(GameObject enemy);
+        public delegate void EnemyHandler(GameObject enemy, int score);
         public EnemyHandler OnEnemyDie;
 
         [SerializeField] private EnemyBalancer _enemyBalancer;
@@ -38,7 +38,7 @@ namespace Enemy.Melee
             }
             else
             {
-                OnEnemyDie?.Invoke(gameObject);
+                OnEnemyDie?.Invoke(gameObject, _enemyBalancer.killScore);
                 _currentState.Death();
                 _isDead = true;
             }
