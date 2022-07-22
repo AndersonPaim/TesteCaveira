@@ -211,8 +211,8 @@ public class EnemySpawnerController : MonoBehaviour
         _currentArcherEnemies--;
         _currentArchers.Remove(enemy);
         enemy.GetComponent<ArcherAI>().OnEnemyDie -= ArcherDeath;
-        CanFinishWave();
         _manager.ScoreManager.KillEnemyScore(score);
+        CanFinishWave();
     }
 
     private void MeleeDeath(GameObject enemy, int score)
@@ -220,8 +220,8 @@ public class EnemySpawnerController : MonoBehaviour
         _currentMeleeEnemies--;
         _currentMelees.Remove(enemy);
         enemy.GetComponent<MeleeAI>().OnEnemyDie -= MeleeDeath;
-        CanFinishWave();
         _manager.ScoreManager.KillEnemyScore(score);
+        CanFinishWave();
     }
 
     private Transform GetSpawnPos()
