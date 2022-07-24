@@ -10,13 +10,13 @@ namespace Enemy
 {
     public class EnemyDamage : StateMachine
     {
-        private Enemies _enemy;
+        private States _lastState;
 
-        public EnemyDamage(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, Enemies enemyType, GameManager manager)
+        public EnemyDamage(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, States lastState, GameManager manager)
                     : base(enemy, player, agent, anim, path, balancer, manager)
         {
             CurrentState = States.TAKINGDAMAGE;
-            _enemy = enemyType;
+            _lastState = lastState;
         }
 
         public override void Enter()
@@ -31,19 +31,27 @@ namespace Enemy
         {
             await UniTask.Delay(Balancer.stunCooldown * 1000);
 
-            if(_enemy == Enemies.MELEE)
+            switch(_lastState)
             {
-                NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
-            }
-            else
-            {
-                if(LastState == States.ARCHER_MOVING)
-                {
-                    NextState = new ArcherMoving(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
-                }
-                else
+                case States.ARCHER_IDLE:
                 {
                     NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
+                    break;
+                }
+                case States.ARCHER_MOVING:
+                {
+                    NextState = new ArcherMoving(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
+                    break;
+                }
+                case States.ARCHER_ATTACKING:
+                {
+                    NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
+                    break;
+                }
+                default:
+                {
+                    NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
+                    break;
                 }
             }
 

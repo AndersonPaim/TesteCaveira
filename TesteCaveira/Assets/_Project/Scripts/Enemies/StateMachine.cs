@@ -8,7 +8,6 @@ using Managers;
 public class StateMachine
 {
     public States CurrentState;
-    protected States LastState;
     protected Events Stage;
     protected StateMachine NextState;
     protected GameObject Enemy;
@@ -43,7 +42,6 @@ public class StateMachine
 
     public virtual void Exit()
     {
-        LastState = CurrentState;
         Stage = Events.EXIT;
     }
 
@@ -81,7 +79,7 @@ public class StateMachine
 
     public void TakeDamage(Enemies enemy)
     {
-        NextState = new EnemyDamage(Enemy, Player, Agent, Anim, Path, Balancer, enemy, Manager);
+        NextState = new EnemyDamage(Enemy, Player, Agent, Anim, Path, Balancer, CurrentState, Manager);
         Stage = Events.EXIT;
     }
 

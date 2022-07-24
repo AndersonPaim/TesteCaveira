@@ -37,12 +37,12 @@ public class EnemySpawnerController : MonoBehaviour
     {
         foreach(GameObject enemy in _currentMelees)
         {
-            enemy.GetComponent<MeleeAI>().CurrentState.Death();
+            enemy.GetComponent<MeleeAI>().TakeDamage(999);
         }
 
         foreach(GameObject enemy in _currentArchers)
         {
-            enemy.GetComponent<ArcherAI>().CurrentState.Death();
+            enemy.GetComponent<ArcherAI>().TakeDamage(999);
         }
     }
 

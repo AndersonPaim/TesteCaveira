@@ -13,7 +13,7 @@ namespace Enemy.Archer
         public ArcherAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, anim, path, balancer, manager)
         {
-            CurrentState = States.ATTACKING;
+            CurrentState = States.ARCHER_ATTACKING;
         }
 
         public override void Enter()

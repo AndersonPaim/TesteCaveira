@@ -32,7 +32,7 @@ namespace Enemy.Archer
         {
             Agent.SetDestination(_waypoint.position);
 
-            if(Agent.remainingDistance < Agent.stoppingDistance && Agent.remainingDistance != 0)
+            if(Agent.remainingDistance < Agent.stoppingDistance && Agent.remainingDistance > 1)
             {
                 NextState = new ArcherIdle(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
                 Stage = Events.EXIT;

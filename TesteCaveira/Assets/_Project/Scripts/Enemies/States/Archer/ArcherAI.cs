@@ -23,8 +23,6 @@ namespace Enemy.Archer
         private float _health;
         private bool _isDead = false;
 
-        public StateMachine CurrentState => _currentState;
-
         public void Attack()
         {
             GameObject arrow = _manager.ObjectPooler.SpawnFromPool(ObjectsTag.Arrow);
