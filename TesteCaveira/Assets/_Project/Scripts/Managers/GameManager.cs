@@ -98,12 +98,23 @@ namespace Managers
 
         private void Victory()
         {
+            if(_gameOver)
+            {
+                return;
+            }
+
+            _gameOver = true;
             PauseGameFade();
             OnGameVictory?.Invoke();
         }
 
         private void Defeated()
         {
+            if(_gameOver)
+            {
+                return;
+            }
+
             _gameOver = true;
             PauseGameFade();
             OnGameDefeated?.Invoke();
