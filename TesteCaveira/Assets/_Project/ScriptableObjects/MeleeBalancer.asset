@@ -27,3 +27,11 @@ MonoBehaviour:
     DropRate: 5
   - PowerUpTag: 7
     DropRate: 10
+  textures:
+  - {fileID: 2100000, guid: 1781513551c263046bdb80790bbd8089, type: 2}
+  - {fileID: 2100000, guid: faf7a89104221e94fa21ba6f7c882157, type: 2}
+  - {fileID: 2100000, guid: d74343e02cf16344a84c12b5432dd225, type: 2}
+  - {fileID: 2100000, guid: 43866929247fe0248a1a7ca4872381b1, type: 2}
+  - {fileID: 2100000, guid: 7b21a418df80bcd4b8af9bad5f98f3a0, type: 2}
+  - {fileID: 2100000, guid: 7deee120e4fa9ba4299d76bd0f871b2a, type: 2}
+  - {fileID: 2100000, guid: c99206a95a1eb3241819e857400950a9, type: 2}

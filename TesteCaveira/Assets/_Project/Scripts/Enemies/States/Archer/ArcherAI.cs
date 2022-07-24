@@ -11,6 +11,7 @@ namespace Enemy.Archer
         public EnemyHandler OnEnemyDie;
 
         [SerializeField] private EnemyBalancer _enemyBalancer;
+        [SerializeField] private SkinnedMeshRenderer _mesh;
         [SerializeField] private Transform _shootPosition;
         [SerializeField] private EnemyAudioController _audioController;
 
@@ -56,7 +57,7 @@ namespace Enemy.Archer
             _player = manager.PlayerController.gameObject;
             _manager = manager;
             _audioController.SetupManager(_manager.AudioManager);
-            _currentState = new ArcherSpawn(gameObject, _player, _agent, _anim, _path, _enemyBalancer, _manager);
+            _currentState = new EnemySpawn(gameObject, _player, _agent, _mesh, _anim, _path, _enemyBalancer, manager, Enemies.ARCHER);
             _health = _enemyBalancer.health;
             _isDead = false;
         }

@@ -1967,6 +1967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyBalancer: {fileID: 11400000, guid: 2e4236e53fda71f4ea5418ec2abc9d2f, type: 2}
+  _mesh: {fileID: 8819105043026424091}
   _shootPosition: {fileID: 1770883731}
   _audioController: {fileID: 1667175849161440479}
 --- !u!195 &8819105042630688159

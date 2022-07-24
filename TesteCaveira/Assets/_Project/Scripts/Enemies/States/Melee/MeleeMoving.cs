@@ -6,8 +6,8 @@ namespace Enemy.Melee
 {
     public class MeleeMoving : StateMachine
     {
-        public MeleeMoving(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, Managers.GameManager manager)
-                    : base(enemy, player, agent, anim, path, balancer, manager)
+        public MeleeMoving(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+                    : base(enemy, player, agent, mesh, anim, path, balancer, manager)
         {
             CurrentState = States.MELEE_MOVING;
         }
@@ -38,7 +38,7 @@ namespace Enemy.Melee
 
             if(targetDistance < Balancer.attackDistance)
             {
-                NextState = new MeleeAttacking(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
+                NextState = new MeleeAttacking(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
                 Stage = Events.EXIT;
             }
         }

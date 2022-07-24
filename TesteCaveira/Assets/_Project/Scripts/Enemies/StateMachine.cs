@@ -13,12 +13,13 @@ public class StateMachine
     protected GameObject Enemy;
     protected GameObject Player;
     protected NavMeshAgent Agent;
+    protected SkinnedMeshRenderer Mesh;
     protected Animator Anim;
     protected NavMeshPath Path;
     protected EnemyBalancer Balancer;
     protected GameManager Manager;
 
-    public StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+    public StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
     {
         Stage = Events.ENTER;
         Enemy = enemy;
@@ -28,6 +29,7 @@ public class StateMachine
         Player = player;
         Balancer = balancer;
         Manager = manager;
+        Mesh = mesh;
     }
 
     public virtual void Enter()
@@ -79,13 +81,13 @@ public class StateMachine
 
     public void TakeDamage(Enemies enemy)
     {
-        NextState = new EnemyDamage(Enemy, Player, Agent, Anim, Path, Balancer, CurrentState, Manager);
+        NextState = new EnemyDamage(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager, CurrentState);
         Stage = Events.EXIT;
     }
 
     public void Death()
     {
-        NextState = new EnemyDying(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
+        NextState = new EnemyDying(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
         Stage = Events.EXIT;
     }
 }

@@ -22,6 +22,7 @@ public class EnemySpawnerController : MonoBehaviour
     [SerializeField] private GameManager _manager;
     [SerializeField] private List<Transform> _spawnPositions = new List<Transform>();
     [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
+    [SerializeField] private int _randomSpawnWaves;
 
     private List<GameObject> _currentArchers = new List<GameObject>();
     private List<GameObject> _currentMelees = new List<GameObject>();
@@ -89,7 +90,7 @@ public class EnemySpawnerController : MonoBehaviour
 
     private void RandomizeWaves()
     {
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < _randomSpawnWaves; i++)
         {
             float enemiesNumber = i + 1 * 2;
 

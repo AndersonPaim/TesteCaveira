@@ -16,5 +16,6 @@ namespace Enemy
         public int destroyDelay;
         public int killScore;
         public List<PowerUp> drops;
+        public List<Material> textures;
     }
 }

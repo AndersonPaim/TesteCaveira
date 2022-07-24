@@ -10,8 +10,8 @@ namespace Enemy.Melee
         private Vector3 _rayPosition;
         private bool _canAttack;
 
-        public MeleeAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
-                    : base(enemy, player, agent, anim, path, balancer, manager)
+        public MeleeAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+                    : base(enemy, player, agent, mesh, anim, path, balancer, manager)
         {
             CurrentState = States.MELEE_ATTACKING;
         }
@@ -48,7 +48,7 @@ namespace Enemy.Melee
 
         private void LostPlayer()
         {
-            NextState = new MeleeMoving(Enemy, Player, Agent, Anim, Path, Balancer, Manager);
+            NextState = new MeleeMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
             Stage = Events.EXIT;
         }
 

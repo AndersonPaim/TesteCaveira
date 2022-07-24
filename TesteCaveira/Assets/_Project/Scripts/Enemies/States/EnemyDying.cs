@@ -11,8 +11,8 @@ namespace Enemy.Melee
     {
         private int _destroyDelay;
 
-        public EnemyDying(GameObject enemy, GameObject player, NavMeshAgent agent, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
-                    : base(enemy, player, agent, anim, path, balancer, manager)
+        public EnemyDying(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+                    : base(enemy, player, agent, mesh, anim, path, balancer, manager)
         {
             CurrentState = States.DYING;
             _destroyDelay = balancer.destroyDelay;

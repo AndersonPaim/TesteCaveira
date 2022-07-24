@@ -11,16 +11,14 @@ public class DamageFlash : MonoBehaviour
 
     public async UniTask Flash()
     {
-        await FlashDelay();
-    }
-
-    private void OnEnable()
-    {
         SetDefaultMaterials();
+        await FlashDelay();
     }
 
     private void SetDefaultMaterials()
     {
+        _defaultMaterials.Clear();
+
         for(int i = 0; i < _meshRenderers.Count; i++)
         {
             _defaultMaterials.Add(_meshRenderers[i].GetComponent<SkinnedMeshRenderer>().materials[0]);
