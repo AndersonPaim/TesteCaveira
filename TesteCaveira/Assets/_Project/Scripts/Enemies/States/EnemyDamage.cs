@@ -10,13 +10,12 @@ namespace Enemy
 {
     public class EnemyDamage : StateMachine
     {
-        private States _lastState;
+        public StateMachine NextState;
 
-        public EnemyDamage(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager, States lastState)
+        public EnemyDamage(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)
         {
             CurrentState = States.TAKINGDAMAGE;
-            _lastState = lastState;
         }
 
         public override void Enter()
@@ -31,30 +30,7 @@ namespace Enemy
         {
             await UniTask.Delay(Balancer.stunCooldown * 1000);
 
-            switch(_lastState)
-            {
-                case States.ARCHER_IDLE:
-                {
-                    NextState = new ArcherIdle(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
-                    break;
-                }
-                case States.ARCHER_MOVING:
-                {
-                    NextState = new ArcherMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
-                    break;
-                }
-                case States.ARCHER_ATTACKING:
-                {
-                    NextState = new ArcherIdle(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
-                    break;
-                }
-                default:
-                {
-                    NextState = new MeleeMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
-                    break;
-                }
-            }
-
+            StateMachineNextState = NextState;
             Stage = Events.EXIT;
         }
     }

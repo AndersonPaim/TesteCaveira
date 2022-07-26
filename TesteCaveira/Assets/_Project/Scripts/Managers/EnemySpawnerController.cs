@@ -17,7 +17,9 @@ namespace Managers.Spawner
         [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
         [Header("RANDOM SPAWN DATA")]
         [SerializeField] private List<GameObject> _enemiesPrefab;
-        [SerializeField] private int _randomSpawnWaves;
+        [SerializeField] private int _randomWaveNumber;
+        [SerializeField] private int _maxRandomSpawnDelay;
+        [SerializeField] private int _minRandomSpawnDelay;
 
         private List<GameObject> _currentEnemiesObj = new List<GameObject>();
         private int _currentEnemies;
@@ -95,7 +97,7 @@ namespace Managers.Spawner
 
             int enemiesSpawned = 0;
 
-            for(int i = 0; i < _randomSpawnWaves; i++)
+            for(int i = 0; i < _randomWaveNumber; i++)
             {
                 float enemiesNumber = i + 1 * 2;
 
@@ -106,13 +108,13 @@ namespace Managers.Spawner
                     _spawnWaves[i].Enemies[randomEnemy].EnemyNumber++;
                 }
 
-                _spawnWaves[i].SpawnDelay = UnityEngine.Random.Range(1, 10);
+                _spawnWaves[i].SpawnDelay = UnityEngine.Random.Range(_minRandomSpawnDelay, _maxRandomSpawnDelay + 1);
             }
         }
 
         private void InitializeWaveLists()
         {
-            for(int i = 0; i < _randomSpawnWaves; i++)
+            for(int i = 0; i < _randomWaveNumber; i++)
             {
                 Wave wave = new Wave();
 

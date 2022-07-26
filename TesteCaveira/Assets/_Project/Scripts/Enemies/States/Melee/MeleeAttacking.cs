@@ -48,7 +48,7 @@ namespace Enemy.Melee
 
         private void LostPlayer()
         {
-            NextState = new MeleeMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
+            StateMachineNextState = new MeleeMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
             Stage = Events.EXIT;
         }
 

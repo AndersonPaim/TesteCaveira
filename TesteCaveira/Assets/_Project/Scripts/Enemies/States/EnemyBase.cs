@@ -28,7 +28,7 @@ namespace Enemy
             Manager = manager;
             Player = manager.PlayerController.gameObject;
             AudioController.SetupManager(manager.AudioManager);
-            CurrentState = new EnemySpawn(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
+            //CurrentState = new EnemySpawn(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
             Health = EnemyBalancer.health;
             IsDead = false;
         }

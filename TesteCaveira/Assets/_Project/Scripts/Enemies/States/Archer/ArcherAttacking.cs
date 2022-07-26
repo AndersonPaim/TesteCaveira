@@ -9,6 +9,7 @@ namespace Enemy.Archer
     {
         private Vector3 _rayPosition;
         private bool _canAttack;
+        public StateMachine NextState;
 
         public ArcherAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)
@@ -45,7 +46,8 @@ namespace Enemy.Archer
 
         private void LostPlayer()
         {
-            NextState = new ArcherIdle(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
+            StateMachineNextState = NextState;
+            CurrentState = States.ARCHER_IDLE;
             Stage = Events.EXIT;
         }
 

@@ -6,6 +6,8 @@ namespace Enemy.Archer
 {
     public class ArcherIdle : StateMachine
     {
+        public StateMachine NextState;
+
         public ArcherIdle(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)
         {
@@ -37,7 +39,8 @@ namespace Enemy.Archer
 
         private void FindPlayer()
         {
-            NextState = new ArcherAttacking(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
+            StateMachineNextState = NextState;
+            CurrentState = States.ARCHER_ATTACKING;
             Stage = Events.EXIT;
         }
     }

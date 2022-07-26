@@ -9,6 +9,8 @@ namespace Enemy
 {
     public class EnemySpawn : StateMachine
     {
+        public StateMachine NextState;
+
         public EnemySpawn(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)
         {
@@ -33,7 +35,7 @@ namespace Enemy
         {
             await UniTask.Delay(1000);
 
-            NextState = new ArcherMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
+            StateMachineNextState = NextState;
             //NextState = new MeleeMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
 
             Stage = Events.EXIT;

@@ -8,8 +8,8 @@ using Managers;
 public class StateMachine
 {
     public States CurrentState;
-    protected Events Stage;
-    protected StateMachine NextState;
+    public Events Stage;
+    public StateMachine StateMachineNextState;
     protected GameObject Enemy;
     protected GameObject Player;
     protected NavMeshAgent Agent;
@@ -55,12 +55,13 @@ public class StateMachine
         }
         if(Stage == Events.UPDATE)
         {
+            Debug.Log("CurrentState: " + CurrentState);
             Update();
         }
         if(Stage == Events.EXIT)
         {
             Exit();
-            return NextState;
+            return StateMachineNextState;
         }
 
         return this;
@@ -81,13 +82,13 @@ public class StateMachine
 
     public void TakeDamage(Enemies enemy)
     {
-        NextState = new EnemyDamage(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager, CurrentState);
-        Stage = Events.EXIT;
+        //StateMachineNextState = new EnemyDamage(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager, States.ARCHER_IDLE);
+        //Stage = Events.EXIT;
     }
 
     public void Death()
     {
-        NextState = new EnemyDying(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
+        StateMachineNextState = new EnemyDying(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
         Stage = Events.EXIT;
     }
 }

@@ -38,7 +38,7 @@ namespace Enemy.Melee
 
             if(targetDistance < Balancer.attackDistance)
             {
-                NextState = new MeleeAttacking(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
+                StateMachineNextState = new MeleeAttacking(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
                 Stage = Events.EXIT;
             }
         }
