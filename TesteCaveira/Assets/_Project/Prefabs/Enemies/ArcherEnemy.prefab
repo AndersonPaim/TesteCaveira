@@ -1966,10 +1966,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75998391845ffb4b8f0daff6c9974c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyBalancer: {fileID: 11400000, guid: 2e4236e53fda71f4ea5418ec2abc9d2f, type: 2}
-  _mesh: {fileID: 8819105043026424091}
+  EnemyBalancer: {fileID: 11400000, guid: 2e4236e53fda71f4ea5418ec2abc9d2f, type: 2}
+  Mesh: {fileID: 8819105043026424091}
+  AudioController: {fileID: 1667175849161440479}
   _shootPosition: {fileID: 1770883731}
-  _audioController: {fileID: 1667175849161440479}
   _arrowPrefab: {fileID: 111768, guid: f32a948ee0cdbc74ebfa77fdc11add9e, type: 3}
 --- !u!195 &8819105042630688159
 NavMeshAgent:

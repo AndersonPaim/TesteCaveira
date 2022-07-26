@@ -1074,9 +1074,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c71b9e4d84d6a43a1586ad70653e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyBalancer: {fileID: 11400000, guid: 8ddffef38749a754798c3964ba178406, type: 2}
-  _mesh: {fileID: 13700000}
-  _audioController: {fileID: 8792651284930636943}
+  EnemyBalancer: {fileID: 11400000, guid: 8ddffef38749a754798c3964ba178406, type: 2}
+  Mesh: {fileID: 13700000}
+  AudioController: {fileID: 8792651284930636943}
 --- !u!195 &1592044591
 NavMeshAgent:
   m_ObjectHideFlags: 0

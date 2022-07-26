@@ -9,13 +9,10 @@ namespace Enemy
 {
     public class EnemySpawn : StateMachine
     {
-        private Enemies _enemyType;
-
-        public EnemySpawn(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager, Enemies enemyType)
+        public EnemySpawn(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)
         {
             CurrentState = States.SPAWNING;
-            _enemyType = enemyType;
         }
 
         public override void Enter()
@@ -36,14 +33,8 @@ namespace Enemy
         {
             await UniTask.Delay(1000);
 
-            if(_enemyType == Enemies.ARCHER)
-            {
-                NextState = new ArcherMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
-            }
-            else if(_enemyType == Enemies.MELEE)
-            {
-                NextState = new MeleeMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
-            }
+            NextState = new ArcherMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
+            //NextState = new MeleeMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
 
             Stage = Events.EXIT;
         }

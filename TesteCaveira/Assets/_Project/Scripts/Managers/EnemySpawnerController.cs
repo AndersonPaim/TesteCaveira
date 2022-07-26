@@ -1,240 +1,208 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Enemy.Archer;
-using Enemy.Melee;
-using Managers;
+using Enemy;
 using UnityEngine;
 
-public class EnemySpawnerController : MonoBehaviour
+namespace Managers.Spawner
 {
-    [System.Serializable]
-    public class Wave
+    public class EnemySpawnerController : MonoBehaviour
     {
-        public int MaxArcherEnemies;
-        public int MaxMeleeEnemies;
-        public int SpawnDelay;
-    }
+        public Action OnFinishWaves;
+        public Action<int> OnStartWave;
 
-    public Action OnFinishWaves;
-    public Action<int> OnStartWave;
+        [SerializeField] private GameManager _manager;
+        [SerializeField] private List<Transform> _spawnPositions = new List<Transform>();
+        [Header("CUSTOM SPAWN DATA")]
+        [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
+        [Header("RANDOM SPAWN DATA")]
+        [SerializeField] private List<GameObject> _enemiesPrefab;
+        [SerializeField] private int _randomSpawnWaves;
 
-    [SerializeField] private GameManager _manager;
-    [SerializeField] private List<Transform> _spawnPositions = new List<Transform>();
-    [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
-    [SerializeField] private int _randomSpawnWaves;
+        private List<GameObject> _currentEnemiesObj = new List<GameObject>();
+        private int _currentEnemies;
+        private int _totalWaveEnemies;
+        private int _kills = 0;
+        private int _currentWave = 0;
+        private bool _isSpawning = false;
+        private ObjectPooler _objectPooler;
 
-    private List<GameObject> _currentArchers = new List<GameObject>();
-    private List<GameObject> _currentMelees = new List<GameObject>();
-    private int _currentArcherEnemies;
-    private int _currentMeleeEnemies;
-    private int _archersKills = 0;
-    private int _meleeKills = 0;
-    private int _currentWave = 0;
-    private bool _isSpawning = false;
-    private ObjectPooler _objectPooler;
-
-    public void ClearEnemiesAlive()
-    {
-        foreach(GameObject enemy in _currentMelees)
+        public void ClearEnemiesAlive()
         {
-            enemy.GetComponent<MeleeAI>().TakeDamage(999);
-        }
-
-        foreach(GameObject enemy in _currentArchers)
-        {
-            enemy.GetComponent<ArcherAI>().TakeDamage(999);
-        }
-    }
-
-    private void Start()
-    {
-        Initialize();
-        SetupEvents();
-        InitializeWaves();
-    }
-
-    private void OnDestroy()
-    {
-        DestroyEvents();
-    }
-
-    private void Initialize()
-    {
-        _objectPooler = _manager.ObjectPooler;
-    }
-
-    private void SetupEvents()
-    {
-        _manager.OnGameStarted += StartSpawning;
-    }
-
-    private void DestroyEvents()
-    {
-        _manager.OnGameStarted -= StartSpawning;
-    }
-
-    private void StartSpawning()
-    {
-        OnStartWave?.Invoke(_currentWave + 1);
-        SpawnEnemiesASync();
-    }
-
-    private void InitializeWaves()
-    {
-        if(_spawnWaves.Count == 0)
-        {
-            RandomizeWaves();
-        }
-    }
-
-    private void RandomizeWaves()
-    {
-        for(int i = 0; i < _randomSpawnWaves; i++)
-        {
-            float enemiesNumber = i + 1 * 2;
-
-            int meleeEnemies = 0;
-            int archerEnemies = 0;
-            int randomSpawnDelay = 0;
-
-            for(int j = 0; j < enemiesNumber; j++)
+            foreach(GameObject enemy in _currentEnemiesObj)
             {
-                int randomEnemy = UnityEngine.Random.Range(0, 2);
-                randomSpawnDelay = UnityEngine.Random.Range(1, 10);
+                enemy.GetComponent<EnemyBase>().TakeDamage(999);
+            }
+        }
 
-                if(randomEnemy == 0)
+        private void Start()
+        {
+            Initialize();
+            SetupEvents();
+            InitializeWaves();
+            SetupWave();
+        }
+
+        private void OnDestroy()
+        {
+            DestroyEvents();
+        }
+
+        private void Initialize()
+        {
+            _objectPooler = _manager.ObjectPooler;
+        }
+
+        private void SetupEvents()
+        {
+            _manager.OnGameStarted += StartSpawning;
+        }
+
+        private void DestroyEvents()
+        {
+            _manager.OnGameStarted -= StartSpawning;
+        }
+
+        private void StartSpawning()
+        {
+            OnStartWave?.Invoke(_currentWave + 1);
+            SpawnEnemiesASync();
+        }
+
+        private void InitializeWaves()
+        {
+            if(_spawnWaves.Count == 0)
+            {
+                RandomizeWaves();
+            }
+        }
+
+        private void SetupWave()
+        {
+            _kills = 0;
+            _currentEnemies = 0;
+            _totalWaveEnemies = 0;
+
+            foreach(EnemySpawn enemy in _spawnWaves[_currentWave].Enemies)
+            {
+                _totalWaveEnemies += enemy.EnemyNumber;
+            }
+        }
+
+        private void RandomizeWaves()
+        {
+            InitializeWaveLists();
+
+            int enemiesSpawned = 0;
+
+            for(int i = 0; i < _randomSpawnWaves; i++)
+            {
+                float enemiesNumber = i + 1 * 2;
+
+                for(int j = 0; j < enemiesNumber; j++)
                 {
-                    meleeEnemies++;
+                    int randomEnemy = UnityEngine.Random.Range(0, _enemiesPrefab.Count);
+                    enemiesSpawned++;
+                    _spawnWaves[i].Enemies[randomEnemy].EnemyNumber++;
+                }
+
+                _spawnWaves[i].SpawnDelay = UnityEngine.Random.Range(1, 10);
+            }
+        }
+
+        private void InitializeWaveLists()
+        {
+            for(int i = 0; i < _randomSpawnWaves; i++)
+            {
+                Wave wave = new Wave();
+
+                List<EnemySpawn> enemyList = new List<EnemySpawn>();
+
+                for(int j = 0; j < _enemiesPrefab.Count; j++)
+                {
+                    EnemySpawn enemy = new EnemySpawn();
+                    enemy.EnemyNumber = 0;
+                    enemy.EnemyPrefab = _enemiesPrefab[j];
+                    enemyList.Add(enemy);
+                }
+
+                wave.Enemies = enemyList;
+                _spawnWaves.Add(wave);
+            }
+        }
+
+        private void CanFinishWave()
+        {
+            if(_totalWaveEnemies == _kills)
+            {
+                _currentWave++;
+
+                if(_currentWave >= _spawnWaves.Count)
+                {
+                    OnFinishWaves?.Invoke();
                 }
                 else
                 {
-                    archerEnemies++;
+                    SetupWave();
+                    OnStartWave?.Invoke(_currentWave + 1);
+                    SpawnEnemiesASync();
                 }
             }
-
-            Wave wave = new Wave();
-            wave.MaxArcherEnemies = meleeEnemies;
-            wave.MaxMeleeEnemies = archerEnemies;
-            wave.SpawnDelay = randomSpawnDelay;
-
-            _spawnWaves.Add(wave);
         }
-    }
 
-    private void CanFinishWave()
-    {
-        if(_spawnWaves[_currentWave].MaxArcherEnemies == _archersKills && _spawnWaves[_currentWave].MaxMeleeEnemies == _meleeKills)
+        private async UniTask SpawnEnemiesASync()
         {
-            _currentWave++;
-            _archersKills = 0;
-            _meleeKills = 0;
-            _currentArcherEnemies = 0;
-            _currentMeleeEnemies = 0;
+            await UniTask.Delay(_spawnWaves[_currentWave].SpawnDelay * 1000);
 
-            if(_currentWave >= _spawnWaves.Count)
+            _isSpawning = true;
+
+            int randomEnemy = UnityEngine.Random.Range(0, _spawnWaves[_currentWave].Enemies.Count);
+
+            if(_spawnWaves[_currentWave].Enemies[randomEnemy].EnemyNumber != 0)
             {
-                OnFinishWaves?.Invoke();
+                _spawnWaves[_currentWave].Enemies[randomEnemy].EnemyNumber--;
+                await SpawnEnemy(_spawnWaves[_currentWave].Enemies[randomEnemy].EnemyPrefab);
             }
             else
             {
-                OnStartWave?.Invoke(_currentWave + 1);
-                SpawnEnemiesASync();
+                await SpawnEnemiesASync();
             }
         }
-    }
 
-    private async UniTask SpawnEnemiesASync()
-    {
-        await UniTask.Delay(_spawnWaves[_currentWave].SpawnDelay * 1000);
-
-        _isSpawning = true;
-
-        if(_currentArcherEnemies >= _spawnWaves[_currentWave].MaxArcherEnemies && _currentMeleeEnemies < _spawnWaves[_currentWave].MaxMeleeEnemies)
+        private async UniTask SpawnEnemy(GameObject obj)
         {
-            await SpawnMelee();
-        }
-        else if(_currentMeleeEnemies >= _spawnWaves[_currentWave].MaxMeleeEnemies && _currentArcherEnemies < _spawnWaves[_currentWave].MaxArcherEnemies)
-        {
-            await SpawnArcher();
-        }
-        else
-        {
-            int randomEnemy = UnityEngine.Random.Range(1, 3);
+            _currentEnemies++;
+            GameObject enemyObj = _objectPooler.SpawnFromPool(obj.GetInstanceID());
+            enemyObj.transform.position = GetSpawnPos().position;
+            EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
+            enemy.SetupEnemy(_manager);
+            enemy.OnEnemyDie += EnemyDeath;
+            _currentEnemiesObj.Add(enemyObj);
 
-            if(randomEnemy == 1)
+            if(_currentEnemies == _totalWaveEnemies)
             {
-                await SpawnArcher();
+                _isSpawning = false;
             }
             else
             {
-                await SpawnMelee();
+                await SpawnEnemiesASync();
             }
         }
-    }
 
-    private async UniTask SpawnArcher()
-    {
-       /* _currentArcherEnemies++;
-        GameObject enemy = _objectPooler.SpawnFromPool(ObjectsTag.ArcherEnemy);
-        enemy.transform.position = GetSpawnPos().position;
-        ArcherAI archer = enemy.GetComponent<ArcherAI>();
-        archer.SetupEnemy(_manager);
-        archer.OnEnemyDie += ArcherDeath;
-        _currentArchers.Add(enemy);
-
-        if(_currentArcherEnemies < _spawnWaves[_currentWave].MaxArcherEnemies || _currentMeleeEnemies < _spawnWaves[_currentWave].MaxMeleeEnemies)
+        private void EnemyDeath(GameObject enemy, int score)
         {
-            await SpawnEnemiesASync();
+            _kills++;
+            _currentEnemiesObj.Remove(enemy);
+            enemy.GetComponent<EnemyBase>().OnEnemyDie -= EnemyDeath;
+            _manager.ScoreManager.KillEnemyScore(score);
+            CanFinishWave();
         }
-        else
-        {
-            _isSpawning = false;
-        }*/
-    }
 
-    private async UniTask SpawnMelee()
-    {
-        /*_currentMeleeEnemies++;
-        GameObject enemy = _objectPooler.SpawnFromPool(ObjectsTag.MeleeEnemy);
-        enemy.transform.position = GetSpawnPos().position;
-        MeleeAI melee = enemy.GetComponent<MeleeAI>();
-        melee.SetupEnemy(_manager);
-        melee.OnEnemyDie += MeleeDeath;
-        _currentMelees.Add(enemy);
-
-        if(_currentArcherEnemies < _spawnWaves[_currentWave].MaxArcherEnemies || _currentMeleeEnemies < _spawnWaves[_currentWave].MaxMeleeEnemies)
+        private Transform GetSpawnPos()
         {
-            await SpawnEnemiesASync();
+            int randomPos = UnityEngine.Random.Range(0, _spawnPositions.Count);
+
+            return _spawnPositions[randomPos];
         }
-        else
-        {
-            _isSpawning = false;
-        }*/
-    }
-
-    private void ArcherDeath(GameObject enemy, int score)
-    {
-        _archersKills++;
-        _currentArchers.Remove(enemy);
-        enemy.GetComponent<ArcherAI>().OnEnemyDie -= ArcherDeath;
-        _manager.ScoreManager.KillEnemyScore(score);
-        CanFinishWave();
-    }
-
-    private void MeleeDeath(GameObject enemy, int score)
-    {
-        _meleeKills++;
-        _currentMelees.Remove(enemy);
-        enemy.GetComponent<MeleeAI>().OnEnemyDie -= MeleeDeath;
-        _manager.ScoreManager.KillEnemyScore(score);
-        CanFinishWave();
-    }
-
-    private Transform GetSpawnPos()
-    {
-        int randomPos = UnityEngine.Random.Range(0, _spawnPositions.Count);
-
-        return _spawnPositions[randomPos];
     }
 }

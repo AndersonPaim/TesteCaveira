@@ -9083,6 +9083,9 @@ MonoBehaviour:
   - {fileID: 271054923}
   - {fileID: 212265613}
   _spawnWaves: []
+  _enemiesPrefab:
+  - {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
+  - {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803, type: 3}
   _randomSpawnWaves: 5
 --- !u!1001 &1520065153
 PrefabInstance:

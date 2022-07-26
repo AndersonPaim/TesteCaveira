@@ -5,69 +5,8 @@ using Managers;
 
 namespace Enemy.Melee
 {
-    public class MeleeAI : MonoBehaviour, IDamageable
+    public class MeleeAI : EnemyBase, IDamageable
     {
-        public delegate void EnemyHandler(GameObject enemy, int score);
-        public EnemyHandler OnEnemyDie;
 
-        [SerializeField] private EnemyBalancer _enemyBalancer;
-        [SerializeField] private SkinnedMeshRenderer _mesh;
-        [SerializeField] private EnemyAudioController _audioController;
-
-        private NavMeshAgent _agent;
-        private Animator _anim;
-        private StateMachine _currentState;
-        private NavMeshPath _path;
-        private GameObject _player;
-        private float _health;
-        private bool _isDead = false;
-
-        public StateMachine CurrentState => _currentState;
-
-        public void TakeDamage(float damage)
-        {
-            if(_isDead)
-            {
-                return;
-            }
-
-            _health -= damage;
-
-            if(_health > 0)
-            {
-                _currentState.TakeDamage(Enemies.MELEE);
-            }
-            else
-            {
-                OnEnemyDie?.Invoke(gameObject, _enemyBalancer.killScore);
-                _currentState.Death();
-                _isDead = true;
-            }
-        }
-
-        public void SetupEnemy(GameManager manager)
-        {
-            _player = manager.PlayerController.gameObject;
-            _agent.enabled = true;
-            _audioController.SetupManager(manager.AudioManager);
-            _currentState = new EnemySpawn(gameObject, _player, _agent, _mesh, _anim, _path, _enemyBalancer, manager, Enemies.MELEE);
-            _health = _enemyBalancer.health;
-            _isDead = false;
-        }
-
-        private void Awake()
-        {
-            _anim = GetComponent<Animator>();
-            _agent = GetComponent<NavMeshAgent>();
-            _path = new NavMeshPath();
-        }
-
-        private void Update()
-        {
-            if(_currentState != null)
-            {
-                _currentState = _currentState.Process();
-            }
-        }
     }
 }
