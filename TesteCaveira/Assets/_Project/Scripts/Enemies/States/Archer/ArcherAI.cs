@@ -14,6 +14,7 @@ namespace Enemy.Archer
         [SerializeField] private SkinnedMeshRenderer _mesh;
         [SerializeField] private Transform _shootPosition;
         [SerializeField] private EnemyAudioController _audioController;
+        [SerializeField] private GameObject _arrowPrefab;
 
         private GameManager _manager;
         private NavMeshAgent _agent;
@@ -26,7 +27,7 @@ namespace Enemy.Archer
 
         public void Attack()
         {
-            GameObject arrow = _manager.ObjectPooler.SpawnFromPool(ObjectsTag.Arrow);
+            GameObject arrow = _manager.ObjectPooler.SpawnFromPool(_arrowPrefab.GetInstanceID());
             arrow.transform.position =  _shootPosition.position;
             Rigidbody rb = arrow.GetComponent<Rigidbody>();
             rb.velocity = _shootPosition.transform.forward * _enemyBalancer.shootForce;

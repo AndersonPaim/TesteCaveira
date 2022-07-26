@@ -1970,6 +1970,7 @@ MonoBehaviour:
   _mesh: {fileID: 8819105043026424091}
   _shootPosition: {fileID: 1770883731}
   _audioController: {fileID: 1667175849161440479}
+  _arrowPrefab: {fileID: 111768, guid: f32a948ee0cdbc74ebfa77fdc11add9e, type: 3}
 --- !u!195 &8819105042630688159
 NavMeshAgent:
   m_ObjectHideFlags: 0

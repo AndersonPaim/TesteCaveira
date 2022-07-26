@@ -8,13 +8,12 @@ public class ObjectPooler : MonoBehaviour
     public class Pool
     {
         public GameObject prefab;
-        public ObjectsTag tag;
         public int size;
     }
 
     [SerializeField]  private List<Pool> _pools;
 
-    private Dictionary<ObjectsTag, List<GameObject>> _poolDictionary;
+    private Dictionary<int, List<GameObject>> _poolDictionary;
 
     private List<GameObject> _objectPool;
 
@@ -26,7 +25,7 @@ public class ObjectPooler : MonoBehaviour
 
     private void InitializePool()
     {
-        _poolDictionary = new Dictionary<ObjectsTag, List<GameObject>>();
+        _poolDictionary = new Dictionary<int, List<GameObject>>();
 
         foreach (Pool pool in _pools)
         {
@@ -40,12 +39,12 @@ public class ObjectPooler : MonoBehaviour
                 _objectPool.Add(obj);
             }
 
-            _poolDictionary.Add(pool.tag, _objectPool);
+            _poolDictionary.Add(pool.prefab.GetInstanceID(), _objectPool);
         }
     }
 
 
-    public GameObject SpawnFromPool(ObjectsTag id)
+    public GameObject SpawnFromPool(int id)
     {
         bool isPoolAvailable = false;
         GameObject objectToSpawn = null;
@@ -70,7 +69,7 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    private GameObject AddToPool(ObjectsTag id)
+    private GameObject AddToPool(int id)
     {
         GameObject newObject = _poolDictionary[id][0];
         _poolDictionary[id].Add(newObject);

@@ -175,7 +175,7 @@ public class EnemySpawnerController : MonoBehaviour
 
     private async UniTask SpawnArcher()
     {
-        _currentArcherEnemies++;
+       /* _currentArcherEnemies++;
         GameObject enemy = _objectPooler.SpawnFromPool(ObjectsTag.ArcherEnemy);
         enemy.transform.position = GetSpawnPos().position;
         ArcherAI archer = enemy.GetComponent<ArcherAI>();
@@ -190,12 +190,12 @@ public class EnemySpawnerController : MonoBehaviour
         else
         {
             _isSpawning = false;
-        }
+        }*/
     }
 
     private async UniTask SpawnMelee()
     {
-        _currentMeleeEnemies++;
+        /*_currentMeleeEnemies++;
         GameObject enemy = _objectPooler.SpawnFromPool(ObjectsTag.MeleeEnemy);
         enemy.transform.position = GetSpawnPos().position;
         MeleeAI melee = enemy.GetComponent<MeleeAI>();
@@ -210,7 +210,7 @@ public class EnemySpawnerController : MonoBehaviour
         else
         {
             _isSpawning = false;
-        }
+        }*/
     }
 
     private void ArcherDeath(GameObject enemy, int score)

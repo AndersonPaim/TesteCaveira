@@ -10,6 +10,7 @@ public class BowController : MonoBehaviour
     public PlayerDataHandler OnPlayerDataUpdate;
 
     [SerializeField] private Transform _shootPosition;
+    [SerializeField] private GameObject _arrowPrefab;
     [SerializeField] private float _shootForce;
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private MeshRenderer _previewArrowMesh;
@@ -118,7 +119,7 @@ public class BowController : MonoBehaviour
 
     private void ArrowShoot()
     {
-        GameObject obj = _objectPooler.SpawnFromPool(ObjectsTag.Arrow);
+        GameObject obj = _objectPooler.SpawnFromPool(_arrowPrefab.GetInstanceID());
         WeaponBase arrow = obj.GetComponent<WeaponBase>();
         Rigidbody rb = obj.GetComponent<Rigidbody>();
 

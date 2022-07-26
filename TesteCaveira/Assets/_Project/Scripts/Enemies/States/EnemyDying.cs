@@ -41,15 +41,15 @@ namespace Enemy.Melee
 
                 if(powerUp.DropRate > randomValue)
                 {
-                    InstantiatePowerUp(powerUp.PowerUpTag);
+                    InstantiatePowerUp(powerUp.prefab);
                     break;
                 }
             }
         }
 
-        private void InstantiatePowerUp(ObjectsTag tag)
+        private void InstantiatePowerUp(GameObject prefab)
         {
-            GameObject obj = Manager.ObjectPooler.SpawnFromPool(tag);
+            GameObject obj = Manager.ObjectPooler.SpawnFromPool(prefab.GetInstanceID());
             obj.transform.position = Enemy.transform.position;
             CollectableBase collectable = obj.GetComponent<CollectableBase>();
             collectable.SetupCollectable(Manager);

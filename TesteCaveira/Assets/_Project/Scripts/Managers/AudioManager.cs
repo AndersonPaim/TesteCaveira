@@ -8,6 +8,7 @@ namespace Managers
     {
         [SerializeField] private GameManager _manager;
         [SerializeField] private AudioMixer _gameAudioMixer;
+        [SerializeField] private GameObject _audioPrefab;
 
         private ObjectPooler _objectPooler;
 
@@ -15,7 +16,7 @@ namespace Managers
         {
             AudioSource audioSource;
 
-            GameObject obj = _objectPooler.SpawnFromPool(ObjectsTag.AudioSource);
+            GameObject obj = _objectPooler.SpawnFromPool(_audioPrefab.GetInstanceID());
             audioSource = obj.GetComponent<AudioSource>();
             obj.transform.position = position;
 

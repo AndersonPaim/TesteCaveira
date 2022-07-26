@@ -1550,6 +1550,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 2029344517}
   _gameAudioMixer: {fileID: 24100000, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
+  _audioPrefab: {fileID: 977348391023847857, guid: ecd0a0658d0c064419816ad7572d6519,
+    type: 3}
 --- !u!1001 &472537194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2753,31 +2755,23 @@ MonoBehaviour:
   _pools:
   - prefab: {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803,
       type: 3}
-    tag: 1
     size: 7
   - prefab: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
-    tag: 0
     size: 7
   - prefab: {fileID: 111768, guid: 097166fb60446b74d9a5d18c3dfcdd03, type: 3}
-    tag: 2
     size: 7
   - prefab: {fileID: 111768, guid: f32a948ee0cdbc74ebfa77fdc11add9e, type: 3}
-    tag: 3
     size: 7
   - prefab: {fileID: 4342596151703027710, guid: 0dce32f33dd2c654f80bc2b7bb100944,
       type: 3}
-    tag: 5
     size: 7
   - prefab: {fileID: 6615070897757797633, guid: 8bde4ebc2d981e744a87ceb697d48b01,
       type: 3}
-    tag: 6
     size: 7
   - prefab: {fileID: 3383445816480925577, guid: d749c4231b1ca4740b761279c06a500d,
       type: 3}
-    tag: 7
     size: 7
   - prefab: {fileID: 977348391023847857, guid: ecd0a0658d0c064419816ad7572d6519, type: 3}
-    tag: 8
     size: 10
 --- !u!1 &715710279 stripped
 GameObject:
@@ -8091,6 +8085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootPosition: {fileID: 1379567324}
+  _arrowPrefab: {fileID: 111768, guid: 097166fb60446b74d9a5d18c3dfcdd03, type: 3}
   _shootForce: 50
   _gameManager: {fileID: 2029344517}
   _previewArrowMesh: {fileID: 1653745244}

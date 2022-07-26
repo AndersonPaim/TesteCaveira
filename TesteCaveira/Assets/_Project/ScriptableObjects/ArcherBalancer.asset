@@ -21,11 +21,14 @@ MonoBehaviour:
   destroyDelay: 4
   killScore: 30
   drops:
-  - PowerUpTag: 6
+  - prefab: {fileID: 4342596151703027710, guid: 0dce32f33dd2c654f80bc2b7bb100944,
+      type: 3}
     DropRate: 10
-  - PowerUpTag: 5
+  - prefab: {fileID: 6615070897757797633, guid: 8bde4ebc2d981e744a87ceb697d48b01,
+      type: 3}
     DropRate: 10
-  - PowerUpTag: 7
+  - prefab: {fileID: 3383445816480925577, guid: d749c4231b1ca4740b761279c06a500d,
+      type: 3}
     DropRate: 5
   textures:
   - {fileID: 2100000, guid: af77b87478d72ff4185727fe0428d7b1, type: 2}
