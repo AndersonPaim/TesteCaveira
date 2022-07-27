@@ -5,7 +5,7 @@ using Managers;
 using Collectable.PowerUp;
 using Collectable;
 
-namespace Enemy.Melee
+namespace Enemy
 {
     public class EnemyDying : StateMachine
     {

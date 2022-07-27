@@ -1,33 +1,39 @@
+using System;
 using Cysharp.Threading.Tasks;
+using Managers;
 using UnityEngine;
 using UnityEngine.AI;
-using Managers;
-using System;
 
-namespace Enemy.Archer
+namespace Enemy
 {
-    public class ArcherAttacking : StateMachine
+    public class EnemyAttacking : StateMachine
     {
         public Action OnExit;
-        private Vector3 _rayPosition;
         private bool _canAttack;
 
-        public ArcherAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+        public EnemyAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)
         {
-            CurrentState = States.ARCHER_ATTACKING;
+            CurrentState = States.ATTACKING;
         }
 
         public override void Enter()
         {
+            Attack();
             base.Enter();
-            BowAttack();
+            _canAttack = true;
         }
 
         public override void Update()
         {
             base.Update();
             SearchPlayer();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _canAttack = false;
         }
 
         private void SearchPlayer()
@@ -46,14 +52,14 @@ namespace Enemy.Archer
             OnExit?.Invoke();
         }
 
-        private async UniTask BowAttack()
+        private async UniTask Attack()
         {
             Anim.SetTrigger("Attack");
             await UniTask.Delay(Balancer.attackCooldown * 1000);
 
             if(_canAttack)
             {
-                BowAttack();
+                Attack();
             }
         }
     }

@@ -39,7 +39,7 @@ namespace Enemy
                 return;
             }
 
-            if(Health < 0)
+            if(Health <= 0)
             {
                 IsDead = true;
                 OnEnemyDie?.Invoke(gameObject, EnemyBalancer.killScore);

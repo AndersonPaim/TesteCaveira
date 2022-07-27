@@ -9070,6 +9070,8 @@ MonoBehaviour:
   - {fileID: 1670732813}
   _spawnWaves:
   - Enemies:
+    - EnemyPrefab: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
+      EnemyNumber: 0
     - EnemyPrefab: {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803,
         type: 3}
       EnemyNumber: 1
@@ -11352,6 +11354,7 @@ MonoBehaviour:
   _pauseScreen: {fileID: 214763258}
   _settingsScreen: {fileID: 651313476}
   _scoreManager: {fileID: 1792196973}
+  _waypointController: {fileID: 1045411787}
 --- !u!1 &2039424645
 GameObject:
   m_ObjectHideFlags: 0

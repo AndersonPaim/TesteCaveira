@@ -5,7 +5,7 @@ namespace Managers.Spawner
     [System.Serializable]
     public class Wave
     {
-        public List<EnemySpawn> Enemies;
+        public List<EnemySpawner> Enemies;
         public int SpawnDelay;
     }
 }

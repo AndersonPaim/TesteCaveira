@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using Interfaces;
 using Managers;
 using Enemy.Melee;
+using System.Collections.Generic;
 
 namespace Enemy.Archer
 {
@@ -47,7 +48,7 @@ namespace Enemy.Archer
         {
             EnemyDamage damageState = new EnemyDamage(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
 
-            if(CurrentState.CurrentState == States.ARCHER_MOVING)
+            if(CurrentState.CurrentState == States.MOVING)
             {
                 damageState.OnExit += MovingState;
             }
@@ -56,39 +57,74 @@ namespace Enemy.Archer
                 damageState.OnExit += IdleState;
             }
 
-            CurrentState.StateMachineNextState = damageState;
-            CurrentState.Stage = Events.EXIT;
+            ChangeState(damageState);
         }
 
         private void DyingState()
         {
             EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
-            CurrentState.StateMachineNextState = dyingState;
-            CurrentState.Stage = Events.EXIT;
+            ChangeState(dyingState);
         }
 
         private void AttackState()
         {
-            ArcherAttacking attackingState = new ArcherAttacking(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            EnemyAttacking attackingState = new EnemyAttacking(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
             attackingState.OnExit += IdleState;
-            CurrentState.StateMachineNextState = attackingState;
-            CurrentState.Stage = Events.EXIT;
+            ChangeState(attackingState);
         }
 
         private void IdleState()
         {
             ArcherIdle idleState = new ArcherIdle(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
             idleState.OnExit += AttackState;
-            CurrentState.StateMachineNextState = idleState;
-            CurrentState.Stage = Events.EXIT;
+            ChangeState(idleState);
         }
 
         private void MovingState()
         {
-            ArcherMoving movingState = new ArcherMoving(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            EnemyMoving movingState = new EnemyMoving(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager, GetAvailableWaypoint(), Agent.stoppingDistance);
             movingState.OnExit += AttackState;
-            CurrentState.StateMachineNextState = movingState;
+            ChangeState(movingState);
+        }
+
+        private void ChangeState(StateMachine state)
+        {
+            CurrentState.StateMachineNextState = state;
             CurrentState.Stage = Events.EXIT;
+        }
+
+        private Transform GetAvailableWaypoint()
+        {
+            Transform closestWaypoint = null;
+            List<Transform> archerWaypoints = Manager.WaypointController.ArcherWaypoint;
+            float currentWaypointDistance;
+            float closestWaypointDistance = 0;
+
+            for (int i = 0; i < archerWaypoints.Count; i++)
+            {
+                currentWaypointDistance = Vector3.Distance(archerWaypoints[i].transform.position, gameObject.transform.position);
+
+                bool isPathAvailable = Agent.CalculatePath(archerWaypoints[i].transform.position, Path);
+
+                if (closestWaypointDistance == 0)
+                {
+                    if (isPathAvailable)
+                    {
+                        closestWaypoint = archerWaypoints[i].transform;
+                        closestWaypointDistance = currentWaypointDistance;
+                    }
+                }
+                else if (currentWaypointDistance < closestWaypointDistance)
+                {
+                    if (isPathAvailable)
+                    {
+                        closestWaypoint = archerWaypoints[i].transform;
+                        closestWaypointDistance = currentWaypointDistance;
+                    }
+                }
+            }
+
+            return closestWaypoint;
         }
     }
 }

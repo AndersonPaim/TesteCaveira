@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using Cysharp.Threading.Tasks;
 using System;
-using Enemy.Melee;
-using Enemy.Archer;
 using Managers;
 
 namespace Enemy

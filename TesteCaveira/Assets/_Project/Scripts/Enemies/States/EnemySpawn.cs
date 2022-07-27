@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using Cysharp.Threading.Tasks;
 using Managers;
-using Enemy.Archer;
-using Enemy.Melee;
 using System;
 
 namespace Enemy
@@ -11,7 +9,6 @@ namespace Enemy
     public class EnemySpawn : StateMachine
     {
         public Action OnExit;
-        public StateMachine NextState;
 
         public EnemySpawn(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)

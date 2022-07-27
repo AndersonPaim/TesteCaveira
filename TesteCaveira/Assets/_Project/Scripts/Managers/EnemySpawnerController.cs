@@ -85,7 +85,7 @@ namespace Managers.Spawner
             _currentEnemies = 0;
             _totalWaveEnemies = 0;
 
-            foreach(EnemySpawn enemy in _spawnWaves[_currentWave].Enemies)
+            foreach(EnemySpawner enemy in _spawnWaves[_currentWave].Enemies)
             {
                 _totalWaveEnemies += enemy.EnemyNumber;
             }
@@ -118,11 +118,11 @@ namespace Managers.Spawner
             {
                 Wave wave = new Wave();
 
-                List<EnemySpawn> enemyList = new List<EnemySpawn>();
+                List<EnemySpawner> enemyList = new List<EnemySpawner>();
 
                 for(int j = 0; j < _enemiesPrefab.Count; j++)
                 {
-                    EnemySpawn enemy = new EnemySpawn();
+                    EnemySpawner enemy = new EnemySpawner();
                     enemy.EnemyNumber = 0;
                     enemy.EnemyPrefab = _enemiesPrefab[j];
                     enemyList.Add(enemy);

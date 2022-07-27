@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Managers.Spawner
 {
     [System.Serializable]
-    public class EnemySpawn
+    public class EnemySpawner
     {
         public GameObject EnemyPrefab;
         public int EnemyNumber;
