@@ -4,11 +4,13 @@ using Cysharp.Threading.Tasks;
 using Managers;
 using Enemy.Archer;
 using Enemy.Melee;
+using System;
 
 namespace Enemy
 {
     public class EnemySpawn : StateMachine
     {
+        public Action OnExit;
         public StateMachine NextState;
 
         public EnemySpawn(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
@@ -27,18 +29,14 @@ namespace Enemy
 
         private void SetRandomTexture()
         {
-            int randomValue = Random.Range(0, Balancer.textures.Count);
+            int randomValue = UnityEngine.Random.Range(0, Balancer.textures.Count);
             Mesh.material = Balancer.textures[randomValue];
         }
 
         private async UniTask SpawnDelay()
         {
             await UniTask.Delay(1000);
-
-            StateMachineNextState = NextState;
-            //NextState = new MeleeMoving(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
-
-            Stage = Events.EXIT;
+            OnExit?.Invoke();
         }
     }
 }

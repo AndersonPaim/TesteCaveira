@@ -28,7 +28,6 @@ namespace Enemy
             Manager = manager;
             Player = manager.PlayerController.gameObject;
             AudioController.SetupManager(manager.AudioManager);
-            //CurrentState = new EnemySpawn(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
             Health = EnemyBalancer.health;
             IsDead = false;
         }
@@ -40,17 +39,10 @@ namespace Enemy
                 return;
             }
 
-            Health -= damage;
-
-            if(Health > 0)
-            {
-                CurrentState.TakeDamage(Enemies.ARCHER);
-            }
-            else
+            if(Health < 0)
             {
                 IsDead = true;
                 OnEnemyDie?.Invoke(gameObject, EnemyBalancer.killScore);
-                CurrentState.Death();
             }
         }
 

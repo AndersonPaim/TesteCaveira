@@ -2,14 +2,15 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using Managers;
+using System;
 
 namespace Enemy.Archer
 {
     public class ArcherAttacking : StateMachine
     {
+        public Action OnExit;
         private Vector3 _rayPosition;
         private bool _canAttack;
-        public StateMachine NextState;
 
         public ArcherAttacking(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)
@@ -31,13 +32,9 @@ namespace Enemy.Archer
 
         private void SearchPlayer()
         {
-            if(CanSeePlayer(Balancer.attackDistance, Balancer.viewAngle))
-            {
-                _canAttack = true;
-                Vector3 target = new Vector3(Player.transform.position.x, Enemy.transform.position.y, Player.transform.position.z);
-                Enemy.transform.LookAt(target);
-            }
-            else
+            float targetDistance = Vector3.Distance(Enemy.transform.position, Player.transform.position);
+
+            if(targetDistance > Balancer.attackDistance)
             {
                 _canAttack = false;
                 LostPlayer();
@@ -46,9 +43,7 @@ namespace Enemy.Archer
 
         private void LostPlayer()
         {
-            StateMachineNextState = NextState;
-            CurrentState = States.ARCHER_IDLE;
-            Stage = Events.EXIT;
+            OnExit?.Invoke();
         }
 
         private async UniTask BowAttack()

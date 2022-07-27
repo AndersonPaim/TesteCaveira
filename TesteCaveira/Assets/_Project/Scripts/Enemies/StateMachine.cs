@@ -55,7 +55,6 @@ public class StateMachine
         }
         if(Stage == Events.UPDATE)
         {
-            Debug.Log("CurrentState: " + CurrentState);
             Update();
         }
         if(Stage == Events.EXIT)
@@ -65,30 +64,5 @@ public class StateMachine
         }
 
         return this;
-    }
-
-    public bool CanSeePlayer(float distance, float angle)
-    {
-        Vector3 direction = Player.transform.position - Enemy.transform.position;
-        float viewAngle = Vector3.Angle(direction, Enemy.transform.forward);
-
-        if(direction.magnitude < distance && viewAngle < angle)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public void TakeDamage(Enemies enemy)
-    {
-        //StateMachineNextState = new EnemyDamage(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager, States.ARCHER_IDLE);
-        //Stage = Events.EXIT;
-    }
-
-    public void Death()
-    {
-        StateMachineNextState = new EnemyDying(Enemy, Player, Agent, Mesh, Anim, Path, Balancer, Manager);
-        Stage = Events.EXIT;
     }
 }

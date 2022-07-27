@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Managers;
 using UnityEngine;
@@ -7,8 +8,8 @@ namespace Enemy.Archer
 {
     public class ArcherMoving : StateMachine
     {
+        public Action OnExit;
         private Transform _waypoint;
-        public StateMachine NextState;
 
         public ArcherMoving(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)
@@ -35,8 +36,7 @@ namespace Enemy.Archer
 
             if(Agent.remainingDistance < Agent.stoppingDistance && Agent.remainingDistance > 1)
             {
-                StateMachineNextState = NextState;
-                Stage = Events.EXIT;
+                OnExit?.Invoke();
             }
         }
 

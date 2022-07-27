@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
 using Managers;
+using Enemy.Melee;
 
 namespace Enemy.Archer
 {
@@ -9,12 +10,6 @@ namespace Enemy.Archer
     {
         [SerializeField] private Transform _shootPosition;
         [SerializeField] private GameObject _arrowPrefab;
-
-        private EnemySpawn _spawnState;
-        private ArcherMoving _movingState;
-        private ArcherIdle _idleState;
-        private ArcherAttacking _attackingState;
-        private EnemyDamage _damageState;
 
         public void Attack()
         {
@@ -27,32 +22,72 @@ namespace Enemy.Archer
         public override void SetupEnemy(GameManager manager)
         {
             base.SetupEnemy(manager);
-            _spawnState = new EnemySpawn(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
-            _movingState = new ArcherMoving(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
-            _idleState = new ArcherIdle(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
-            _attackingState = new ArcherAttacking(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
-            _damageState = new EnemyDamage(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
-            _spawnState.NextState = _movingState;
-            _movingState.NextState = _idleState;
-            _idleState.NextState = _attackingState;
-            _attackingState.NextState = _idleState;
-            CurrentState = _spawnState;
+            EnemySpawn spawnState = new EnemySpawn(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
+            spawnState.OnExit += MovingState;
+            CurrentState = spawnState;
         }
 
         public override void TakeDamage(float damage)
         {
-            if(CurrentState.CurrentState == States.ARCHER_MOVING)
+            Health -= damage;
+
+            if(Health > 0)
             {
-                _damageState.NextState = _movingState;
+                DamageState();
             }
             else
             {
-                _damageState.NextState = _idleState;
+                DyingState();
             }
 
             base.TakeDamage(damage);
+        }
 
-            CurrentState.StateMachineNextState = _damageState;
+        private void DamageState()
+        {
+            EnemyDamage damageState = new EnemyDamage(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+
+            if(CurrentState.CurrentState == States.ARCHER_MOVING)
+            {
+                damageState.OnExit += MovingState;
+            }
+            else
+            {
+                damageState.OnExit += IdleState;
+            }
+
+            CurrentState.StateMachineNextState = damageState;
+            CurrentState.Stage = Events.EXIT;
+        }
+
+        private void DyingState()
+        {
+            EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            CurrentState.StateMachineNextState = dyingState;
+            CurrentState.Stage = Events.EXIT;
+        }
+
+        private void AttackState()
+        {
+            ArcherAttacking attackingState = new ArcherAttacking(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            attackingState.OnExit += IdleState;
+            CurrentState.StateMachineNextState = attackingState;
+            CurrentState.Stage = Events.EXIT;
+        }
+
+        private void IdleState()
+        {
+            ArcherIdle idleState = new ArcherIdle(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            idleState.OnExit += AttackState;
+            CurrentState.StateMachineNextState = idleState;
+            CurrentState.Stage = Events.EXIT;
+        }
+
+        private void MovingState()
+        {
+            ArcherMoving movingState = new ArcherMoving(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            movingState.OnExit += AttackState;
+            CurrentState.StateMachineNextState = movingState;
             CurrentState.Stage = Events.EXIT;
         }
     }

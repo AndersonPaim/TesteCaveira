@@ -10,7 +10,7 @@ namespace Enemy
 {
     public class EnemyDamage : StateMachine
     {
-        public StateMachine NextState;
+        public Action OnExit;
 
         public EnemyDamage(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
                     : base(enemy, player, agent, mesh, anim, path, balancer, manager)
@@ -29,9 +29,7 @@ namespace Enemy
         private async UniTask StunDelayASync()
         {
             await UniTask.Delay(Balancer.stunCooldown * 1000);
-
-            StateMachineNextState = NextState;
-            Stage = Events.EXIT;
+            OnExit?.Invoke();
         }
     }
 }
