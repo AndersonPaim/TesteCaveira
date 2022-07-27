@@ -4165,6 +4165,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _archerWaypoints:
   - {fileID: 984630132}
+  - {fileID: 132801348}
+  - {fileID: 1775806026}
+  - {fileID: 1053906173}
 --- !u!1 &1053906172
 GameObject:
   m_ObjectHideFlags: 0
@@ -9067,15 +9070,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 2029344517}
   _spawnPositions:
+  - {fileID: 1055756635}
   - {fileID: 1670732813}
-  _spawnWaves:
-  - Enemies:
-    - EnemyPrefab: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
-      EnemyNumber: 0
-    - EnemyPrefab: {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803,
-        type: 3}
-      EnemyNumber: 1
-    SpawnDelay: 0
+  - {fileID: 1329345295}
+  - {fileID: 841389785}
+  - {fileID: 840774929}
+  - {fileID: 1109250823}
+  - {fileID: 1455780951}
+  - {fileID: 2039424646}
+  - {fileID: 1120294620}
+  - {fileID: 688367978}
+  - {fileID: 271054923}
+  - {fileID: 212265613}
+  _spawnWaves: []
   _enemiesPrefab:
   - {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
   - {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803, type: 3}

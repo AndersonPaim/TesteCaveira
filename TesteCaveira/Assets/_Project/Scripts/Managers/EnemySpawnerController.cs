@@ -33,7 +33,8 @@ namespace Managers.Spawner
         {
             foreach(GameObject enemy in _currentEnemiesObj)
             {
-                enemy.GetComponent<EnemyBase>().TakeDamage(999);
+                EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
+                enemyBase.KillEnemy();
             }
         }
 

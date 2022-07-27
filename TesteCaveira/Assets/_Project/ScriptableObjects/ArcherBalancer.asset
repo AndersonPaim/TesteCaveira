@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   attackDistance: 10
-  viewAngle: 60
   shootForce: 40
   stunCooldown: 0
   attackCooldown: 3

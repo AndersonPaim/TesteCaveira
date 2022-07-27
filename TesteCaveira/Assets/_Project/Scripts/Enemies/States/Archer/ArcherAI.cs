@@ -83,7 +83,7 @@ namespace Enemy.Archer
         private void MovingState()
         {
             EnemyMoving movingState = new EnemyMoving(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager, GetAvailableWaypoint(), Agent.stoppingDistance);
-            movingState.OnExit += AttackState;
+            movingState.OnExit += IdleState;
             ChangeState(movingState);
         }
 

@@ -46,6 +46,13 @@ namespace Enemy
             }
         }
 
+        public void KillEnemy()
+        {
+            EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            CurrentState.StateMachineNextState = dyingState;
+            CurrentState.Stage = Events.EXIT;
+        }
+
         private void Awake()
         {
             Initialize();
