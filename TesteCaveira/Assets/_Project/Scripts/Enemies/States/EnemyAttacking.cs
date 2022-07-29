@@ -17,20 +17,20 @@ namespace Enemy
             CurrentState = States.ATTACKING;
         }
 
-        public override void Enter()
+        protected override void Enter()
         {
             Attack();
             base.Enter();
             _canAttack = true;
         }
 
-        public override void Update()
+        protected override void Update()
         {
             base.Update();
             SearchPlayer();
         }
 
-        public override void Exit()
+        protected override void Exit()
         {
             base.Exit();
             _canAttack = false;

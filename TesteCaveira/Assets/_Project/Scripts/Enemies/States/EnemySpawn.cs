@@ -16,7 +16,7 @@ namespace Enemy
             CurrentState = States.SPAWNING;
         }
 
-        public override void Enter()
+        protected override void Enter()
         {
             SetRandomTexture();
             Anim.SetTrigger("Spawn");

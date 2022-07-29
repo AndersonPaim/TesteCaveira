@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Enemy;
-using Enemy.Archer;
-using Enemy.Melee;
 using Managers;
 
 public class StateMachine
@@ -19,7 +17,7 @@ public class StateMachine
     protected EnemyBalancer Balancer;
     protected GameManager Manager;
 
-    public StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+    protected StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
     {
         Stage = Events.ENTER;
         Enemy = enemy;
@@ -32,17 +30,17 @@ public class StateMachine
         Mesh = mesh;
     }
 
-    public virtual void Enter()
+    protected virtual void Enter()
     {
         Stage = Events.UPDATE;
     }
 
-    public virtual void Update()
+    protected virtual void Update()
     {
         Stage = Events.UPDATE;
     }
 
-    public virtual void Exit()
+    protected virtual void Exit()
     {
         Stage = Events.EXIT;
     }

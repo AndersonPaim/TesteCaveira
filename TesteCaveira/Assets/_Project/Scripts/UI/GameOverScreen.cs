@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using Coimbra.Services;
 
 namespace UI
 {
     public class GameOverScreen : MonoBehaviour
     {
         [SerializeField] private GameManager _manager;
+        [SerializeField] private SceneController _sceneController;
         [SerializeField] private GameObject _loadingScreen;
         [SerializeField] private Transform _popUpScreen;
         [SerializeField] private Button _quitButton;
@@ -37,7 +39,7 @@ namespace UI
 
         private void Initialize()
         {
-            _sceneLoader = _manager.SceneController.GetComponent<ISceneLoader>();
+            _sceneLoader = _sceneController.GetComponent<ISceneLoader>(); //ServiceLocator.Get<ISceneLoader>();
             _scoreText.text = _manager.ScoreManager.GetScore().ToString();
             _killsText.text = _manager.ScoreManager.GetKills().ToString();
         }

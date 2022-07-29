@@ -1,3 +1,4 @@
+using Coimbra.Services;
 using Interfaces;
 using Managers;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace UI
     public class GameMenus : MonoBehaviour
     {
         [SerializeField] private GameManager _manager;
+        [SerializeField] private SceneController _sceneController;
         [SerializeField] private GameObject _pauseMenu;
         [SerializeField] private GameObject _victoryMenu;
         [SerializeField] private GameObject _defeatedMenu;
@@ -27,7 +29,7 @@ namespace UI
 
         private void Initialize()
         {
-            _sceneLoader = _manager.SceneController.GetComponent<ISceneLoader>();
+            _sceneLoader = _sceneController.GetComponent<ISceneLoader>(); //ServiceLocator.Get<ISceneLoader>();
         }
 
         private void StartEvents()

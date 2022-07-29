@@ -1,4 +1,5 @@
 using System;
+using Coimbra.Services;
 using DG.Tweening;
 using Interfaces;
 using Managers;
@@ -11,7 +12,7 @@ namespace UI
     {
         public Action OnResumeGame;
 
-        [SerializeField] private GameManager _manager;
+        [SerializeField] private SceneController _sceneController;
         [SerializeField] private GameObject _loadingScreen;
         [SerializeField] private GameObject _pausePopUp;
         [SerializeField] private GameObject _settingsScreen;
@@ -40,7 +41,7 @@ namespace UI
 
         private void Initialize()
         {
-            _sceneLoader = _manager.SceneController.GetComponent<ISceneLoader>();
+            _sceneLoader = _sceneController.GetComponent<ISceneLoader>(); //ServiceLocator.Get<ISceneLoader>();
         }
 
         private void StartEvents()

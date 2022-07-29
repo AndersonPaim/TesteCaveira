@@ -1,6 +1,8 @@
 using Interfaces;
 using UnityEngine;
 using UnityEngine.Audio;
+using Event;
+using Coimbra.Services.Events;
 
 namespace Managers
 {
@@ -63,15 +65,15 @@ namespace Managers
 
         private void SetupEvents()
         {
-            _manager.SettingsScreen.OnSetEffectsVolume += EffectsVolume;
-            _manager.SettingsScreen.OnSetMusicVolume += MusicVolume;
+            OnMusicVolumeUpdate.AddListener(MusicVolume);
+            OnEffectsVolumeUpdate.AddListener(EffectsVolume);
             _manager.OnPauseGame += PauseAudio;
         }
 
         private void DestroyEvents()
         {
-            _manager.SettingsScreen.OnSetEffectsVolume -= EffectsVolume;
-            _manager.SettingsScreen.OnSetMusicVolume -= MusicVolume;
+            OnMusicVolumeUpdate.RemoveAllListeners();
+            OnEffectsVolumeUpdate.RemoveAllListeners();
             _manager.OnPauseGame -= PauseAudio;
         }
 
@@ -87,19 +89,19 @@ namespace Managers
             }
         }
 
-        private void EffectsVolume(float volume)
+        public void EffectsVolume(ref EventContext context, in OnEffectsVolumeUpdate volume)
         {
-            _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(volume) * 20);
+            _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(volume.Volume) * 20);
             SaveData data = SaveSystem.localData;
-            data.SoundfxVolume = volume;
+            data.SoundfxVolume = volume.Volume;
             SaveSystem.Save();
         }
 
-        private void MusicVolume(float volume)
+        public void MusicVolume(ref EventContext context, in OnMusicVolumeUpdate volume)
         {
-            _gameAudioMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+            _gameAudioMixer.SetFloat("MusicVolume", Mathf.Log10(volume.Volume) * 20);
             SaveData data = SaveSystem.localData;
-            data.MusicVolume = volume;
+            data.MusicVolume = volume.Volume;
             SaveSystem.Save();
         }
     }

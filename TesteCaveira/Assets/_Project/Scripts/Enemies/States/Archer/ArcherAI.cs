@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.AI;
 using Interfaces;
 using Managers;
-using Enemy.Melee;
 using System.Collections.Generic;
 
 namespace Enemy.Archer
@@ -93,6 +91,7 @@ namespace Enemy.Archer
             CurrentState.Stage = Events.EXIT;
         }
 
+        //TODO PASSAR O WAYPOINT CONTROLLER PELO SPAWNER, COLOCAR O POOLER GLOBAL
         private Transform GetAvailableWaypoint()
         {
             Transform closestWaypoint = null;

@@ -15,13 +15,13 @@ namespace Enemy.Archer
             CurrentState = States.ARCHER_IDLE;
         }
 
-        public override void Enter()
+        protected override void Enter()
         {
             Anim.SetTrigger("Idle");
             base.Enter();
         }
 
-        public override void Update()
+        protected override void Update()
         {
             base.Update();
             SearchPlayer();

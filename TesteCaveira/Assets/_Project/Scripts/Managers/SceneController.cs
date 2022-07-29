@@ -1,4 +1,4 @@
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +7,7 @@ public class SceneController : MonoBehaviour, ISceneLoader
 {
     public void LoadScene(string scene)
     {
-        StartCoroutine(LoadASync(scene));
+        LoadASync(scene);
     }
 
     public void RestartScene()
@@ -15,14 +15,14 @@ public class SceneController : MonoBehaviour, ISceneLoader
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private IEnumerator LoadASync(string scene)
+    private async UniTaskVoid LoadASync(string scene)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
 
         while(!operation.isDone)
         {
             float loadingProgress = Mathf.Clamp01(operation.progress / 0.9f);
-            yield return null;
+            await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
         }
     }
 

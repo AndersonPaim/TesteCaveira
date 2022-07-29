@@ -1,4 +1,7 @@
+using Coimbra.Services;
+using Coimbra.Services.Events;
 using DG.Tweening;
+using Event;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -7,16 +10,14 @@ namespace UI
 {
     public class SettingsScreen : MonoBehaviour
     {
-        public delegate void SetVolumeHandler(float volume);
-        public SetVolumeHandler OnSetEffectsVolume;
-        public SetVolumeHandler OnSetMusicVolume;
-
         [SerializeField] private Button _closeButton;
         [SerializeField] private GameObject _settingsPopUp;
         [SerializeField] private Slider _effectsVolumeSlider;
         [SerializeField] private Slider _musicVolumeSlider;
         [SerializeField] private Slider _countdownSlider;
         [SerializeField] private TextMeshProUGUI _countdownValueText;
+
+        private IEventService _eventService;
 
         private void Start()
         {
@@ -45,6 +46,8 @@ namespace UI
 
         private void SetupEvents()
         {
+            _eventService = ServiceLocator.Get<IEventService>();
+
             _closeButton.onClick.AddListener(CloseButtonClicked);
             _effectsVolumeSlider.onValueChanged.AddListener(ChangeEffectsVolume);
             _musicVolumeSlider.onValueChanged.AddListener(ChangeMusicVolume);
@@ -81,12 +84,14 @@ namespace UI
 
         private void ChangeEffectsVolume(float volume)
         {
-            OnSetEffectsVolume?.Invoke(volume);
+            OnEffectsVolumeUpdate volumeUpdate = new OnEffectsVolumeUpdate() { Volume = volume };
+            volumeUpdate.Invoke(_eventService);
         }
 
         private void ChangeMusicVolume(float volume)
         {
-            OnSetMusicVolume?.Invoke(volume);
+            OnMusicVolumeUpdate volumeUpdate = new OnMusicVolumeUpdate() { Volume = volume };
+            volumeUpdate.Invoke(_eventService);
         }
 
         private void ChangeStartCountdown(float time)

@@ -18,7 +18,6 @@ namespace Managers
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private BowController _bowController;
         [SerializeField] private EnemySpawnerController _enemySpawnerController;
-        [SerializeField] private SceneController _sceneController;
         [SerializeField] private UIManager _uiController;
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private PauseScreen _pauseScreen;
@@ -31,7 +30,6 @@ namespace Managers
         public PlayerController PlayerController => _playerController;
         public BowController BowController => _bowController;
         public EnemySpawnerController EnemySpawnerController => _enemySpawnerController;
-        public SceneController SceneController => _sceneController;
         public AudioManager AudioManager => _audioManager;
         public SettingsScreen SettingsScreen => _settingsScreen;
         public ScoreManager ScoreManager => _scoreManager;
@@ -131,4 +129,8 @@ namespace Managers
             Time.timeScale = 0;
         }
     }
+
+    //TODO
+    //ARQUEIRO REPOSICIONAR AO TOMAR DANO
+    //MELEE DEFENDER APÓS CERTO TEMPO
 }

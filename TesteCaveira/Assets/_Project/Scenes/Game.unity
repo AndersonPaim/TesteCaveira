@@ -4051,6 +4051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _manager: {fileID: 2029344517}
+  _sceneController: {fileID: 708019980}
   _pauseMenu: {fileID: 214763256}
   _victoryMenu: {fileID: 1590612273}
   _defeatedMenu: {fileID: 715710279}
@@ -9086,9 +9087,10 @@ MonoBehaviour:
   _enemiesPrefab:
   - {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
   - {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803, type: 3}
+  - {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803, type: 3}
   _randomWaveNumber: 5
   _maxRandomSpawnDelay: 1
-  _minRandomSpawnDelay: 5
+  _minRandomSpawnDelay: 1
 --- !u!1001 &1520065153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11355,7 +11357,6 @@ MonoBehaviour:
   _playerController: {fileID: 1173076571}
   _bowController: {fileID: 1384885994}
   _enemySpawnerController: {fileID: 1499146984}
-  _sceneController: {fileID: 708019980}
   _uiController: {fileID: 627687581}
   _audioManager: {fileID: 444009726}
   _pauseScreen: {fileID: 214763258}
@@ -12063,6 +12064,10 @@ PrefabInstance:
       propertyPath: _settingsScreen
       value: 
       objectReference: {fileID: 651313475}
+    - target: {fileID: 214763258, guid: 2fd3a8e66e3dba0488acb9abf020f3d0, type: 3}
+      propertyPath: _sceneController
+      value: 
+      objectReference: {fileID: 708019980}
     - target: {fileID: 7496522906568723056, guid: 2fd3a8e66e3dba0488acb9abf020f3d0,
         type: 3}
       propertyPath: m_Pivot.x

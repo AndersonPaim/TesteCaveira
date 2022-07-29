@@ -18,7 +18,7 @@ namespace Enemy
             _destroyDelay = balancer.destroyDelay;
         }
 
-        public override void Enter()
+        protected override void Enter()
         {
             Agent.SetDestination(Enemy.transform.position);
             Anim.SetTrigger("Death");

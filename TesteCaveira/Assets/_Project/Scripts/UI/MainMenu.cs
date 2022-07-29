@@ -1,5 +1,7 @@
+using Coimbra.Services;
 using Interfaces;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -28,7 +30,7 @@ namespace UI
 
         private void Initialize()
         {
-            _sceneLoader = _sceneController.GetComponent<ISceneLoader>();
+            _sceneLoader = _sceneController.GetComponent<ISceneLoader>(); //ServiceLocator.Get<ISceneLoader>();
         }
 
         private void StartEvents()

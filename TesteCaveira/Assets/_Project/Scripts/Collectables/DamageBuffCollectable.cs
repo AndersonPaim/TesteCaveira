@@ -16,6 +16,7 @@ namespace Collectable.PowerUp
         protected override void CollectItem(GameObject obj)
         {
             base.CollectItem(obj);
+            //TODO REMEDIAR O BUFF COM O PLAYER
             Manager.BowController.SetDamageBuff(_damageMultiplier, _buffDuration);
         }
     }

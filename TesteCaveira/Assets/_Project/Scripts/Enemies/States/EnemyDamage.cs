@@ -16,7 +16,7 @@ namespace Enemy
             CurrentState = States.TAKINGDAMAGE;
         }
 
-        public override void Enter()
+        protected override void Enter()
         {
             Anim.SetTrigger("TakeDamage");
             Agent.SetDestination(Enemy.transform.position);

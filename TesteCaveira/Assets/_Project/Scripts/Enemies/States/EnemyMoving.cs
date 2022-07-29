@@ -19,19 +19,19 @@ namespace Enemy
             _stopDistance = stopDistance;
         }
 
-        public override void Enter()
+        protected override void Enter()
         {
             Anim.SetBool("Run", true);
             base.Enter();
         }
 
-        public override void Update()
+        protected override void Update()
         {
             base.Update();
             Move();
         }
 
-        public override void Exit()
+        protected override void Exit()
         {
             base.Exit();
             Anim.SetBool("Run", false);
