@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour, IDamageable, IHealable
     [SerializeField] private PlayerCamController _cameraController;
     [SerializeField] private PlayerBalancer _playerBalancer;
     [SerializeField] private GameObject _playerPivot;
+    [SerializeField] private BowController _weapon;
 
     private float _speed = 0;
     private float _health;
@@ -51,6 +52,11 @@ public class PlayerController : MonoBehaviour, IDamageable, IHealable
         }
 
         OnUpdateHealth?.Invoke(_health);
+    }
+
+    public void SetWeaponDamageBuff(float damage, int duration)
+    {
+        _weapon.SetDamageBuff(damage, duration);
     }
 
     private void Start()

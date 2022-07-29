@@ -3,16 +3,14 @@ using UI;
 using System;
 using Cysharp.Threading.Tasks;
 using Managers.Spawner;
+using Coimbra.Services.Events;
+using Coimbra.Services;
+using Event;
 
 namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-        public Action OnGameStarted;
-        public Action OnGameVictory;
-        public Action OnGameDefeated;
-        public Action<bool> OnPauseGame;
-
         [SerializeField] private ObjectPooler _objectPooler;
         [SerializeField] private InputListener _inputListener;
         [SerializeField] private PlayerController _playerController;
@@ -37,6 +35,7 @@ namespace Managers
 
         private bool _isPaused = false;
         private bool _gameOver = false;
+        private IEventService _eventService;
 
         private async UniTask Start()
         {
@@ -71,7 +70,9 @@ namespace Managers
             SaveData data = SaveSystem.Load();
             _uiController.StartCountdown(data.StartCountdown);
             await UniTask.Delay(data.StartCountdown * 1000);
-            OnGameStarted?.Invoke();
+            _eventService = ServiceLocator.Get<IEventService>();
+            OnGameStarted gameStarted = new OnGameStarted();
+            gameStarted?.Invoke(_eventService);
         }
 
         private void PauseGame()
@@ -86,15 +87,16 @@ namespace Managers
                 _isPaused = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
-                OnPauseGame?.Invoke(_isPaused);
             }
             else
             {
                 _isPaused = true;
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0;
-                OnPauseGame?.Invoke(_isPaused);
             }
+
+            OnPauseGame pauseGame = new OnPauseGame() {IsPaused = _isPaused };
+            pauseGame?.Invoke(_eventService);
         }
 
         private void Victory()
@@ -106,7 +108,9 @@ namespace Managers
 
             _gameOver = true;
             PauseGameFade();
-            OnGameVictory?.Invoke();
+
+            OnGameVictory gameVictory = new OnGameVictory();
+            gameVictory?.Invoke(_eventService);
         }
 
         private void Defeated()
@@ -118,7 +122,9 @@ namespace Managers
 
             _gameOver = true;
             PauseGameFade();
-            OnGameDefeated?.Invoke();
+
+            OnGameDefeated gameDefeated = new OnGameDefeated();
+            gameDefeated?.Invoke(_eventService);
         }
 
         private async UniTask PauseGameFade()

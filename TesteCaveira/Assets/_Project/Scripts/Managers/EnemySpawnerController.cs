@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Coimbra.Services.Events;
 using Cysharp.Threading.Tasks;
 using Enemy;
+using Event;
 using UnityEngine;
 
 namespace Managers.Spawner
@@ -11,7 +13,8 @@ namespace Managers.Spawner
         public Action OnFinishWaves;
         public Action<int> OnStartWave;
 
-        [SerializeField] private GameManager _manager;
+        [SerializeField] private ScoreManager _scoreManager;
+        [SerializeField] private GameManager _gameManager;
         [SerializeField] private List<Transform> _spawnPositions = new List<Transform>();
         [Header("CUSTOM SPAWN DATA")]
         [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
@@ -27,7 +30,6 @@ namespace Managers.Spawner
         private int _kills = 0;
         private int _currentWave = 0;
         private bool _isSpawning = false;
-        private ObjectPooler _objectPooler;
 
         public void ClearEnemiesAlive()
         {
@@ -40,7 +42,6 @@ namespace Managers.Spawner
 
         private void Start()
         {
-            Initialize();
             SetupEvents();
             InitializeWaves();
             SetupWave();
@@ -51,22 +52,17 @@ namespace Managers.Spawner
             DestroyEvents();
         }
 
-        private void Initialize()
-        {
-            _objectPooler = _manager.ObjectPooler;
-        }
-
         private void SetupEvents()
         {
-            _manager.OnGameStarted += StartSpawning;
+            OnGameStarted.AddListener(StartSpawning);
         }
 
         private void DestroyEvents()
         {
-            _manager.OnGameStarted -= StartSpawning;
+            OnGameStarted.RemoveAllListeners();
         }
 
-        private void StartSpawning()
+        private void StartSpawning(ref EventContext context, in OnGameStarted e)
         {
             OnStartWave?.Invoke(_currentWave + 1);
             SpawnEnemiesASync();
@@ -175,10 +171,10 @@ namespace Managers.Spawner
         private async UniTask SpawnEnemy(GameObject obj)
         {
             _currentEnemies++;
-            GameObject enemyObj = _objectPooler.SpawnFromPool(obj.GetInstanceID());
+            GameObject enemyObj = ObjectPooler.sInstance.SpawnFromPool(obj.GetInstanceID());
             enemyObj.transform.position = GetSpawnPos().position;
             EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
-            enemy.SetupEnemy(_manager);
+            enemy.SetupEnemy(_gameManager);
             enemy.OnEnemyDie += EnemyDeath;
             _currentEnemiesObj.Add(enemyObj);
 
@@ -197,7 +193,7 @@ namespace Managers.Spawner
             _kills++;
             _currentEnemiesObj.Remove(enemy);
             enemy.GetComponent<EnemyBase>().OnEnemyDie -= EnemyDeath;
-            _manager.ScoreManager.KillEnemyScore(score);
+            _scoreManager.KillEnemyScore(score);
             CanFinishWave();
         }
 

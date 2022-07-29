@@ -52,7 +52,7 @@ namespace Enemy
             GameObject obj = Manager.ObjectPooler.SpawnFromPool(prefab.GetInstanceID());
             obj.transform.position = Enemy.transform.position;
             CollectableBase collectable = obj.GetComponent<CollectableBase>();
-            collectable.SetupCollectable(Manager);
+            collectable.SetupCollectable(Manager, Player.GetComponent<PlayerController>());
         }
     }
 }

@@ -11,12 +11,25 @@ public class ObjectPooler : MonoBehaviour
         public int size;
     }
 
+    public static ObjectPooler sInstance;
+
     [SerializeField]  private List<Pool> _pools;
 
     private Dictionary<int, List<GameObject>> _poolDictionary;
-
     private List<GameObject> _objectPool;
 
+    private void Awake()
+    {
+        if (sInstance != null)
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+        else
+        {
+            sInstance = this;
+        }
+    }
 
     private void Start()
     {

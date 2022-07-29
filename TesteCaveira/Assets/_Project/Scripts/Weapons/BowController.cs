@@ -9,20 +9,18 @@ public class BowController : MonoBehaviour
     public delegate void PlayerDataHandler(PlayerData playerData);
     public PlayerDataHandler OnPlayerDataUpdate;
 
+    [SerializeField] private InputListener _inputListener;
     [SerializeField] private Transform _shootPosition;
     [SerializeField] private GameObject _arrowPrefab;
-    [SerializeField] private float _shootForce;
-    [SerializeField] private GameManager _gameManager;
     [SerializeField] private MeshRenderer _previewArrowMesh;
     [SerializeField] private Material _previewArrowDefaultMat;
     [SerializeField] private Material _previewBuffedArrowMat;
+    [SerializeField] private float _shootForce;
 
     private bool _isPaused = false;
     private bool _isAiming = false;
     private bool _isShooting = false;
-    private bool _isChangingArrow = false;
     private float _damageMultiplier = 1;
-    private ObjectPooler _objectPooler;
     private PlayerData _playerData;
     private CancellationTokenSource _cancellationTokenSource;
 
@@ -57,18 +55,17 @@ public class BowController : MonoBehaviour
 
     private void SetupDelegates()
     {
-        _gameManager.InputListener.OnInput += ReceiveInputs;
+        _inputListener.OnInput += ReceiveInputs;
     }
 
     private void RemoveDelegates()
     {
-        _gameManager.InputListener.OnInput -= ReceiveInputs;
+        _inputListener.OnInput -= ReceiveInputs;
     }
 
     private void Initialize()
     {
         SetupDelegates();
-        _objectPooler = _gameManager.ObjectPooler;
     }
 
     private void PauseInputs(bool isPaused)
@@ -90,10 +87,6 @@ public class BowController : MonoBehaviour
         if(_isShooting)
         {
             _isShooting = false;
-        }
-        if(_isChangingArrow)
-        {
-            _isChangingArrow = false;
         }
 
         OnPlayerDataUpdate?.Invoke(_playerData);
@@ -119,7 +112,7 @@ public class BowController : MonoBehaviour
 
     private void ArrowShoot()
     {
-        GameObject obj = _objectPooler.SpawnFromPool(_arrowPrefab.GetInstanceID());
+        GameObject obj = ObjectPooler.sInstance.SpawnFromPool(_arrowPrefab.GetInstanceID());
         WeaponBase arrow = obj.GetComponent<WeaponBase>();
         Rigidbody rb = obj.GetComponent<Rigidbody>();
 

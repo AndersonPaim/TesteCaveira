@@ -1,15 +1,21 @@
 using System;
+using Coimbra.Services.Events;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Event;
 using Interfaces;
 using Managers;
+using Managers.Spawner;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameManager _manager;
+    [SerializeField] private PlayerController _playerController;
+    [SerializeField] private ScoreManager _scoreManager;
+    [SerializeField] private EnemySpawnerController _enemySpawner;
+    [SerializeField] private AudioManager _audioManager;
     [SerializeField] private GameObject _hudObject;
     [SerializeField] private GameObject _waveCounter;
     [SerializeField] private Slider _healthSlider;
@@ -38,35 +44,51 @@ public class UIManager : MonoBehaviour
 
     private void Initialize()
     {
-        _audioPlayer = _manager.AudioManager.GetComponent<IAudioPlayer>();
+        _audioPlayer = _audioManager.GetComponent<IAudioPlayer>();
     }
 
     private void SetupEvents()
     {
-        _manager.PlayerController.OnInitializeHealth += InitializeHealthSlider;
-        _manager.PlayerController.OnUpdateHealth += UpdateHealthSlider;
-        _manager.ScoreManager.OnUpdateScore += UpdateScore;
-        _manager.EnemySpawnerController.OnStartWave += UpdateWaveCounter;
-        _manager.OnGameStarted += EnableHUD;
-        _manager.OnGameVictory += DisableHUD;
-        _manager.OnGameDefeated += DisableHUD;
+        _playerController.OnInitializeHealth += InitializeHealthSlider;
+        _playerController.OnUpdateHealth += UpdateHealthSlider;
+        _scoreManager.OnUpdateScore += UpdateScore;
+        _enemySpawner.OnStartWave += UpdateWaveCounter;
+        OnGameStarted.AddListener(GameStarted);
+        OnGameVictory.AddListener(GameVictory);
+        OnGameDefeated.AddListener(GameDefeated);
     }
+
 
     private void DestroyEvents()
     {
-        _manager.PlayerController.OnInitializeHealth -= InitializeHealthSlider;
-        _manager.PlayerController.OnUpdateHealth -= UpdateHealthSlider;
-        _manager.ScoreManager.OnUpdateScore -= UpdateScore;
-        _manager.EnemySpawnerController.OnStartWave -= UpdateWaveCounter;
-        _manager.OnGameStarted -= EnableHUD;
-        _manager.OnGameVictory -= DisableHUD;
-        _manager.OnGameDefeated -= DisableHUD;
+        _playerController.OnInitializeHealth -= InitializeHealthSlider;
+        _playerController.OnUpdateHealth -= UpdateHealthSlider;
+        _scoreManager.OnUpdateScore -= UpdateScore;
+        _enemySpawner.OnStartWave -= UpdateWaveCounter;
+        OnGameStarted.RemoveAllListeners();
+        OnGameVictory.RemoveAllListeners();
+        OnGameDefeated.RemoveAllListeners();
     }
 
     private void InitializeHealthSlider(float health)
     {
         _healthSlider.maxValue = health;
         _healthSlider.value = health;
+    }
+
+    private void GameStarted(ref EventContext context, in OnGameStarted e)
+    {
+        EnableHUD();
+    }
+
+    private void GameVictory(ref EventContext context, in OnGameVictory e)
+    {
+        DisableHUD();
+    }
+
+    private void GameDefeated(ref EventContext context, in OnGameDefeated e)
+    {
+        DisableHUD();
     }
 
     private void EnableHUD()

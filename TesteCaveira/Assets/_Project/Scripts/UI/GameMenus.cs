@@ -1,4 +1,7 @@
+using System;
 using Coimbra.Services;
+using Coimbra.Services.Events;
+using Event;
 using Interfaces;
 using Managers;
 using UnityEngine;
@@ -7,7 +10,6 @@ namespace UI
 {
     public class GameMenus : MonoBehaviour
     {
-        [SerializeField] private GameManager _manager;
         [SerializeField] private SceneController _sceneController;
         [SerializeField] private GameObject _pauseMenu;
         [SerializeField] private GameObject _victoryMenu;
@@ -34,21 +36,21 @@ namespace UI
 
         private void StartEvents()
         {
-            _manager.OnPauseGame += PauseGame;
-            _manager.OnGameDefeated += ShowDefeatedScreen;
-            _manager.OnGameVictory += ShowVictoryScreen;
+            OnPauseGame.AddListener(PauseGame);
+            OnGameVictory.AddListener(ShowVictoryScreen);
+            OnGameDefeated.AddListener(ShowDefeatedScreen);
         }
 
         private void DestroyEvents()
         {
-            _manager.OnPauseGame -= PauseGame;
-            _manager.OnGameDefeated -= ShowDefeatedScreen;
-            _manager.OnGameVictory -= ShowVictoryScreen;
+            OnPauseGame.RemoveAllListeners();
+            OnGameVictory.RemoveAllListeners();
+            OnGameDefeated.RemoveAllListeners();
         }
 
-        private void PauseGame(bool isPaused)
+        private void PauseGame(ref EventContext context, in OnPauseGame e)
         {
-            if(isPaused)
+            if(e.IsPaused)
             {
                 _pauseMenu.SetActive(true);
             }
@@ -59,12 +61,12 @@ namespace UI
             }
         }
 
-        private void ShowDefeatedScreen()
+        private void ShowDefeatedScreen(ref EventContext context, in OnGameDefeated e)
         {
             _defeatedMenu.SetActive(true);
         }
 
-        private void ShowVictoryScreen()
+        private void ShowVictoryScreen(ref EventContext context, in OnGameVictory e)
         {
             _victoryMenu.SetActive(true);
         }

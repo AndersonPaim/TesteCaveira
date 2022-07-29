@@ -10,11 +10,13 @@ namespace Collectable
 
         protected Collider Collider;
         protected GameManager Manager;
+        protected PlayerController Player;
         protected IAudioPlayer AudioPlayer;
 
-        public void SetupCollectable(GameManager manager)
+        public void SetupCollectable(GameManager manager, PlayerController player)
         {
             Collider.enabled = true;
+            Player = player;
             Manager = manager;
             AudioPlayer = Manager.AudioManager.GetComponent<IAudioPlayer>();
         }

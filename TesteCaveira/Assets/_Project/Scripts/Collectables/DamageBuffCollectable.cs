@@ -17,7 +17,7 @@ namespace Collectable.PowerUp
         {
             base.CollectItem(obj);
             //TODO REMEDIAR O BUFF COM O PLAYER
-            Manager.BowController.SetDamageBuff(_damageMultiplier, _buffDuration);
+            Player.SetWeaponDamageBuff(_damageMultiplier, _buffDuration);
         }
     }
 }

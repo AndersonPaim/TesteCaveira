@@ -1548,7 +1548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bda00090f33a64bb2315e2f08000af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 2029344517}
   _gameAudioMixer: {fileID: 24100000, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
   _audioPrefab: {fileID: 977348391023847857, guid: ecd0a0658d0c064419816ad7572d6519,
     type: 3}
@@ -2173,7 +2172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3950925552fcd4cb3c7aa7ff529257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 2029344517}
+  _playerController: {fileID: 1173076571}
+  _scoreManager: {fileID: 1792196973}
+  _enemySpawner: {fileID: 1499146984}
+  _audioManager: {fileID: 444009726}
   _hudObject: {fileID: 228861027}
   _waveCounter: {fileID: 1146688781}
   _healthSlider: {fileID: 1930488970}
@@ -4050,7 +4052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027a3adea8a19d44986132732ba4e882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 2029344517}
   _sceneController: {fileID: 708019980}
   _pauseMenu: {fileID: 214763256}
   _victoryMenu: {fileID: 1590612273}
@@ -9069,7 +9070,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f1f349367b53a488fb03949ad1d542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 2029344517}
+  _scoreManager: {fileID: 1792196973}
+  _gameManager: {fileID: 2029344517}
   _spawnPositions:
   - {fileID: 1055756635}
   - {fileID: 1670732813}

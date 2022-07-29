@@ -85,13 +85,13 @@ namespace UI
         private void ChangeEffectsVolume(float volume)
         {
             OnEffectsVolumeUpdate volumeUpdate = new OnEffectsVolumeUpdate() { Volume = volume };
-            volumeUpdate.Invoke(_eventService);
+            volumeUpdate?.Invoke(_eventService);
         }
 
         private void ChangeMusicVolume(float volume)
         {
             OnMusicVolumeUpdate volumeUpdate = new OnMusicVolumeUpdate() { Volume = volume };
-            volumeUpdate.Invoke(_eventService);
+            volumeUpdate?.Invoke(_eventService);
         }
 
         private void ChangeStartCountdown(float time)
