@@ -14,7 +14,8 @@ namespace Managers.Spawner
         public Action<int> OnStartWave;
 
         [SerializeField] private ScoreManager _scoreManager;
-        [SerializeField] private GameManager _gameManager;
+        [SerializeField] private WaypointController _waypointsController;
+        [SerializeField] private GameObject _player;
         [SerializeField] private List<Transform> _spawnPositions = new List<Transform>();
         [Header("CUSTOM SPAWN DATA")]
         [SerializeField] private List<Wave> _spawnWaves = new List<Wave>();
@@ -31,15 +32,6 @@ namespace Managers.Spawner
         private int _currentWave = 0;
         private bool _isSpawning = false;
 
-        public void ClearEnemiesAlive()
-        {
-            foreach(GameObject enemy in _currentEnemiesObj)
-            {
-                EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
-                enemyBase.KillEnemy();
-            }
-        }
-
         private void Start()
         {
             SetupEvents();
@@ -55,17 +47,13 @@ namespace Managers.Spawner
         private void SetupEvents()
         {
             OnGameStarted.AddListener(StartSpawning);
+            OnClearEnemies.AddListener(ClearEnemiesAlive);
         }
 
         private void DestroyEvents()
         {
             OnGameStarted.RemoveAllListeners();
-        }
-
-        private void StartSpawning(ref EventContext context, in OnGameStarted e)
-        {
-            OnStartWave?.Invoke(_currentWave + 1);
-            SpawnEnemiesASync();
+            OnClearEnemies.RemoveAllListeners();
         }
 
         private void InitializeWaves()
@@ -74,6 +62,21 @@ namespace Managers.Spawner
             {
                 RandomizeWaves();
             }
+        }
+
+        private void ClearEnemiesAlive(ref EventContext context, in OnClearEnemies e)
+        {
+            foreach(GameObject enemy in _currentEnemiesObj)
+            {
+                EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
+                enemyBase.KillEnemy();
+            }
+        }
+
+        private void StartSpawning(ref EventContext context, in OnGameStarted e)
+        {
+            OnStartWave?.Invoke(_currentWave + 1);
+            SpawnEnemiesASync();
         }
 
         private void SetupWave()
@@ -174,7 +177,7 @@ namespace Managers.Spawner
             GameObject enemyObj = ObjectPooler.sInstance.SpawnFromPool(obj.GetInstanceID());
             enemyObj.transform.position = GetSpawnPos().position;
             EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
-            enemy.SetupEnemy(_gameManager);
+            enemy.SetupEnemy(_waypointsController, _player);
             enemy.OnEnemyDie += EnemyDeath;
             _currentEnemiesObj.Add(enemyObj);
 

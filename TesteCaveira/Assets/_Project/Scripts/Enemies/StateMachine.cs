@@ -13,20 +13,18 @@ public class StateMachine
     protected NavMeshAgent Agent;
     protected SkinnedMeshRenderer Mesh;
     protected Animator Anim;
-    protected NavMeshPath Path;
     protected EnemyBalancer Balancer;
-    protected GameManager Manager;
+    protected WaypointController Waypoints;
 
-    protected StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
+    protected StateMachine(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints)
     {
         Stage = Events.ENTER;
         Enemy = enemy;
         Agent = agent;
         Anim = anim;
-        Path = path;
         Player = player;
         Balancer = balancer;
-        Manager = manager;
+        Waypoints = waypoints;
         Mesh = mesh;
     }
 

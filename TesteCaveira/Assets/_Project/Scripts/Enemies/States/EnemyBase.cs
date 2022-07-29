@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
+using System;
 using Managers;
 
 namespace Enemy
@@ -14,7 +15,7 @@ namespace Enemy
         [SerializeField] protected SkinnedMeshRenderer Mesh;
         [SerializeField] protected EnemyAudioController AudioController;
 
-        protected GameManager Manager;
+        protected WaypointController Waypoints;
         protected NavMeshAgent Agent;
         protected Animator Anim;
         protected StateMachine CurrentState;
@@ -23,11 +24,11 @@ namespace Enemy
         protected float Health;
         protected bool IsDead = false;
 
-        public virtual void SetupEnemy(GameManager manager)
+        public virtual void SetupEnemy(WaypointController waypoints, GameObject player)
         {
-            Manager = manager;
-            Player = manager.PlayerController.gameObject;
-            AudioController.SetupManager(manager.AudioManager);
+            Waypoints = waypoints;
+            Player = player;
+            AudioController.SetupManager();
             Health = EnemyBalancer.health;
             IsDead = false;
         }
@@ -48,7 +49,7 @@ namespace Enemy
 
         public void KillEnemy()
         {
-            EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
             CurrentState.StateMachineNextState = dyingState;
             CurrentState.Stage = Events.EXIT;
         }

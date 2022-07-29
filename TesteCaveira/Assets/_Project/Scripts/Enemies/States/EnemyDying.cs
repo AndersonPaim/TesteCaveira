@@ -11,8 +11,8 @@ namespace Enemy
     {
         private int _destroyDelay;
 
-        public EnemyDying(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
-                    : base(enemy, player, agent, mesh, anim, path, balancer, manager)
+        public EnemyDying(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints)
+                    : base(enemy, player, agent, mesh, anim, balancer, waypoints)
         {
             CurrentState = States.DYING;
             _destroyDelay = balancer.destroyDelay;
@@ -49,10 +49,11 @@ namespace Enemy
 
         private void InstantiatePowerUp(GameObject prefab)
         {
-            GameObject obj = Manager.ObjectPooler.SpawnFromPool(prefab.GetInstanceID());
+            GameObject obj = ObjectPooler.sInstance.SpawnFromPool(prefab.GetInstanceID());
             obj.transform.position = Enemy.transform.position;
             CollectableBase collectable = obj.GetComponent<CollectableBase>();
-            collectable.SetupCollectable(Manager, Player.GetComponent<PlayerController>());
+            PlayerController player = Player.GetComponent<PlayerController>();
+            collectable.SetupCollectable(player);
         }
     }
 }

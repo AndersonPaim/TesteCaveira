@@ -10,7 +10,7 @@ namespace UI
 {
     public class GameOverScreen : MonoBehaviour
     {
-        [SerializeField] private GameManager _manager;
+        [SerializeField] private ScoreManager _scoreManager;
         [SerializeField] private SceneController _sceneController;
         [SerializeField] private GameObject _loadingScreen;
         [SerializeField] private Transform _popUpScreen;
@@ -40,8 +40,8 @@ namespace UI
         private void Initialize()
         {
             _sceneLoader = _sceneController.GetComponent<ISceneLoader>(); //ServiceLocator.Get<ISceneLoader>();
-            _scoreText.text = _manager.ScoreManager.GetScore().ToString();
-            _killsText.text = _manager.ScoreManager.GetKills().ToString();
+            _scoreText.text = _scoreManager.GetScore().ToString();
+            _killsText.text = _scoreManager.GetKills().ToString();
         }
 
         private void StartEvents()

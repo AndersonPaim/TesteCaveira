@@ -13,10 +13,9 @@ namespace Enemy
         private AudioManager _audioManager;
         private IAudioPlayer _audioPlayer;
 
-        public void SetupManager(AudioManager audioManager)
+        public void SetupManager()
         {
-            _audioManager = audioManager;
-            _audioPlayer = _audioManager.GetComponent<IAudioPlayer>();
+            _audioPlayer = AudioManager.sInstance.GetComponent<IAudioPlayer>();
         }
 
         public void PlayFootspeedAudio()

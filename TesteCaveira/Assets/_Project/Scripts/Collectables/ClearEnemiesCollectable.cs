@@ -1,3 +1,4 @@
+using Event;
 using UnityEngine;
 
 namespace Collectable.PowerUp
@@ -12,7 +13,8 @@ namespace Collectable.PowerUp
         protected override void CollectItem(GameObject obj)
         {
             base.CollectItem(obj);
-            Manager.EnemySpawnerController.ClearEnemiesAlive();
+            OnClearEnemies clearEnemies = new OnClearEnemies();
+            clearEnemies?.Invoke(EventService);
         }
     }
 }

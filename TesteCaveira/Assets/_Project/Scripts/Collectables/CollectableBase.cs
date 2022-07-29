@@ -1,3 +1,5 @@
+using Coimbra.Services;
+using Coimbra.Services.Events;
 using Interfaces;
 using Managers;
 using UnityEngine;
@@ -9,16 +11,15 @@ namespace Collectable
         [SerializeField] private SoundEffect _collectAudio;
 
         protected Collider Collider;
-        protected GameManager Manager;
         protected PlayerController Player;
         protected IAudioPlayer AudioPlayer;
+        protected IEventService EventService;
 
-        public void SetupCollectable(GameManager manager, PlayerController player)
+        public void SetupCollectable(PlayerController player)
         {
             Collider.enabled = true;
             Player = player;
-            Manager = manager;
-            AudioPlayer = Manager.AudioManager.GetComponent<IAudioPlayer>();
+            AudioPlayer = AudioManager.sInstance.GetComponent<IAudioPlayer>();
         }
 
         private void Awake()
@@ -29,6 +30,7 @@ namespace Collectable
         protected virtual void Initialize()
         {
             Collider = GetComponent<Collider>();
+            EventService = ServiceLocator.Get<IEventService>();
         }
 
         protected virtual void CollectItem(GameObject obj)

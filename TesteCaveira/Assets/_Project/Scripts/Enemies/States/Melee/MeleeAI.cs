@@ -25,35 +25,35 @@ namespace Enemy.Melee
 
         private void DamageState()
         {
-            EnemyDamage damageState = new EnemyDamage(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            EnemyDamage damageState = new EnemyDamage(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
             damageState.OnExit += MovingState;
             ChangeState(damageState);
         }
 
-        public override void SetupEnemy(GameManager manager)
+        public override void SetupEnemy(WaypointController waypoints, GameObject player)
         {
-            base.SetupEnemy(manager);
-            EnemySpawn spawnState = new EnemySpawn(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
+            base.SetupEnemy(waypoints, player);
+            EnemySpawn spawnState = new EnemySpawn(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
             spawnState.OnExit += MovingState;
             CurrentState = spawnState;
         }
 
         private void DyingState()
         {
-            EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
             ChangeState(dyingState);
         }
 
         private void AttackState()
         {
-            EnemyAttacking attackingState = new EnemyAttacking(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            EnemyAttacking attackingState = new EnemyAttacking(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
             attackingState.OnExit += MovingState;
             ChangeState(attackingState);
         }
 
         private void MovingState()
         {
-            EnemyMoving movingState = new EnemyMoving(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager, Player.transform, EnemyBalancer.attackDistance);
+            EnemyMoving movingState = new EnemyMoving(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints, Player.transform, EnemyBalancer.attackDistance);
             movingState.OnExit += AttackState;
             ChangeState(movingState);
         }

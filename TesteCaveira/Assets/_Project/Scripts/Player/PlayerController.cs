@@ -1,7 +1,5 @@
 using UnityEngine;
-using Cinemachine;
 using System;
-using Managers;
 using Interfaces;
 
 public class PlayerController : MonoBehaviour, IDamageable, IHealable
@@ -13,7 +11,7 @@ public class PlayerController : MonoBehaviour, IDamageable, IHealable
     public HealthHandler OnUpdateHealth;
     public HealthHandler OnInitializeHealth;
 
-    [SerializeField] private GameManager _manager;
+    [SerializeField] private InputListener _inputListener;
     [SerializeField] private PlayerCamController _cameraController;
     [SerializeField] private PlayerBalancer _playerBalancer;
     [SerializeField] private GameObject _playerPivot;
@@ -76,13 +74,13 @@ public class PlayerController : MonoBehaviour, IDamageable, IHealable
 
     private void SetupDelegates()
     {
-        _manager.InputListener.OnInput += ReceiveInputs;
+        _inputListener.OnInput += ReceiveInputs;
         _cameraController.OnCameraRotate += Rotate;
     }
 
     private void RemoveDelegates()
     {
-        _manager.InputListener.OnInput -= ReceiveInputs;
+        _inputListener.OnInput -= ReceiveInputs;
         _cameraController.OnCameraRotate -= Rotate;
     }
 

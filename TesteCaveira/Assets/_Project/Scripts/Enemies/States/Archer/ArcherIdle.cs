@@ -9,8 +9,8 @@ namespace Enemy.Archer
     {
         public Action OnExit;
 
-        public ArcherIdle(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager)
-                    : base(enemy, player, agent, mesh, anim, path, balancer, manager)
+        public ArcherIdle(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints)
+                    : base(enemy, player, agent, mesh, anim, balancer, waypoints)
         {
             CurrentState = States.ARCHER_IDLE;
         }

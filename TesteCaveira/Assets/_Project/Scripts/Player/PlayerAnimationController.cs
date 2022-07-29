@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private PlayerController _playerController;
+    [SerializeField] private BowController _bowController;
     private Animator _animator;
 
     private void Start()
@@ -19,16 +20,16 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void SetupDelegates()
     {
-        _gameManager.BowController.OnPlayerDataUpdate += ReceiveBowData;
-        _gameManager.PlayerController.OnTakeDamage += TakeDamage;
-        _gameManager.PlayerController.OnPlayerDie += Death;
+        _bowController.OnPlayerDataUpdate += ReceiveBowData;
+        _playerController.OnTakeDamage += TakeDamage;
+        _playerController.OnPlayerDie += Death;
     }
 
     private void RemoveDelegates()
     {
-        _gameManager.BowController.OnPlayerDataUpdate -= ReceiveBowData;
-        _gameManager.PlayerController.OnTakeDamage -= TakeDamage;
-        _gameManager.PlayerController.OnPlayerDie -= Death;
+        _bowController.OnPlayerDataUpdate -= ReceiveBowData;
+        _playerController.OnTakeDamage -= TakeDamage;
+        _playerController.OnPlayerDie -= Death;
     }
 
     private void Initialize()

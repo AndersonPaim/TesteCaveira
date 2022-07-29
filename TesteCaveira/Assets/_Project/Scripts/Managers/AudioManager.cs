@@ -8,6 +8,8 @@ namespace Managers
 {
     public class AudioManager : MonoBehaviour, IAudioPlayer
     {
+        public static AudioManager sInstance;
+
         [SerializeField] private AudioMixer _gameAudioMixer;
         [SerializeField] private GameObject _audioPrefab;
 
@@ -37,6 +39,19 @@ namespace Managers
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
+            }
+        }
+
+        private void Awake()
+        {
+            if (sInstance != null)
+            {
+                DestroyImmediate(gameObject);
+                return;
+            }
+            else
+            {
+                sInstance = this;
             }
         }
 

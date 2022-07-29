@@ -6,7 +6,7 @@ public class PlayerCamController : MonoBehaviour
     public delegate void CameraRotateHandler(float yRot, float xRot);
     public CameraRotateHandler OnCameraRotate;
 
-    [SerializeField] private GameManager _manager;
+    [SerializeField] private InputListener _inputListener;
     [SerializeField] private float _sensitivity;
 
     private void Start()
@@ -21,12 +21,12 @@ public class PlayerCamController : MonoBehaviour
 
     private void SetupDelegates()
     {
-        _manager.InputListener.OnInput += ReceiveInputs;
+        _inputListener.OnInput += ReceiveInputs;
     }
 
     private void RemoveDelegates()
     {
-        _manager.InputListener.OnInput -= ReceiveInputs;
+        _inputListener.OnInput -= ReceiveInputs;
     }
 
     private void ReceiveInputs(InputData inputData)

@@ -11,8 +11,8 @@ namespace Enemy
         private Transform _targetPos;
         private float _stopDistance;
 
-        public EnemyMoving(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, NavMeshPath path, EnemyBalancer balancer, GameManager manager, Transform targetPos, float stopDistance)
-                    : base(enemy, player, agent, mesh, anim, path, balancer, manager)
+        public EnemyMoving(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints, Transform targetPos, float stopDistance)
+                    : base(enemy, player, agent, mesh, anim, balancer, waypoints)
         {
             CurrentState = States.MOVING;
             _targetPos = targetPos;

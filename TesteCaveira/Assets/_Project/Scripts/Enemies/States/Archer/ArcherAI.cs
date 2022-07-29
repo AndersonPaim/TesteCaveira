@@ -12,16 +12,16 @@ namespace Enemy.Archer
 
         public void Attack()
         {
-            GameObject arrow = Manager.ObjectPooler.SpawnFromPool(_arrowPrefab.GetInstanceID());
+            GameObject arrow = ObjectPooler.sInstance.SpawnFromPool(_arrowPrefab.GetInstanceID());
             arrow.transform.position =  _shootPosition.position;
             Rigidbody rb = arrow.GetComponent<Rigidbody>();
             rb.velocity = _shootPosition.transform.forward * EnemyBalancer.shootForce;
         }
 
-        public override void SetupEnemy(GameManager manager)
+        public override void SetupEnemy(WaypointController waypoints, GameObject player)
         {
-            base.SetupEnemy(manager);
-            EnemySpawn spawnState = new EnemySpawn(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, manager);
+            base.SetupEnemy(waypoints, player);
+            EnemySpawn spawnState = new EnemySpawn(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, waypoints);
             spawnState.OnExit += MovingState;
             CurrentState = spawnState;
         }
@@ -44,7 +44,7 @@ namespace Enemy.Archer
 
         private void DamageState()
         {
-            EnemyDamage damageState = new EnemyDamage(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            EnemyDamage damageState = new EnemyDamage(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
 
             if(CurrentState.CurrentState == States.MOVING)
             {
@@ -60,27 +60,27 @@ namespace Enemy.Archer
 
         private void DyingState()
         {
-            EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
             ChangeState(dyingState);
         }
 
         private void AttackState()
         {
-            EnemyAttacking attackingState = new EnemyAttacking(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            EnemyAttacking attackingState = new EnemyAttacking(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
             attackingState.OnExit += IdleState;
             ChangeState(attackingState);
         }
 
         private void IdleState()
         {
-            ArcherIdle idleState = new ArcherIdle(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager);
+            ArcherIdle idleState = new ArcherIdle(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
             idleState.OnExit += AttackState;
             ChangeState(idleState);
         }
 
         private void MovingState()
         {
-            EnemyMoving movingState = new EnemyMoving(gameObject, Player, Agent, Mesh, Anim, Path, EnemyBalancer, Manager, GetAvailableWaypoint(), Agent.stoppingDistance);
+            EnemyMoving movingState = new EnemyMoving(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints, GetAvailableWaypoint(), Agent.stoppingDistance);
             movingState.OnExit += IdleState;
             ChangeState(movingState);
         }
@@ -91,11 +91,10 @@ namespace Enemy.Archer
             CurrentState.Stage = Events.EXIT;
         }
 
-        //TODO PASSAR O WAYPOINT CONTROLLER PELO SPAWNER, COLOCAR O POOLER GLOBAL
         private Transform GetAvailableWaypoint()
         {
             Transform closestWaypoint = null;
-            List<Transform> archerWaypoints = Manager.WaypointController.ArcherWaypoint;
+            List<Transform> archerWaypoints = Waypoints.ArcherWaypoint;
             float currentWaypointDistance;
             float closestWaypointDistance = 0;
 

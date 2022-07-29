@@ -1,6 +1,5 @@
 using UnityEngine;
 using UI;
-using System;
 using Cysharp.Threading.Tasks;
 using Managers.Spawner;
 using Coimbra.Services.Events;
@@ -11,27 +10,11 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private ObjectPooler _objectPooler;
         [SerializeField] private InputListener _inputListener;
         [SerializeField] private PlayerController _playerController;
-        [SerializeField] private BowController _bowController;
         [SerializeField] private EnemySpawnerController _enemySpawnerController;
         [SerializeField] private UIManager _uiController;
-        [SerializeField] private AudioManager _audioManager;
         [SerializeField] private PauseScreen _pauseScreen;
-        [SerializeField] private SettingsScreen _settingsScreen;
-        [SerializeField] private ScoreManager _scoreManager;
-        [SerializeField] private WaypointController _waypointController;
-
-        public ObjectPooler ObjectPooler => _objectPooler;
-        public InputListener InputListener => _inputListener;
-        public PlayerController PlayerController => _playerController;
-        public BowController BowController => _bowController;
-        public EnemySpawnerController EnemySpawnerController => _enemySpawnerController;
-        public AudioManager AudioManager => _audioManager;
-        public SettingsScreen SettingsScreen => _settingsScreen;
-        public ScoreManager ScoreManager => _scoreManager;
-        public WaypointController WaypointController => _waypointController;
 
         private bool _isPaused = false;
         private bool _gameOver = false;

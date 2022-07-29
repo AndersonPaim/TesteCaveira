@@ -1253,7 +1253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45313623bb8a33548bcb26228528145a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 2029344517}
+  _inputListener: {fileID: 0}
   _sensitivity: 12
 --- !u!1001 &344251732
 PrefabInstance:
@@ -2477,18 +2477,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 651313472}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &651313476 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 651313476, guid: 8599d424d8b136c489fbabe852a4c25c,
-    type: 3}
-  m_PrefabInstance: {fileID: 651313472}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651313475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c08aed8084e747e49b97861c97d751ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &660488198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5435,10 +5423,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86caf0fe488212443984b752df36f26a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 2029344517}
+  _inputListener: {fileID: 321756900}
   _cameraController: {fileID: 330585549}
   _playerBalancer: {fileID: 11400000, guid: 924ee9fedced54d4bace14653d958192, type: 2}
   _playerPivot: {fileID: 1678213847}
+  _weapon: {fileID: 1384885994}
 --- !u!4 &1173076574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6094679345174912394, guid: dd73cf57c676bb245868aed0ac696dcc,
@@ -8073,7 +8062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434bd9ec43cbfe84a990e8b396923a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 2029344517}
+  _playerController: {fileID: 1173076571}
+  _bowController: {fileID: 1384885994}
 --- !u!114 &1384885994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8086,15 +8076,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d315618d182ef4f88354c1a51cdcb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputListener: {fileID: 321756900}
   _shootPosition: {fileID: 1379567324}
   _arrowPrefab: {fileID: 111768, guid: 097166fb60446b74d9a5d18c3dfcdd03, type: 3}
-  _shootForce: 50
-  _gameManager: {fileID: 2029344517}
   _previewArrowMesh: {fileID: 1653745244}
   _previewArrowDefaultMat: {fileID: 2100000, guid: 1c8657c6b5cdc4eb5bcac1968488b356,
     type: 2}
   _previewBuffedArrowMat: {fileID: 2100000, guid: e55fb1863ebfefa4da960d4cf2f1f435,
     type: 2}
+  _shootForce: 50
 --- !u!114 &1384885996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9071,7 +9061,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoreManager: {fileID: 1792196973}
-  _gameManager: {fileID: 2029344517}
+  _waypointsController: {fileID: 1045411787}
+  _player: {fileID: 1173076567}
   _spawnPositions:
   - {fileID: 1055756635}
   - {fileID: 1670732813}
@@ -11354,17 +11345,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0039742ce96cc7b49a6b7eb11d9ee828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectPooler: {fileID: 709515133}
   _inputListener: {fileID: 321756900}
   _playerController: {fileID: 1173076571}
   _bowController: {fileID: 1384885994}
   _enemySpawnerController: {fileID: 1499146984}
   _uiController: {fileID: 627687581}
-  _audioManager: {fileID: 444009726}
   _pauseScreen: {fileID: 214763258}
-  _settingsScreen: {fileID: 651313476}
   _scoreManager: {fileID: 1792196973}
-  _waypointController: {fileID: 1045411787}
 --- !u!1 &2039424645
 GameObject:
   m_ObjectHideFlags: 0
@@ -11674,9 +11661,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2029344517}
     - target: {fileID: 1590612275, guid: 80c4d69d609ece3448e06a6b62d299e8, type: 3}
+      propertyPath: _scoreManager
+      value: 
+      objectReference: {fileID: 1792196973}
+    - target: {fileID: 1590612275, guid: 80c4d69d609ece3448e06a6b62d299e8, type: 3}
       propertyPath: _loadingScreen
       value: 
       objectReference: {fileID: 1531601243}
+    - target: {fileID: 1590612275, guid: 80c4d69d609ece3448e06a6b62d299e8, type: 3}
+      propertyPath: _sceneController
+      value: 
+      objectReference: {fileID: 708019980}
     - target: {fileID: 1351413518274463073, guid: 80c4d69d609ece3448e06a6b62d299e8,
         type: 3}
       propertyPath: m_Pivot.x
@@ -11803,9 +11798,19 @@ PrefabInstance:
       objectReference: {fileID: 2029344517}
     - target: {fileID: 1143535625646520118, guid: 3b5f262fda90fe74e9ee3532a319c5fc,
         type: 3}
+      propertyPath: _scoreManager
+      value: 
+      objectReference: {fileID: 1792196973}
+    - target: {fileID: 1143535625646520118, guid: 3b5f262fda90fe74e9ee3532a319c5fc,
+        type: 3}
       propertyPath: _loadingScreen
       value: 
       objectReference: {fileID: 1531601243}
+    - target: {fileID: 1143535625646520118, guid: 3b5f262fda90fe74e9ee3532a319c5fc,
+        type: 3}
+      propertyPath: _sceneController
+      value: 
+      objectReference: {fileID: 708019980}
     - target: {fileID: 3760904541999531670, guid: 3b5f262fda90fe74e9ee3532a319c5fc,
         type: 3}
       propertyPath: m_Name
