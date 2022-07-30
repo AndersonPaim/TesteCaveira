@@ -99,7 +99,7 @@ namespace Managers
             }
         }
 
-        public void EffectsVolume(ref EventContext context, in OnEffectsVolumeUpdate e)
+        private void EffectsVolume(ref EventContext context, in OnEffectsVolumeUpdate e)
         {
             _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(e.Volume) * 20);
             SaveData data = SaveSystem.localData;
@@ -107,7 +107,7 @@ namespace Managers
             SaveSystem.Save();
         }
 
-        public void MusicVolume(ref EventContext context, in OnMusicVolumeUpdate e)
+        private void MusicVolume(ref EventContext context, in OnMusicVolumeUpdate e)
         {
             _gameAudioMixer.SetFloat("MusicVolume", Mathf.Log10(e.Volume) * 20);
             SaveData data = SaveSystem.localData;

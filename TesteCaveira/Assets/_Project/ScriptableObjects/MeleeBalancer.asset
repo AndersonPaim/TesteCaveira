@@ -15,6 +15,10 @@ MonoBehaviour:
   health: 150
   attackDistance: 2.5
   shootForce: 0
+  walkSpeed: 3
+  walkTime: 5
+  blockDuration: 3
+  blockSpeedMultiplier: 0.5
   stunCooldown: 1
   attackCooldown: 2
   destroyDelay: 4

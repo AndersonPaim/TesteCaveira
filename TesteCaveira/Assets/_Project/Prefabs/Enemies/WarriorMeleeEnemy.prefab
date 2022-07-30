@@ -990,7 +990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &400042
 Transform:
   m_ObjectHideFlags: 0
@@ -1117,17 +1117,27 @@ MonoBehaviour:
     Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
     Clip: {fileID: 8300000, guid: 1403193617b70cf4f9a1a6fc13fc49fb, type: 3}
     Volume: 1
-    Is3D: 0
+    Is3D: 1
   _damageAudio:
     Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
     Clip: {fileID: 8300000, guid: 40cd44e91a8eb4a46bcc13706efe8211, type: 3}
     Volume: 0.5
-    Is3D: 0
+    Is3D: 1
   _attackAudio:
     Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
     Clip: {fileID: 8300000, guid: 5c3680119724fc94291bb43097a54312, type: 3}
     Volume: 0.5
-    Is3D: 0
+    Is3D: 1
+  _shieldAttackAudio:
+    Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
+    Clip: {fileID: 8300000, guid: 6165c1b9df1403547a2220c4a8f86554, type: 3}
+    Volume: 0.5
+    Is3D: 1
+  _shieldBlockAudio:
+    Mixer: {fileID: 7764180035890046834, guid: af8211aaac61b6f49850195898cef3e6, type: 2}
+    Clip: {fileID: 8300000, guid: 74186229da4b4164c9846f7ea2623747, type: 3}
+    Volume: 0.5
+    Is3D: 1
 --- !u!1 &100044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,6 +1244,8 @@ GameObject:
   - component: {fileID: 400050}
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
+  - component: {fileID: 1803339355}
+  - component: {fileID: 1803339354}
   m_Layer: 3
   m_Name: shield
   m_TagString: Untagged
@@ -1249,8 +1261,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100050}
   m_LocalRotation: {x: -0.29413345, y: -0.48886102, z: 0.72346675, w: 0.38871104}
-  m_LocalPosition: {x: -0.005841549, y: 0.0011948872, z: 0.013313802}
-  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+  m_LocalPosition: {x: -0.021, y: 0.302, z: -0.194}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 400096}
@@ -1306,6 +1318,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &1803339355
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100050}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.55
+  m_Center: {x: -0.18, y: 0.33, z: 0}
+--- !u!114 &1803339354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca51fb51e3b3e545986f04efc8c771d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 25
 --- !u!1 &100052
 GameObject:
   m_ObjectHideFlags: 0

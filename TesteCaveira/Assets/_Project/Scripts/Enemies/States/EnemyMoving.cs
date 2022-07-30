@@ -21,6 +21,7 @@ namespace Enemy
 
         protected override void Enter()
         {
+            Agent.speed = Balancer.walkSpeed;
             Anim.SetBool("Run", true);
             base.Enter();
         }

@@ -1253,7 +1253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45313623bb8a33548bcb26228528145a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputListener: {fileID: 0}
+  _inputListener: {fileID: 321756900}
   _sensitivity: 12
 --- !u!1001 &344251732
 PrefabInstance:
@@ -9076,7 +9076,11 @@ MonoBehaviour:
   - {fileID: 688367978}
   - {fileID: 271054923}
   - {fileID: 212265613}
-  _spawnWaves: []
+  _spawnWaves:
+  - Enemies:
+    - EnemyPrefab: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
+      EnemyNumber: 1
+    SpawnDelay: 2
   _enemiesPrefab:
   - {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
   - {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803, type: 3}
@@ -9539,6 +9543,10 @@ PrefabInstance:
     - target: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
       propertyPath: m_Name
       value: WarriorMeleeEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
       propertyPath: m_RootOrder
@@ -11347,11 +11355,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputListener: {fileID: 321756900}
   _playerController: {fileID: 1173076571}
-  _bowController: {fileID: 1384885994}
   _enemySpawnerController: {fileID: 1499146984}
   _uiController: {fileID: 627687581}
   _pauseScreen: {fileID: 214763258}
-  _scoreManager: {fileID: 1792196973}
 --- !u!1 &2039424645
 GameObject:
   m_ObjectHideFlags: 0

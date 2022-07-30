@@ -30,7 +30,6 @@ namespace Managers.Spawner
         private int _totalWaveEnemies;
         private int _kills = 0;
         private int _currentWave = 0;
-        private bool _isSpawning = false;
 
         private void Start()
         {
@@ -155,9 +154,7 @@ namespace Managers.Spawner
         private async UniTask SpawnEnemiesASync()
         {
             await UniTask.Delay(_spawnWaves[_currentWave].SpawnDelay * 1000);
-
-            _isSpawning = true;
-
+            
             int randomEnemy = UnityEngine.Random.Range(0, _spawnWaves[_currentWave].Enemies.Count);
 
             if(_spawnWaves[_currentWave].Enemies[randomEnemy].EnemyNumber != 0)
@@ -181,11 +178,7 @@ namespace Managers.Spawner
             enemy.OnEnemyDie += EnemyDeath;
             _currentEnemiesObj.Add(enemyObj);
 
-            if(_currentEnemies == _totalWaveEnemies)
-            {
-                _isSpawning = false;
-            }
-            else
+            if(_currentEnemies != _totalWaveEnemies)
             {
                 await SpawnEnemiesASync();
             }

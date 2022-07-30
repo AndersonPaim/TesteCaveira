@@ -1,15 +1,20 @@
-using UnityEngine.AI;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Interfaces;
-using Managers;
 
 namespace Enemy.Melee
 {
     public class MeleeAI : EnemyBase, IDamageable
     {
+        private CancellationTokenSource _cancellationTokenSource;
+        
         public override void TakeDamage(float damage)
         {
-            Health -= damage;
+            if (CurrentState.CurrentState != States.BLOCKING)
+            {
+                Health -= damage;
+            }
 
             if(Health > 0)
             {
@@ -56,6 +61,27 @@ namespace Enemy.Melee
             EnemyMoving movingState = new EnemyMoving(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints, Player.transform, EnemyBalancer.attackDistance);
             movingState.OnExit += AttackState;
             ChangeState(movingState);
+            
+            if(_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+            }
+            
+            BlockingState();
+        }
+
+        private async UniTask BlockingState()
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+            await UniTask.Delay((int)(EnemyBalancer.walkTime * 1000), cancellationToken: _cancellationTokenSource.Token);
+            
+            if (CurrentState.CurrentState == States.MOVING)
+            {
+                EnemyBlocking blockingState = new EnemyBlocking(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints, Player.transform, EnemyBalancer.attackDistance);
+                blockingState.OnCancel += AttackState;
+                blockingState.OnExit += MovingState;
+                ChangeState(blockingState);
+            }
         }
 
         private void ChangeState(StateMachine state)
