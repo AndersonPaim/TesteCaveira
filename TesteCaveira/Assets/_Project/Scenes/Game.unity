@@ -9076,14 +9076,9 @@ MonoBehaviour:
   - {fileID: 688367978}
   - {fileID: 271054923}
   - {fileID: 212265613}
-  _spawnWaves:
-  - Enemies:
-    - EnemyPrefab: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
-      EnemyNumber: 1
-    SpawnDelay: 2
+  _spawnWaves: []
   _enemiesPrefab:
   - {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
-  - {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803, type: 3}
   - {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803, type: 3}
   _randomWaveNumber: 5
   _maxRandomSpawnDelay: 1

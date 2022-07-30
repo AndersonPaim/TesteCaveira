@@ -49,6 +49,8 @@ namespace Enemy
 
         public void KillEnemy()
         {
+            IsDead = true;
+            OnEnemyDie?.Invoke(gameObject, EnemyBalancer.killScore);
             EnemyDying dyingState = new EnemyDying(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
             CurrentState.StateMachineNextState = dyingState;
             CurrentState.Stage = Events.EXIT;
