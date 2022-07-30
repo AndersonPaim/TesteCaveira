@@ -1,10 +1,9 @@
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.AI;
-using Interfaces;
-using System;
-using Managers;
 
-namespace Enemy
+namespace _Project.Scripts.Enemies.States
 {
     public class EnemyBase : MonoBehaviour, IDamageable
     {

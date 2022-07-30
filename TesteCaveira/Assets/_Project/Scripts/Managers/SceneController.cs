@@ -1,29 +1,32 @@
+using _Project.Scripts.Interfaces;
 using Cysharp.Threading.Tasks;
-using Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneController : MonoBehaviour, ISceneLoader
+namespace _Project.Scripts.Managers
 {
-    public void LoadScene(string scene)
+    public class SceneController : MonoBehaviour, ISceneLoader
     {
-        LoadASync(scene);
-    }
-
-    public void RestartScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    private async UniTaskVoid LoadASync(string scene)
-    {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
-
-        while(!operation.isDone)
+        public void LoadScene(string scene)
         {
-            float loadingProgress = Mathf.Clamp01(operation.progress / 0.9f);
-            await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
+            LoadASync(scene);
         }
-    }
 
+        public void RestartScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        private async UniTaskVoid LoadASync(string scene)
+        {
+            AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
+
+            while(!operation.isDone)
+            {
+                float loadingProgress = Mathf.Clamp01(operation.progress / 0.9f);
+                await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
+            }
+        }
+
+    }
 }

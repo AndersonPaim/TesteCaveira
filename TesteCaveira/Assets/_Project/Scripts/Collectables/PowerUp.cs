@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Collectable.PowerUp
+namespace _Project.Scripts.Collectables
 {
     [System.Serializable]
     public class PowerUp

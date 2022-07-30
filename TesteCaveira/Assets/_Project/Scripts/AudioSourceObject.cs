@@ -1,23 +1,25 @@
-
 using System.Collections;
 using UnityEngine;
 
-public class AudioSourceObject : MonoBehaviour
+namespace _Project.Scripts
 {
-    private AudioClip _audioClip;
-    private void OnEnable()
+    public class AudioSourceObject : MonoBehaviour
     {
-        _audioClip = GetComponent<AudioSource>().clip;
-
-        if(_audioClip != null)
+        private AudioClip _audioClip;
+        private void OnEnable()
         {
-            StartCoroutine(DisableObject(_audioClip.length));
-        }
-    }
+            _audioClip = GetComponent<AudioSource>().clip;
 
-    private IEnumerator DisableObject(float time)
-    {
-        yield return new WaitForSeconds(time);
-        gameObject.SetActive(false);
+            if(_audioClip != null)
+            {
+                StartCoroutine(DisableObject(_audioClip.length));
+            }
+        }
+
+        private IEnumerator DisableObject(float time)
+        {
+            yield return new WaitForSeconds(time);
+            gameObject.SetActive(false);
+        }
     }
 }

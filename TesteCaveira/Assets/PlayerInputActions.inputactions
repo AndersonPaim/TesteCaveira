@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Run",
-                    "type": "Button",
-                    "id": "91b0a255-f9b0-4ad6-8046-da6e1fb0d7e7",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "LookX",
                     "type": "PassThrough",
                     "id": "80422973-31b5-4743-a60f-0015941748d2",
@@ -142,17 +133,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c6967a14-f897-4900-9109-f6915bb11220",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

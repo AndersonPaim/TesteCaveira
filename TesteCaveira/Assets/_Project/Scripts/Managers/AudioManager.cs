@@ -1,14 +1,14 @@
-using Interfaces;
+using _Project.Scripts.Events;
+using _Project.Scripts.Interfaces;
+using Coimbra.Services.Events;
 using UnityEngine;
 using UnityEngine.Audio;
-using Event;
-using Coimbra.Services.Events;
 
-namespace Managers
+namespace _Project.Scripts.Managers
 {
     public class AudioManager : MonoBehaviour, IAudioPlayer
     {
-        public static AudioManager sInstance;
+        public static AudioManager Instance;
 
         [SerializeField] private AudioMixer _gameAudioMixer;
         [SerializeField] private GameObject _audioPrefab;
@@ -44,14 +44,14 @@ namespace Managers
 
         private void Awake()
         {
-            if (sInstance != null)
+            if (Instance != null)
             {
                 DestroyImmediate(gameObject);
                 return;
             }
             else
             {
-                sInstance = this;
+                Instance = this;
             }
         }
 
@@ -102,7 +102,7 @@ namespace Managers
         private void EffectsVolume(ref EventContext context, in OnEffectsVolumeUpdate e)
         {
             _gameAudioMixer.SetFloat("EffectsVolume", Mathf.Log10(e.Volume) * 20);
-            SaveData data = SaveSystem.localData;
+            SaveData data = SaveSystem.LocalData;
             data.SoundfxVolume = e.Volume;
             SaveSystem.Save();
         }
@@ -110,7 +110,7 @@ namespace Managers
         private void MusicVolume(ref EventContext context, in OnMusicVolumeUpdate e)
         {
             _gameAudioMixer.SetFloat("MusicVolume", Mathf.Log10(e.Volume) * 20);
-            SaveData data = SaveSystem.localData;
+            SaveData data = SaveSystem.LocalData;
             data.MusicVolume = e.Volume;
             SaveSystem.Save();
         }

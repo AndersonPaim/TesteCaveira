@@ -1,12 +1,13 @@
-using UnityEngine;
-using UI;
-using Cysharp.Threading.Tasks;
-using Managers.Spawner;
-using Coimbra.Services.Events;
+using _Project.Scripts.Events;
+using _Project.Scripts.Player;
+using _Project.Scripts.UI;
 using Coimbra.Services;
-using Event;
+using Coimbra.Services.Events;
+using Cysharp.Threading.Tasks;
+using UI;
+using UnityEngine;
 
-namespace Managers
+namespace _Project.Scripts.Managers
 {
     public class GameManager : MonoBehaviour
     {

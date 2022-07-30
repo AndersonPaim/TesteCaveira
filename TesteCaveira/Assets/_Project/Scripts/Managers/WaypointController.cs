@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaypointController : MonoBehaviour
+namespace _Project.Scripts.Managers
 {
-    [SerializeField] private List<Transform> _archerWaypoints = new List<Transform>();
-    public List<Transform> ArcherWaypoint => _archerWaypoints;
+    public class WaypointController : MonoBehaviour
+    {
+        [SerializeField] private List<Transform> _archerWaypoints = new List<Transform>();
+        public List<Transform> ArcherWaypoint => _archerWaypoints;
+    }
 }

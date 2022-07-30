@@ -1,10 +1,10 @@
+using System;
+using _Project.Scripts.Managers;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
-using Cysharp.Threading.Tasks;
-using Managers;
-using System;
 
-namespace Enemy
+namespace _Project.Scripts.Enemies.States
 {
     public class EnemySpawn : StateMachine
     {
@@ -13,7 +13,7 @@ namespace Enemy
         public EnemySpawn(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints)
                     : base(enemy, player, agent, mesh, anim, balancer, waypoints)
         {
-            CurrentState = States.SPAWNING;
+            CurrentState = EnemyStates.SPAWNING;
         }
 
         protected override void Enter()

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using _Project.Scripts.Enemies;
 
-namespace Managers.Spawner
+namespace _Project.Scripts
 {
     [System.Serializable]
     public class Wave

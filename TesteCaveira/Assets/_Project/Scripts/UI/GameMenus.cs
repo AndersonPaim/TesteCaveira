@@ -1,12 +1,10 @@
-using System;
-using Coimbra.Services;
+using _Project.Scripts.Events;
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
 using Coimbra.Services.Events;
-using Event;
-using Interfaces;
-using Managers;
 using UnityEngine;
 
-namespace UI
+namespace _Project.Scripts.UI
 {
     public class GameMenus : MonoBehaviour
     {

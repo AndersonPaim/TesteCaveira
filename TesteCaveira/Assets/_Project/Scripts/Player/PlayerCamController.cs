@@ -1,44 +1,47 @@
+using _Project.Scripts.Managers;
 using UnityEngine;
-using Managers;
 
-public class PlayerCamController : MonoBehaviour
+namespace _Project.Scripts.Player
 {
-    public delegate void CameraRotateHandler(float yRot, float xRot);
-    public CameraRotateHandler OnCameraRotate;
-
-    [SerializeField] private InputListener _inputListener;
-    [SerializeField] private float _sensitivity;
-
-    private void Start()
+    public class PlayerCamController : MonoBehaviour
     {
-        SetupDelegates();
-    }
+        public delegate void CameraRotateHandler(float yRot, float xRot);
+        public CameraRotateHandler OnCameraRotate;
 
-    private void OnDestroy()
-    {
-        RemoveDelegates();
-    }
+        [SerializeField] private InputListener _inputListener;
+        [SerializeField] private float _sensitivity;
 
-    private void SetupDelegates()
-    {
-        _inputListener.OnInput += ReceiveInputs;
-    }
+        private void Start()
+        {
+            SetupDelegates();
+        }
 
-    private void RemoveDelegates()
-    {
-        _inputListener.OnInput -= ReceiveInputs;
-    }
+        private void OnDestroy()
+        {
+            RemoveDelegates();
+        }
 
-    private void ReceiveInputs(InputData inputData)
-    {
-        CamMovement(inputData.LookX, inputData.LookY);
-    }
+        private void SetupDelegates()
+        {
+            _inputListener.OnInput += ReceiveInputs;
+        }
 
-    private void CamMovement(float lookX, float lookY)
-    {
-        float mouseX = lookX * _sensitivity * Time.deltaTime;
-        float mouseY = lookY * -_sensitivity * Time.deltaTime;
+        private void RemoveDelegates()
+        {
+            _inputListener.OnInput -= ReceiveInputs;
+        }
 
-        OnCameraRotate?.Invoke(mouseX, mouseY);
+        private void ReceiveInputs(InputData inputData)
+        {
+            CamMovement(inputData.LookX, inputData.LookY);
+        }
+
+        private void CamMovement(float lookX, float lookY)
+        {
+            float mouseX = lookX * _sensitivity * Time.deltaTime;
+            float mouseY = lookY * -_sensitivity * Time.deltaTime;
+
+            OnCameraRotate?.Invoke(mouseX, mouseY);
+        }
     }
 }

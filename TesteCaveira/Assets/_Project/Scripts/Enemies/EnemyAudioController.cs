@@ -1,8 +1,8 @@
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
 using UnityEngine;
-using Managers;
-using Interfaces;
 
-namespace Enemy
+namespace _Project.Scripts.Enemies
 {
     public class EnemyAudioController : MonoBehaviour
     {
@@ -17,7 +17,7 @@ namespace Enemy
 
         public void SetupManager()
         {
-            _audioPlayer = AudioManager.sInstance.GetComponent<IAudioPlayer>();
+            _audioPlayer = AudioManager.Instance.GetComponent<IAudioPlayer>();
         }
 
         public void PlayFootspeedAudio()

@@ -46,15 +46,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Run"",
-                    ""type"": ""Button"",
-                    ""id"": ""91b0a255-f9b0-4ad6-8046-da6e1fb0d7e7"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""LookX"",
                     ""type"": ""PassThrough"",
                     ""id"": ""80422973-31b5-4743-a60f-0015941748d2"",
@@ -169,17 +160,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c6967a14-f897-4900-9109-f6915bb11220"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Run"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""b98ddd38-a0b0-4c8f-b29d-e5a0f890495d"",
                     ""path"": ""<Mouse>/delta/x"",
                     ""interactions"": """",
@@ -270,7 +250,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_LookX = m_Player.FindAction("LookX", throwIfNotFound: true);
         m_Player_LookY = m_Player.FindAction("LookY", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
@@ -340,7 +319,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_LookX;
     private readonly InputAction m_Player_LookY;
     private readonly InputAction m_Player_Shoot;
@@ -352,7 +330,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @LookX => m_Wrapper.m_Player_LookX;
         public InputAction @LookY => m_Wrapper.m_Player_LookY;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
@@ -373,9 +350,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Run.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
-                @Run.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
-                @Run.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
                 @LookX.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookX;
                 @LookX.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookX;
                 @LookX.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLookX;
@@ -401,9 +375,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @Run.started += instance.OnRun;
-                @Run.performed += instance.OnRun;
-                @Run.canceled += instance.OnRun;
                 @LookX.started += instance.OnLookX;
                 @LookX.performed += instance.OnLookX;
                 @LookX.canceled += instance.OnLookX;
@@ -460,7 +431,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnRun(InputAction.CallbackContext context);
         void OnLookX(InputAction.CallbackContext context);
         void OnLookY(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);

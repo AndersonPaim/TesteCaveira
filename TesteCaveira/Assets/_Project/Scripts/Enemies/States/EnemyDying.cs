@@ -1,11 +1,11 @@
+using _Project.Scripts.Collectables;
+using _Project.Scripts.Managers;
+using _Project.Scripts.Player;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
-using Cysharp.Threading.Tasks;
-using Managers;
-using Collectable.PowerUp;
-using Collectable;
 
-namespace Enemy
+namespace _Project.Scripts.Enemies.States
 {
     public class EnemyDying : StateMachine
     {
@@ -14,7 +14,7 @@ namespace Enemy
         public EnemyDying(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints)
                     : base(enemy, player, agent, mesh, anim, balancer, waypoints)
         {
-            CurrentState = States.DYING;
+            CurrentState = EnemyStates.DYING;
             _destroyDelay = balancer.destroyDelay;
         }
 

@@ -1,38 +1,41 @@
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
 using UnityEngine;
-using Managers;
-using Interfaces;
 
-public class PlayerAudioController : MonoBehaviour
+namespace _Project.Scripts.Player
 {
-    [SerializeField] private AudioManager _audioManager;
-    [SerializeField] private SoundEffect _shootAudio;
-    [SerializeField] private SoundEffect _damageAudio;
-    [SerializeField] private SoundEffect _bowAudio;
-
-    private IAudioPlayer _audioPlayer;
-
-    public void PlayShootAudio()
+    public class PlayerAudioController : MonoBehaviour
     {
-        _audioPlayer.PlayAudio(_shootAudio, transform.position);
-    }
+        [SerializeField] private AudioManager _audioManager;
+        [SerializeField] private SoundEffect _shootAudio;
+        [SerializeField] private SoundEffect _damageAudio;
+        [SerializeField] private SoundEffect _bowAudio;
 
-    public void PlayDamageAudio()
-    {
-        _audioPlayer.PlayAudio(_damageAudio, transform.position);
-    }
+        private IAudioPlayer _audioPlayer;
 
-    public void PlayBowAudio()
-    {
-        _audioPlayer.PlayAudio(_bowAudio, transform.position);
-    }
+        public void PlayShootAudio()
+        {
+            _audioPlayer.PlayAudio(_shootAudio, transform.position);
+        }
 
-    private void Start()
-    {
-        Initialize();
-    }
+        public void PlayDamageAudio()
+        {
+            _audioPlayer.PlayAudio(_damageAudio, transform.position);
+        }
 
-    private void Initialize()
-    {
-        _audioPlayer = _audioManager.GetComponent<IAudioPlayer>();
+        public void PlayBowAudio()
+        {
+            _audioPlayer.PlayAudio(_bowAudio, transform.position);
+        }
+
+        private void Start()
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            _audioPlayer = _audioManager.GetComponent<IAudioPlayer>();
+        }
     }
 }

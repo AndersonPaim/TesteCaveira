@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.AI;
-using Managers;
-using System;
+﻿using System;
+using _Project.Scripts.Managers;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.AI;
 
-namespace Enemy
+namespace _Project.Scripts.Enemies.States
 {
 	public class EnemyBlocking : StateMachine
 	{
@@ -17,7 +17,7 @@ namespace Enemy
 		public EnemyBlocking(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints, Transform targetPos, float stopDistance)
 			: base(enemy, player, agent, mesh, anim, balancer, waypoints)
 		{
-			CurrentState = States.BLOCKING;
+			CurrentState = EnemyStates.BLOCKING;
 			_targetPos = targetPos;
 			_stopDistance = stopDistance;
 		}

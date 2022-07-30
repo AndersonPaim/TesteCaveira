@@ -1,6 +1,6 @@
 using Coimbra.Services.Events;
 
-namespace Event
+namespace _Project.Scripts.Events
 {
 	public sealed partial class OnEffectsVolumeUpdate : IEvent
 	{

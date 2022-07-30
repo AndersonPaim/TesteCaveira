@@ -1,4 +1,7 @@
-public enum Events
+namespace _Project.Scripts.Enemies
 {
-    ENTER, UPDATE, EXIT
+    public enum Events
+    {
+        ENTER, UPDATE, EXIT
+    }
 }

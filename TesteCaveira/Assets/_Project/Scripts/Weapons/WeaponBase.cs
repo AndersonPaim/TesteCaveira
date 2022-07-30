@@ -1,14 +1,14 @@
+using _Project.Scripts.Interfaces;
 using UnityEngine;
-using Interfaces;
 
-namespace Weapons
+namespace _Project.Scripts.Weapons
 {
     public abstract class WeaponBase : MonoBehaviour
     {
         [SerializeField] protected float Damage;
         private float _damageMultiplier = 1;
 
-        public virtual void SetDamageMultiplier(float multiplier)
+        public void SetDamageMultiplier(float multiplier)
         {
             _damageMultiplier = multiplier;
         }

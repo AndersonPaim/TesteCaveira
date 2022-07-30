@@ -1,8 +1,7 @@
 using System;
-using Coimbra.Services;
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
 using DG.Tweening;
-using Interfaces;
-using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -2,171 +2,131 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputListener : MonoBehaviour
+namespace _Project.Scripts.Managers
 {
-
-    public delegate void InputHandler(InputData inputData);
-    public InputHandler OnInput;
-
-    public Action OnPause;
-
-    [SerializeField] private Vector2 _movement;
-    [SerializeField] private float _lookX;
-    [SerializeField] private float _lookY;
-
-    [SerializeField] private bool _jump;
-    [SerializeField] private bool _run;
-    [SerializeField] private bool _walk;
-    [SerializeField] private bool _shoot;
-    [SerializeField] private bool _aim;
-
-    private PlayerInputActions _input;
-    private InputData _inputData;
-
-    private void Awake()
+    public class InputListener : MonoBehaviour
     {
-        SetupInputs();
-    }
 
-    private void Update()
-    {
-        CreateInputStruct();
-        OnInput?.Invoke(_inputData);
-        _inputData = new InputData();
-        Movement();
-    }
+        public delegate void InputHandler(InputData inputData);
+        public InputHandler OnInput;
 
-    private void OnEnable()
-    {
-        _input.Enable();
-    }
+        public Action OnPause;
 
-    private void OnDisable()
-    {
-        _input.Disable();
-    }
+        [SerializeField] private Vector2 _movement;
+        [SerializeField] private float _lookX;
+        [SerializeField] private float _lookY;
 
-    private void OnDestroy()
-    {
-       DestroyInputs();
-    }
+        [SerializeField] private bool _jump;
+        [SerializeField] private bool _shoot;
+        [SerializeField] private bool _aim;
 
-    private void SetupInputs()
-    {
-        _input = new PlayerInputActions();
-        _input.Player.Jump.performed += ctx => Jump(ctx);
-        _input.Player.Run.performed += ctx => Run(ctx);
-        _input.Player.Run.canceled += ctx => Run(ctx);
-        _input.Player.Aim.performed += ctx => Aim(ctx);
-        _input.Player.Aim.canceled += ctx => Aim(ctx);
-        _input.Player.Shoot.performed += ctx => Shoot(ctx);
-        _input.Player.Shoot.canceled += ctx => Shoot(ctx);
-        _input.Player.LookX.performed += _ => LookX();
-        _input.Player.LookY.performed += _ => LookY();
-        _input.UI.Pause.performed += _ => Pause();
-    }
+        private PlayerInputActions _input;
+        private InputData _inputData;
 
-    private void DestroyInputs()
-    {
-        _input.Player.Jump.performed -= ctx => Jump(ctx);
-        _input.Player.Run.performed -= ctx => Run(ctx);
-        _input.Player.Run.canceled -= ctx => Run(ctx);
-        _input.Player.Aim.performed -= ctx => Aim(ctx);
-        _input.Player.Aim.canceled -= ctx => Aim(ctx);
-        _input.Player.Shoot.performed -= ctx => Shoot(ctx);
-        _input.Player.Shoot.canceled -= ctx => Shoot(ctx);
-        _input.Player.LookX.performed -= _ => LookX();
-        _input.Player.LookY.performed -= _ => LookY();
-        _input.UI.Pause.performed -= _ => Pause();
-    }
-
-    private void CreateInputStruct()
-    {
-        _inputData.isJumping = _jump;
-        _inputData.isRunning = _run;
-        _inputData.Movement = _movement;
-        _inputData.isWalking = _walk;
-        _inputData.LookX = _lookX;
-        _inputData.LookY = _lookY;
-        _inputData.isAiming = _aim;
-        _inputData.isShooting = _shoot;
-
-        if (_jump)
+        private void Awake()
         {
-            _jump = false;
+            SetupInputs();
         }
-    }
 
-    private void Pause()
-    {
-        OnPause?.Invoke();
-    }
+        private void Update()
+        {
+            CreateInputStruct();
+            OnInput?.Invoke(_inputData);
+            _inputData = new InputData();
+            Movement();
+        }
 
-    private void Aim(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        private void OnEnable()
         {
-            _aim = true;
+            _input.Enable();
         }
-        else
-        {
-            _aim = false;
-        }
-    }
 
-    private void Shoot(InputAction.CallbackContext ctx)
-    {
-        if(ctx.performed)
+        private void OnDisable()
         {
-            _shoot = true;
+            _input.Disable();
         }
-        else
-        {
-            _shoot = false;
-        }
-    }
 
-    private void LookX()
-    {
-        _lookX = _input.Player.LookX.ReadValue<float>();
-    }
-
-    private void LookY()
-    {
-        _lookY = _input.Player.LookY.ReadValue<float>();
-    }
-
-    private void Movement()
-    {
-        _movement = _input.Player.Movement.ReadValue<Vector2>();
-        if (_movement.y != 0)
+        private void OnDestroy()
         {
-            _walk = true;
+            DestroyInputs();
         }
-        else
-        {
-            _walk = false;
-        }
-    }
 
-    private void Jump(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        private void SetupInputs()
         {
-            _jump = true;
+            _input = new PlayerInputActions();
+            _input.Player.Jump.performed += ctx => Jump(ctx);
+            _input.Player.Aim.performed += ctx => Aim(ctx);
+            _input.Player.Aim.canceled += ctx => Aim(ctx);
+            _input.Player.Shoot.performed += ctx => Shoot(ctx);
+            _input.Player.Shoot.canceled += ctx => Shoot(ctx);
+            _input.Player.LookX.performed += _ => LookX();
+            _input.Player.LookY.performed += _ => LookY();
+            _input.UI.Pause.performed += _ => Pause();
         }
-    }
 
-    private void Run(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
+        private void DestroyInputs()
         {
-            _run = true;
+            _input.Player.Jump.performed -= ctx => Jump(ctx);
+            _input.Player.Aim.performed -= ctx => Aim(ctx);
+            _input.Player.Aim.canceled -= ctx => Aim(ctx);
+            _input.Player.Shoot.performed -= ctx => Shoot(ctx);
+            _input.Player.Shoot.canceled -= ctx => Shoot(ctx);
+            _input.Player.LookX.performed -= _ => LookX();
+            _input.Player.LookY.performed -= _ => LookY();
+            _input.UI.Pause.performed -= _ => Pause();
         }
-        else if (ctx.canceled)
+
+        private void CreateInputStruct()
         {
-            _walk = true;
-            _run = false;
+            _inputData.IsJumping = _jump;
+            _inputData.Movement = _movement;
+            _inputData.LookX = _lookX;
+            _inputData.LookY = _lookY;
+            _inputData.IsAiming = _aim;
+            _inputData.IsShooting = _shoot;
+
+            if (_jump)
+            {
+                _jump = false;
+            }
+        }
+
+        private void Pause()
+        {
+            OnPause?.Invoke();
+        }
+
+        private void Aim(InputAction.CallbackContext ctx)
+        {
+            _aim = ctx.performed;
+        }
+
+        private void Shoot(InputAction.CallbackContext ctx)
+        {
+            _shoot = ctx.performed;
+        }
+
+        private void LookX()
+        {
+            _lookX = _input.Player.LookX.ReadValue<float>();
+        }
+
+        private void LookY()
+        {
+            _lookY = _input.Player.LookY.ReadValue<float>();
+        }
+
+        private void Movement()
+        {
+            _movement = _input.Player.Movement.ReadValue<Vector2>();
+        }
+
+        private void Jump(InputAction.CallbackContext ctx)
+        {
+            if (ctx.performed)
+            {
+                _jump = true;
+            }
         }
     }
 }

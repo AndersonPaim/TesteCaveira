@@ -1,93 +1,96 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPooler : MonoBehaviour
+namespace _Project.Scripts.Managers
 {
-
-    [System.Serializable]
-    public class Pool
+    public class ObjectPooler : MonoBehaviour
     {
-        public GameObject prefab;
-        public int size;
-    }
 
-    public static ObjectPooler sInstance;
-
-    [SerializeField]  private List<Pool> _pools;
-
-    private Dictionary<int, List<GameObject>> _poolDictionary;
-    private List<GameObject> _objectPool;
-
-    private void Awake()
-    {
-        if (sInstance != null)
+        [System.Serializable]
+        public class Pool
         {
-            DestroyImmediate(gameObject);
-            return;
+            public GameObject prefab;
+            public int size;
         }
-        else
+
+        public static ObjectPooler sInstance;
+
+        [SerializeField]  private List<Pool> _pools;
+
+        private Dictionary<int, List<GameObject>> _poolDictionary;
+        private List<GameObject> _objectPool;
+
+        private void Awake()
         {
-            sInstance = this;
-        }
-    }
-
-    private void Start()
-    {
-        InitializePool();
-    }
-
-    private void InitializePool()
-    {
-        _poolDictionary = new Dictionary<int, List<GameObject>>();
-
-        foreach (Pool pool in _pools)
-        {
-            _objectPool = new List<GameObject>();
-
-            for (int i = 0; i < pool.size; i++)
+            if (sInstance != null)
             {
-                GameObject obj = Instantiate(pool.prefab, gameObject.transform, true);
-                obj.SetActive(false);
-                _objectPool.Add(obj);
+                DestroyImmediate(gameObject);
+                return;
             }
-
-            _poolDictionary.Add(pool.prefab.GetInstanceID(), _objectPool);
-        }
-    }
-
-
-    public GameObject SpawnFromPool(int id)
-    {
-        bool isPoolAvailable = false;
-        GameObject objectToSpawn = null;
-
-        for(int i = 0; i < _poolDictionary[id].Count; i++)
-        {
-            if(!_poolDictionary[id][i].activeInHierarchy)
+            else
             {
-                isPoolAvailable = true;
-                objectToSpawn = _poolDictionary[id][i];
+                sInstance = this;
             }
         }
 
-        if (!isPoolAvailable)
+        private void Start()
         {
-            return AddToPool(id);
+            InitializePool();
         }
-        else
+
+        private void InitializePool()
         {
-            objectToSpawn.SetActive(true);
-            return objectToSpawn;
+            _poolDictionary = new Dictionary<int, List<GameObject>>();
+
+            foreach (Pool pool in _pools)
+            {
+                _objectPool = new List<GameObject>();
+
+                for (int i = 0; i < pool.size; i++)
+                {
+                    GameObject obj = Instantiate(pool.prefab, gameObject.transform, true);
+                    obj.SetActive(false);
+                    _objectPool.Add(obj);
+                }
+
+                _poolDictionary.Add(pool.prefab.GetInstanceID(), _objectPool);
+            }
         }
-    }
 
-    private GameObject AddToPool(int id)
-    {
-        GameObject newObject = _poolDictionary[id][0];
-        _poolDictionary[id].Add(newObject);
-        newObject.SetActive(true);
 
-        GameObject obj = Instantiate(newObject, gameObject.transform, true);
-        return obj;
+        public GameObject SpawnFromPool(int id)
+        {
+            bool isPoolAvailable = false;
+            GameObject objectToSpawn = null;
+
+            for(int i = 0; i < _poolDictionary[id].Count; i++)
+            {
+                if(!_poolDictionary[id][i].activeInHierarchy)
+                {
+                    isPoolAvailable = true;
+                    objectToSpawn = _poolDictionary[id][i];
+                }
+            }
+
+            if (!isPoolAvailable)
+            {
+                return AddToPool(id);
+            }
+            else
+            {
+                objectToSpawn.SetActive(true);
+                return objectToSpawn;
+            }
+        }
+
+        private GameObject AddToPool(int id)
+        {
+            GameObject newObject = _poolDictionary[id][0];
+            _poolDictionary[id].Add(newObject);
+            newObject.SetActive(true);
+
+            GameObject obj = Instantiate(newObject, gameObject.transform, true);
+            return obj;
+        }
     }
 }

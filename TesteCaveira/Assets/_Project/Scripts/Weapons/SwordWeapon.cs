@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace Weapons
+namespace _Project.Scripts.Weapons
 {
     public class SwordWeapon : WeaponBase
     {
-        protected virtual void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if(CanDoDamage(other.gameObject))
             {

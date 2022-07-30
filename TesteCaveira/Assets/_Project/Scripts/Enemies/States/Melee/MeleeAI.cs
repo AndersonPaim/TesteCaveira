@@ -1,9 +1,10 @@
 using System.Threading;
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Interfaces;
 
-namespace Enemy.Melee
+namespace _Project.Scripts.Enemies.States.Melee
 {
     public class MeleeAI : EnemyBase, IDamageable
     {
@@ -11,7 +12,7 @@ namespace Enemy.Melee
         
         public override void TakeDamage(float damage)
         {
-            if (CurrentState.CurrentState != States.BLOCKING)
+            if (CurrentState.CurrentState != EnemyStates.BLOCKING)
             {
                 Health -= damage;
             }
@@ -75,7 +76,7 @@ namespace Enemy.Melee
             _cancellationTokenSource = new CancellationTokenSource();
             await UniTask.Delay((int)(EnemyBalancer.walkTime * 1000), cancellationToken: _cancellationTokenSource.Token);
             
-            if (CurrentState.CurrentState == States.MOVING)
+            if (CurrentState.CurrentState == EnemyStates.MOVING)
             {
                 EnemyBlocking blockingState = new EnemyBlocking(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints, Player.transform, EnemyBalancer.attackDistance);
                 blockingState.OnCancel += AttackState;

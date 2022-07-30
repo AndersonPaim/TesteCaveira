@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Managers.Spawner
+namespace _Project.Scripts.Enemies
 {
     [System.Serializable]
     public class EnemySpawner

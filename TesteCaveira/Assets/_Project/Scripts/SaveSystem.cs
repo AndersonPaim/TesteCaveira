@@ -2,38 +2,41 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public static class SaveSystem
+namespace _Project.Scripts
 {
-    public static SaveData localData { get; private set; }
-
-    public static void Save()
+    public static class SaveSystem
     {
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/save.data";
-        FileStream stream = new FileStream(path, FileMode.Create);
-        formatter.Serialize(stream, localData);
-        stream.Close();
-    }
+        public static SaveData LocalData { get; private set; }
 
-    public static SaveData Load()
-    {
-        string path = Application.persistentDataPath + "/save.data";
-        if (File.Exists(path))
+        public static void Save()
         {
             BinaryFormatter formatter = new BinaryFormatter();
-
-            FileStream stream = new FileStream(path, FileMode.Open);
-
-            SaveData data = formatter.Deserialize(stream) as SaveData;
+            string path = Application.persistentDataPath + "/save.data";
+            FileStream stream = new FileStream(path, FileMode.Create);
+            formatter.Serialize(stream, LocalData);
             stream.Close();
-
-            localData = data;
         }
-        else
+
+        public static SaveData Load()
         {
-            localData = new SaveData();
-        }
+            string path = Application.persistentDataPath + "/save.data";
+            if (File.Exists(path))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
 
-        return localData;
+                FileStream stream = new FileStream(path, FileMode.Open);
+
+                SaveData data = formatter.Deserialize(stream) as SaveData;
+                stream.Close();
+
+                LocalData = data;
+            }
+            else
+            {
+                LocalData = new SaveData();
+            }
+
+            return LocalData;
+        }
     }
 }

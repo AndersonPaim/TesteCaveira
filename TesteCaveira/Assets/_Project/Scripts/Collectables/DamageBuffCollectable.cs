@@ -1,7 +1,6 @@
-
 using UnityEngine;
 
-namespace Collectable.PowerUp
+namespace _Project.Scripts.Collectables
 {
     public class DamageBuffCollectable : CollectableBase
     {

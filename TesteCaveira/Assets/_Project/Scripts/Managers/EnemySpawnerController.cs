@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using _Project.Scripts.Enemies;
+using _Project.Scripts.Enemies.States;
+using _Project.Scripts.Events;
 using Coimbra.Services.Events;
 using Cysharp.Threading.Tasks;
-using Enemy;
-using Event;
 using UnityEngine;
 
-namespace Managers.Spawner
+namespace _Project.Scripts.Managers
 {
     public class EnemySpawnerController : MonoBehaviour
     {

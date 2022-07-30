@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Managers
+namespace _Project.Scripts.Managers
 {
     public class ScoreManager : MonoBehaviour
     {

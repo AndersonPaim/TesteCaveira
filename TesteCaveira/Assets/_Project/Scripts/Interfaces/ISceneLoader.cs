@@ -1,6 +1,4 @@
-using Coimbra.Services;
-
-namespace Interfaces
+namespace _Project.Scripts.Interfaces
 {
     public interface ISceneLoader //: IService
     {

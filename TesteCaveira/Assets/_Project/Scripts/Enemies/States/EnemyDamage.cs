@@ -1,10 +1,10 @@
+using System;
+using _Project.Scripts.Managers;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
-using Cysharp.Threading.Tasks;
-using System;
-using Managers;
 
-namespace Enemy
+namespace _Project.Scripts.Enemies.States
 {
     public class EnemyDamage : StateMachine
     {
@@ -13,7 +13,7 @@ namespace Enemy
         public EnemyDamage(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints)
                     : base(enemy, player, agent, mesh, anim, balancer, waypoints)
         {
-            CurrentState = States.TAKINGDAMAGE;
+            CurrentState = EnemyStates.TAKINGDAMAGE;
         }
 
         protected override void Enter()

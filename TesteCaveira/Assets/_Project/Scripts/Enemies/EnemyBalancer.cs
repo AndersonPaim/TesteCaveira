@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using _Project.Scripts.Collectables;
 using UnityEngine;
-using Collectable.PowerUp;
 
-namespace Enemy
+namespace _Project.Scripts.Enemies
 {
     [CreateAssetMenu(fileName = "New EnemyBalancer", menuName = "EnemyBalancer")]
     public class EnemyBalancer : ScriptableObject

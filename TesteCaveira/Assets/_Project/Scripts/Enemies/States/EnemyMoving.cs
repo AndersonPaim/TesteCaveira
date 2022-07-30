@@ -1,9 +1,9 @@
+using System;
+using _Project.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.AI;
-using Managers;
-using System;
 
-namespace Enemy
+namespace _Project.Scripts.Enemies.States
 {
     public class EnemyMoving : StateMachine
     {
@@ -14,7 +14,7 @@ namespace Enemy
         public EnemyMoving(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints, Transform targetPos, float stopDistance)
                     : base(enemy, player, agent, mesh, anim, balancer, waypoints)
         {
-            CurrentState = States.MOVING;
+            CurrentState = EnemyStates.MOVING;
             _targetPos = targetPos;
             _stopDistance = stopDistance;
         }

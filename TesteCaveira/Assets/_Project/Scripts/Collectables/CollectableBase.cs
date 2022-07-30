@@ -1,10 +1,11 @@
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
+using _Project.Scripts.Player;
 using Coimbra.Services;
 using Coimbra.Services.Events;
-using Interfaces;
-using Managers;
 using UnityEngine;
 
-namespace Collectable
+namespace _Project.Scripts.Collectables
 {
     public class CollectableBase : MonoBehaviour
     {
@@ -19,7 +20,7 @@ namespace Collectable
         {
             Collider.enabled = true;
             Player = player;
-            AudioPlayer = AudioManager.sInstance.GetComponent<IAudioPlayer>();
+            AudioPlayer = AudioManager.Instance.GetComponent<IAudioPlayer>();
         }
 
         private void Awake()

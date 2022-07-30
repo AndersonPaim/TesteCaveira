@@ -1,12 +1,11 @@
-using Interfaces;
-using Managers;
-using UnityEngine;
-using UnityEngine.UI;
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
 using DG.Tweening;
 using TMPro;
-using Coimbra.Services;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UI
+namespace _Project.Scripts.UI
 {
     public class GameOverScreen : MonoBehaviour
     {

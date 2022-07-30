@@ -1,10 +1,9 @@
-using Coimbra.Services;
-using Interfaces;
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace UI
+namespace _Project.Scripts.UI
 {
     public class MainMenu : MonoBehaviour
     {

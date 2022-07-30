@@ -1,9 +1,9 @@
 using System;
-using Managers;
+using _Project.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Enemy.Archer
+namespace _Project.Scripts.Enemies.States.Archer
 {
     public class ArcherIdle : StateMachine
     {
@@ -12,7 +12,7 @@ namespace Enemy.Archer
         public ArcherIdle(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints)
                     : base(enemy, player, agent, mesh, anim, balancer, waypoints)
         {
-            CurrentState = States.ARCHER_IDLE;
+            CurrentState = EnemyStates.ARCHER_IDLE;
         }
 
         protected override void Enter()

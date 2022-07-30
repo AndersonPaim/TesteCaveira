@@ -1,7 +1,7 @@
-using UnityEngine;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
-namespace Weapons
+namespace _Project.Scripts.Weapons
 {
     public class ArrowWeapon : WeaponBase
     {

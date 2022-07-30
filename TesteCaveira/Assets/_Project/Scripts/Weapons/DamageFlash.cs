@@ -2,41 +2,45 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class DamageFlash : MonoBehaviour
+namespace _Project.Scripts.Weapons
 {
-    [SerializeField] private List<Renderer> _meshRenderers;
-    [SerializeField] private Material _flashMaterial;
-    [SerializeField] private int _flashTime;
-    private List<Material> _defaultMaterials = new List<Material>();
-
-    public async UniTask Flash()
+    public class DamageFlash : MonoBehaviour
     {
-        SetDefaultMaterials();
-        await FlashDelay();
-    }
+        [SerializeField] private List<Renderer> _meshRenderers;
+        [SerializeField] private Material _flashMaterial;
+        [SerializeField] private int _flashTime;
+    
+        private List<Material> _defaultMaterials = new List<Material>();
 
-    private void SetDefaultMaterials()
-    {
-        _defaultMaterials.Clear();
-
-        for(int i = 0; i < _meshRenderers.Count; i++)
+        public async UniTask Flash()
         {
-            _defaultMaterials.Add(_meshRenderers[i].GetComponent<SkinnedMeshRenderer>().materials[0]);
-        }
-    }
-
-    private async UniTask FlashDelay()
-    {
-        foreach(Renderer mesh in _meshRenderers)
-        {
-            mesh.material = _flashMaterial;
+            SetDefaultMaterials();
+            await FlashDelay();
         }
 
-        await UniTask.Delay(_flashTime);
-
-        for(int i = 0; i < _meshRenderers.Count; i++)
+        private void SetDefaultMaterials()
         {
-            _meshRenderers[i].material = _defaultMaterials[i];
+            _defaultMaterials.Clear();
+
+            foreach (Renderer t in _meshRenderers)
+            {
+                _defaultMaterials.Add(t.GetComponent<SkinnedMeshRenderer>().materials[0]);
+            }
+        }
+
+        private async UniTask FlashDelay()
+        {
+            foreach(Renderer mesh in _meshRenderers)
+            {
+                mesh.material = _flashMaterial;
+            }
+
+            await UniTask.Delay(_flashTime);
+
+            for(int i = 0; i < _meshRenderers.Count; i++)
+            {
+                _meshRenderers[i].material = _defaultMaterials[i];
+            }
         }
     }
 }

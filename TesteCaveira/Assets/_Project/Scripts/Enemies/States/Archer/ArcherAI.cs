@@ -1,9 +1,9 @@
-using UnityEngine;
-using Interfaces;
-using Managers;
 using System.Collections.Generic;
+using _Project.Scripts.Interfaces;
+using _Project.Scripts.Managers;
+using UnityEngine;
 
-namespace Enemy.Archer
+namespace _Project.Scripts.Enemies.States.Archer
 {
     public class ArcherAI : EnemyBase, IDamageable
     {
@@ -46,7 +46,7 @@ namespace Enemy.Archer
         {
             EnemyDamage damageState = new EnemyDamage(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
 
-            if(CurrentState.CurrentState == States.MOVING)
+            if(CurrentState.CurrentState == EnemyStates.MOVING)
             {
                 damageState.OnExit += MovingState;
             }

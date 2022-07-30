@@ -1,5 +1,8 @@
-public struct PlayerData
+namespace _Project.Scripts
 {
-    public bool Aim;
-    public bool Shoot;
+    public struct PlayerData
+    {
+        public bool Aim;
+        public bool Shoot;
+    }
 }

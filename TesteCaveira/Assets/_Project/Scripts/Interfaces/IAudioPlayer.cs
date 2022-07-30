@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Interfaces
+namespace _Project.Scripts.Interfaces
 {
     public interface IAudioPlayer
     {

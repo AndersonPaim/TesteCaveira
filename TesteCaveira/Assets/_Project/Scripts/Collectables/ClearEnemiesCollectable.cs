@@ -1,7 +1,7 @@
-using Event;
+using _Project.Scripts.Events;
 using UnityEngine;
 
-namespace Collectable.PowerUp
+namespace _Project.Scripts.Collectables
 {
     public class ClearEnemiesCollectable : CollectableBase
     {

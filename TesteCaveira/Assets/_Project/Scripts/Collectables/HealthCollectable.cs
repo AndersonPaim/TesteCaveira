@@ -1,7 +1,7 @@
+using _Project.Scripts.Interfaces;
 using UnityEngine;
-using Interfaces;
 
-namespace Collectable.PowerUp
+namespace _Project.Scripts.Collectables
 {
     public class HealthCollectable : CollectableBase
     {

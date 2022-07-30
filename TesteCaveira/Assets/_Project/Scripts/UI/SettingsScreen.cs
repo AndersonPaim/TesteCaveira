@@ -1,12 +1,12 @@
+using _Project.Scripts.Events;
 using Coimbra.Services;
 using Coimbra.Services.Events;
 using DG.Tweening;
-using Event;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-namespace UI
+namespace _Project.Scripts.UI
 {
     public class SettingsScreen : MonoBehaviour
     {
@@ -96,8 +96,8 @@ namespace UI
 
         private void ChangeStartCountdown(float time)
         {
-            _countdownValueText.text = time.ToString() + " sec";
-            SaveData data = SaveSystem.localData;
+            _countdownValueText.text = time + " sec";
+            SaveData data = SaveSystem.LocalData;
             data.StartCountdown = (int)time;
             SaveSystem.Save();
         }
