@@ -66,8 +66,9 @@ namespace _Project.Scripts.Managers
 
         private void ClearEnemiesAlive(ref EventContext context, in OnClearEnemies e)
         {
-            foreach(GameObject enemy in _currentEnemiesObj)
+            for (int i = 0; i < _currentEnemiesObj.Count; i++)
             {
+                GameObject enemy = _currentEnemiesObj[i];
                 EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
                 enemyBase.KillEnemy();
             }

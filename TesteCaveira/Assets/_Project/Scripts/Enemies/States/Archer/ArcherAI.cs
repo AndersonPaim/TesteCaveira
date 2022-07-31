@@ -45,16 +45,7 @@ namespace _Project.Scripts.Enemies.States.Archer
         private void DamageState()
         {
             EnemyDamage damageState = new EnemyDamage(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints);
-
-            if(CurrentState.CurrentState == EnemyStates.MOVING)
-            {
-                damageState.OnExit += MovingState;
-            }
-            else
-            {
-                damageState.OnExit += IdleState;
-            }
-
+            damageState.OnExit += MovingState;
             ChangeState(damageState);
         }
 
@@ -98,25 +89,26 @@ namespace _Project.Scripts.Enemies.States.Archer
             float currentWaypointDistance;
             float closestWaypointDistance = 0;
 
-            for (int i = 0; i < archerWaypoints.Count; i++)
+            foreach (Transform t in archerWaypoints)
             {
-                currentWaypointDistance = Vector3.Distance(archerWaypoints[i].transform.position, gameObject.transform.position);
+                Vector3 position = t.transform.position;
+                currentWaypointDistance = Vector3.Distance(position, gameObject.transform.position);
 
-                bool isPathAvailable = Agent.CalculatePath(archerWaypoints[i].transform.position, Path);
+                bool isPathAvailable = Agent.CalculatePath(position, Path);
 
                 if (closestWaypointDistance == 0)
                 {
-                    if (isPathAvailable)
+                    if (isPathAvailable && currentWaypointDistance > Agent.stoppingDistance)
                     {
-                        closestWaypoint = archerWaypoints[i].transform;
+                        closestWaypoint = t.transform;
                         closestWaypointDistance = currentWaypointDistance;
                     }
                 }
-                else if (currentWaypointDistance < closestWaypointDistance)
+                else if (currentWaypointDistance < closestWaypointDistance && currentWaypointDistance > Agent.stoppingDistance)
                 {
                     if (isPathAvailable)
                     {
-                        closestWaypoint = archerWaypoints[i].transform;
+                        closestWaypoint = t.transform;
                         closestWaypointDistance = currentWaypointDistance;
                     }
                 }
