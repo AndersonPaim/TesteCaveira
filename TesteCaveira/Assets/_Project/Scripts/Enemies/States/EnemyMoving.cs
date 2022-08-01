@@ -40,9 +40,9 @@ namespace _Project.Scripts.Enemies.States
 
         private void Move()
         {
-            Agent.SetDestination(_targetPos.position);
-
-            float targetDistance = Vector3.Distance(Enemy.transform.position, _targetPos.position);
+            Vector3 position = _targetPos.position;
+            Agent.SetDestination(position);
+            float targetDistance = Vector3.Distance(Enemy.transform.position, position);
 
             if(targetDistance < _stopDistance)
             {

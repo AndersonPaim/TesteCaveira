@@ -954,8 +954,6 @@ MonoBehaviour:
   _lookX: 0
   _lookY: 0
   _jump: 0
-  _run: 0
-  _walk: 0
   _shoot: 0
   _aim: 0
 --- !u!1 &322338487
@@ -9076,7 +9074,11 @@ MonoBehaviour:
   - {fileID: 688367978}
   - {fileID: 271054923}
   - {fileID: 212265613}
-  _spawnWaves: []
+  _spawnWaves:
+  - Enemies:
+    - EnemyPrefab: {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
+      EnemyNumber: 1
+    SpawnDelay: 0
   _enemiesPrefab:
   - {fileID: 100042, guid: d5649c135d2e9a84c86dfc8dded11b00, type: 3}
   - {fileID: 8819105043029605819, guid: 0e95168826c29cc4aa2995e19921e803, type: 3}

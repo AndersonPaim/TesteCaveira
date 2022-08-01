@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using _Project.Scripts.Managers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace _Project.Scripts.Enemies.States
 		
 		private Transform _targetPos;
 		private float _stopDistance;
+		private CancellationTokenSource _cancellationTokenSource;
 
 		public EnemyBlocking(GameObject enemy, GameObject player, NavMeshAgent agent, SkinnedMeshRenderer mesh, Animator anim, EnemyBalancer balancer, WaypointController waypoints, Transform targetPos, float stopDistance)
 			: base(enemy, player, agent, mesh, anim, balancer, waypoints)
@@ -25,6 +27,7 @@ namespace _Project.Scripts.Enemies.States
 		protected override void Enter()
 		{
 			Anim.SetTrigger("Blocking");
+			StopBlockingDelay();
 			base.Enter();
 		}
 
@@ -32,14 +35,19 @@ namespace _Project.Scripts.Enemies.States
 		{
 			base.Update();
 			Move();
-			StopBlockingDelay();
+		}
+
+		protected override void Exit()
+		{
+			base.Exit();
+			_cancellationTokenSource?.Cancel();
 		}
 		
 		private void Move()
 		{
-			Agent.SetDestination(_targetPos.position);
-
-			float targetDistance = Vector3.Distance(Enemy.transform.position, _targetPos.position);
+			Vector3 position = _targetPos.position;
+			Agent.SetDestination(position);
+			float targetDistance = Vector3.Distance(Enemy.transform.position, position);
 
 			if(targetDistance < _stopDistance)
 			{
@@ -49,7 +57,8 @@ namespace _Project.Scripts.Enemies.States
 
 		private async UniTask StopBlockingDelay()
 		{
-			await UniTask.Delay((int)(Balancer.blockDuration * 1000));
+			_cancellationTokenSource = new CancellationTokenSource();
+			await UniTask.Delay((int)(Balancer.blockDuration * 1000), cancellationToken: _cancellationTokenSource.Token);
 			OnExit?.Invoke();
 		}
 	}

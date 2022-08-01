@@ -62,16 +62,11 @@ namespace _Project.Scripts.Enemies.States.Melee
             EnemyMoving movingState = new EnemyMoving(gameObject, Player, Agent, Mesh, Anim, EnemyBalancer, Waypoints, Player.transform, EnemyBalancer.attackDistance);
             movingState.OnExit += AttackState;
             ChangeState(movingState);
-            
-            if(_cancellationTokenSource != null)
-            {
-                _cancellationTokenSource.Cancel();
-            }
-            
-            BlockingState();
+            _cancellationTokenSource?.Cancel();
+            BlockingStateASync();
         }
 
-        private async UniTask BlockingState()
+        private async UniTask BlockingStateASync()
         {
             _cancellationTokenSource = new CancellationTokenSource();
             await UniTask.Delay((int)(EnemyBalancer.walkTime * 1000), cancellationToken: _cancellationTokenSource.Token);

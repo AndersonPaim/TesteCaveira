@@ -119,8 +119,4 @@ namespace _Project.Scripts.Managers
             Time.timeScale = 0;
         }
     }
-
-    //TODO
-    //ARQUEIRO REPOSICIONAR AO TOMAR DANO
-    //MELEE DEFENDER APÓS CERTO TEMPO
 }
