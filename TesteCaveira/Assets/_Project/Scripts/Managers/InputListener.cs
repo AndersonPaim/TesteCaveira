@@ -15,7 +15,6 @@ namespace _Project.Scripts.Managers
         [SerializeField] private Vector2 _movement;
         [SerializeField] private float _lookX;
         [SerializeField] private float _lookY;
-
         [SerializeField] private bool _jump;
         [SerializeField] private bool _shoot;
         [SerializeField] private bool _aim;

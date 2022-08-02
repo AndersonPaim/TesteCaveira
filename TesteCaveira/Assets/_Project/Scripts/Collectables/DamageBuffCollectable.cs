@@ -15,7 +15,6 @@ namespace _Project.Scripts.Collectables
         protected override void CollectItem(GameObject obj)
         {
             base.CollectItem(obj);
-            //TODO REMEDIAR O BUFF COM O PLAYER
             Player.SetWeaponDamageBuff(_damageMultiplier, _buffDuration);
         }
     }

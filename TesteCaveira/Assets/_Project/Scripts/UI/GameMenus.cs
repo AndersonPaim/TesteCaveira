@@ -1,6 +1,7 @@
 using _Project.Scripts.Events;
 using _Project.Scripts.Interfaces;
 using _Project.Scripts.Managers;
+using Coimbra.Services;
 using Coimbra.Services.Events;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ namespace _Project.Scripts.UI
 
         private void Initialize()
         {
-            _sceneLoader = _sceneController.GetComponent<ISceneLoader>(); //ServiceLocator.Get<ISceneLoader>();
+            _sceneLoader = ServiceLocator.Get<ISceneLoader>();
         }
 
         private void StartEvents()

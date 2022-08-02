@@ -1,5 +1,6 @@
 using _Project.Scripts.Interfaces;
 using _Project.Scripts.Managers;
+using Coimbra.Services;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace _Project.Scripts.UI
 
         private void Initialize()
         {
-            _sceneLoader = _sceneController.GetComponent<ISceneLoader>(); //ServiceLocator.Get<ISceneLoader>();
+            _sceneLoader = ServiceLocator.Get<ISceneLoader>();
             _scoreText.text = _scoreManager.GetScore().ToString();
             _killsText.text = _scoreManager.GetKills().ToString();
         }

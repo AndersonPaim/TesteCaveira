@@ -1,6 +1,7 @@
 using System;
 using _Project.Scripts.Interfaces;
 using _Project.Scripts.Managers;
+using Coimbra.Services;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +41,7 @@ namespace UI
 
         private void Initialize()
         {
-            _sceneLoader = _sceneController.GetComponent<ISceneLoader>(); //ServiceLocator.Get<ISceneLoader>();
+            _sceneLoader = ServiceLocator.Get<ISceneLoader>();
         }
 
         private void StartEvents()
